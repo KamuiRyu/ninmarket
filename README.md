@@ -88,9 +88,10 @@ The Laravel server will be available at http://localhost:8000, while the React d
 
 ## Running Laravel and React Servers Simultaneously
 
-To run both the Laravel and React servers simultaneously, you can use a custom script. Open a terminal window and run the following command:
+To run both the Laravel and React servers simultaneously, you can use a custom script. Open a terminal window in the project's root folder and run the following command:
 
    ```bash
+   npm install
    npm run dev
    ```
 
