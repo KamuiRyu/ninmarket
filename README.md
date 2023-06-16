@@ -34,38 +34,22 @@ Follow the steps below to set up the project on your local machine:
    git clone https://github.com/KamuiRyu/ninmarket.git
    ```
 
-2. Navigate to 'ninmarket/web':
-
+2. Install the dependencies using the following command:
    ```bash
-   cd ninmarket/web
+   cd ninmarket 
+   npm install
    ```
+   
+3. Copy the .env.example configuration file to .env.
 
-3. Install Laravel dependencies using Composer:
+4. Configure the .env file with your database information and other necessary settings.
 
-   ```bash
-   composer install
-   ```
-
-4. Copy the .env.example configuration file to .env:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-5. Configure the .env file with your database information and other necessary settings.
-
-6. Generate a new application key:
+5. Generate a new application key:
 
    ```bash
    php artisan key:generate
    ```
-
-7. Install React frontend dependencies using npm:
-
-   ```bash
-   cd ./app
-   npm install
-   ```
+   
 
 ## Running the Project
 
@@ -88,7 +72,7 @@ The Laravel server will be available at http://localhost:8000, while the React d
 
 ## Running Laravel and React Servers Simultaneously
 
-To run both the Laravel and React servers simultaneously, you can use a custom script. Open a terminal window and run the following command:
+To run both the Laravel and React servers simultaneously, you can use a custom script. Open a terminal window in the project's root folder and run the following command:
 
    ```bash
    npm run dev
