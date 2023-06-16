@@ -18,7 +18,7 @@ The platform offers advanced features for conducting transactions, including:
 
 Before running the project, make sure you have the following tools installed in your development environment:
 
-- PHP (v7.4 or higher)
+- PHP (v8.2 or higher)
 - Composer (v2.x or higher)
 - Node.js (v14.x or higher)
 - npm (v6.x or higher)
