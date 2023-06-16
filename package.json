@@ -1,7 +1,10 @@
 {
+    "name": "ninmarket",
+    "version": "1.0.0",
     "private": true,
     "type": "module",
     "scripts": {
+        "postinstall":"cd web && composer install && cd ../app && npm install",
         "dev": "concurrently \"npm run laravel\" \"npm run react\"",
         "laravel": "cd ./web && php artisan serve",
         "react": "cd ./app && npm start"
