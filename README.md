@@ -1,113 +1,110 @@
 # Nin Market
 
-Este é o meu projeto de uma plataforma para facilitar as trocas dentro do jogo chamado Nin Online. A plataforma atua como um sistema de leilões, permitindo que os jogadores negociem itens e recursos valiosos de forma mais eficiente e conveniente.
+This is my project for a platform to facilitate trades within the game called Nin Online. The platform acts as an auction system, allowing players to trade valuable items and resources more efficiently and conveniently.
 
-## Descrição do Projeto
+## Project Description
 
-O Nin Market é uma solução dedicada aos jogadores do Nin Online, um jogo online multiplayer baseado em anime. Através dessa plataforma, os jogadores podem realizar trocas e negociações de itens, equipamentos e recursos em um ambiente seguro e intuitivo.
+Nin Market is a solution dedicated to players of Nin Online, an anime-based multiplayer online game. Through this platform, players can engage in trades and negotiations of items, equipment, and resources in a secure and intuitive environment.
 
-A plataforma oferece recursos avançados para a realização das transações, incluindo:
+The platform offers advanced features for conducting transactions, including:
 
-- Listagem de itens disponíveis para troca, com detalhes e informações relevantes.
-- Funcionalidade de pesquisa para encontrar itens específicos desejados.
-- Sistema de leilões, permitindo que os jogadores façam lances em itens disputados.
-- Recursos de chat e mensagens para facilitar a comunicação entre os jogadores durante as negociações.
-- Histórico de transações para referência e controle.
+- Listing of items available for trade, with relevant details and information.
+- Search functionality to find specific desired items.
+- Auction system, allowing players to bid on contested items.
+- Chat and messaging features to facilitate communication between players during negotiations.
+- Transaction history for reference and control.
 
-## Pré-requisitos
+## Prerequisites
 
-Antes de executar o projeto, certifique-se de ter as seguintes ferramentas instaladas em seu ambiente de desenvolvimento:
+Before running the project, make sure you have the following tools installed in your development environment:
 
-- PHP (v7.4 ou superior)
-- Composer (v2.x ou superior)
-- Node.js (v14.x ou superior)
-- npm (v6.x ou superior)
-- PostgreSQL ou outro banco de dados compatível
+- PHP (v8.2 or higher)
+- Composer (v2.x or higher)
+- Node.js (v14.x or higher)
+- npm (v6.x or higher)
+- PostgreSQL or another compatible database
 
-## Instalação
+## Installation
 
-Siga os passos abaixo para configurar o projeto em sua máquina local:
+Follow the steps below to set up the project on your local machine:
 
-1. Clone o repositório para o seu ambiente de desenvolvimento:
+1. Clone the repository to your development environment:
 
    ```bash
    git clone https://github.com/KamuiRyu/ninmarket.git
    ```
 
-2. Navegue até 'ninmarket/web':
+2. Navigate to 'ninmarket/web':
 
    ```bash
    cd ninmarket/web
    ```
 
-3. Instale as dependências do Laravel utilizando o Composer:
+3. Install Laravel dependencies using Composer:
 
    ```bash
    composer install
    ```
 
-4. Copie o arquivo de configuração .env.example para .env:
+4. Copy the .env.example configuration file to .env:
 
    ```bash
    cp .env.example .env
    ```
 
-5. Configure o arquivo .env com as informações do seu banco de dados e outras configurações necessárias.
+5. Configure the .env file with your database information and other necessary settings.
 
-6. Gere uma nova chave de aplicativo:
+6. Generate a new application key:
 
    ```bash
    php artisan key:generate
    ```
 
-7. Instale as dependências do frontend React utilizando o npm:
+7. Install React frontend dependencies using npm:
 
    ```bash
    cd ./app
    npm install
    ```
 
-## Executando o projeto
+## Running the Project
 
-Após a instalação das dependências, você pode executar o projeto da seguinte forma:
+After installing the dependencies, you can run the project as follows:
 
-1. Abra uma janela do terminal e navegue até a pasta "web" para iniciar o servidor Laravel:
+1. Open a terminal window and navigate to the 'web' folder to start the Laravel server:
 
    ```bash
    php artisan serve
    ```
 
-2. Abra outra janela do terminal e navegue até a pasta "app" para iniciar o servidor React:
+2. Open another terminal window and navigate to the 'app' folder to start the React server:
 
    ```bash
    cd app
    npm start
    ```
 
-O servidor do Laravel estará disponível em http://localhost:8000, enquanto o servidor de desenvolvimento do React estará disponível em http://localhost:3000. Agora você pode começar a explorar e interagir com a plataforma Nin Online Exchange.
+The Laravel server will be available at http://localhost:8000, while the React development server will be available at http://localhost:3000. Now you can start exploring and interacting with the Nin Online Exchange platform.
 
-## Executando servidores Laravel e React simultaneamente
+## Running Laravel and React Servers Simultaneously
 
-Para executar os servidores Laravel e React simultaneamente, você pode usar um script personalizado. Abra uma janela do terminal e execute o seguinte comando:
+To run both the Laravel and React servers simultaneously, you can use a custom script. Open a terminal window and run the following command:
 
    ```bash
    npm run dev
    ```
 
-Isso iniciará tanto o servidor Laravel quanto o servidor React ao mesmo tempo. Você poderá acessar a plataforma completa através do navegador.
+This will start both the Laravel server and the React server at the same time. You can access the complete platform through your web browser.
 
-## Outros comandos disponíveis
+## Other Available Commands
 
-Além dos comandos de execução, existem outros comandos úteis disponíveis:
+In addition to the execution commands, there are other useful commands available:
 
-- php artisan migrate: Executa as migrações do banco de dados.
+- php artisan migrate: Runs database migrations.
+- php artisan db:seed: Runs seeders to populate the database with example data.
+- cd app && npm run build: Compiles the React frontend for production, generating an optimized version in a folder called public/build.
+- cd app && npm run watch: Watches for changes in React frontend files and automatically compiles during development.
 
-- php artisan db:seed: Executa os seeders para popular o banco de dados com dados de exemplo.
+## License
 
-- cd app && npm run build: Compila o frontend React para produção, gerando uma versão otimizada em uma pasta chamada public/build.
-
-- cd app && npm run watch: Observa alterações nos arquivos do frontend React e compila automaticamente durante o desenvolvimento.
-
-## Licença
-
-Este projeto está licenciado sob a MIT License.
+This project is licensed under the MIT License.
