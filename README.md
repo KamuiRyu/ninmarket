@@ -1,10 +1,10 @@
-# Meu Projeto Nin Online Exchange Platform
+# Nin Market
 
 Este é o meu projeto de uma plataforma para facilitar as trocas dentro do jogo chamado Nin Online. A plataforma atua como um sistema de leilões, permitindo que os jogadores negociem itens e recursos valiosos de forma mais eficiente e conveniente.
 
 ## Descrição do Projeto
 
-O Nin Online Exchange Platform é uma solução dedicada aos jogadores do Nin Online, um jogo online multiplayer baseado em anime. Através dessa plataforma, os jogadores podem realizar trocas e negociações de itens, equipamentos e recursos em um ambiente seguro e intuitivo.
+O Nin Market é uma solução dedicada aos jogadores do Nin Online, um jogo online multiplayer baseado em anime. Através dessa plataforma, os jogadores podem realizar trocas e negociações de itens, equipamentos e recursos em um ambiente seguro e intuitivo.
 
 A plataforma oferece recursos avançados para a realização das transações, incluindo:
 
@@ -30,59 +30,59 @@ Siga os passos abaixo para configurar o projeto em sua máquina local:
 
 1. Clone o repositório para o seu ambiente de desenvolvimento:
 
-   \```bash
-   git clone https://github.com/seu-usuario/meu-projeto-nin-online.git
-   \```
+   ```bash
+   git clone https://github.com/KamuiRyu/ninmarket.git
+   ```
 
-2. Navegue até o diretório do projeto:
+2. Navegue até 'ninmarket/web':
 
-   \```bash
-   cd meu-projeto-nin-online
-   \```
+   ```bash
+   cd ninmarket/web
+   ```
 
 3. Instale as dependências do Laravel utilizando o Composer:
 
-   \```bash
+   ```bash
    composer install
-   \```
+   ```
 
 4. Copie o arquivo de configuração .env.example para .env:
 
-   \```bash
+   ```bash
    cp .env.example .env
-   \```
+   ```
 
 5. Configure o arquivo .env com as informações do seu banco de dados e outras configurações necessárias.
 
 6. Gere uma nova chave de aplicativo:
 
-   \```bash
+   ```bash
    php artisan key:generate
-   \```
+   ```
 
 7. Instale as dependências do frontend React utilizando o npm:
 
-   \```bash
-   cd frontend
+   ```bash
+   cd ./app
    npm install
-   \```
+   ```
 
 ## Executando o projeto
 
 Após a instalação das dependências, você pode executar o projeto da seguinte forma:
 
-1. Abra uma janela do terminal e execute o seguinte comando para iniciar o servidor Laravel:
+1. Abra uma janela do terminal e navegue até a pasta "web" para iniciar o servidor Laravel:
 
-   \```bash
+   ```bash
    php artisan serve
-   \```
+   ```
 
-2. Abra outra janela do terminal e navegue até a pasta "frontend" para iniciar o servidor React:
+2. Abra outra janela do terminal e navegue até a pasta "app" para iniciar o servidor React:
 
-   \```bash
-   cd frontend
+   ```bash
+   cd app
    npm start
-   \```
+   ```
 
 O servidor do Laravel estará disponível em http://localhost:8000, enquanto o servidor de desenvolvimento do React estará disponível em http://localhost:3000. Agora você pode começar a explorar e interagir com a plataforma Nin Online Exchange.
 
@@ -90,9 +90,9 @@ O servidor do Laravel estará disponível em http://localhost:8000, enquanto o s
 
 Para executar os servidores Laravel e React simultaneamente, você pode usar um script personalizado. Abra uma janela do terminal e execute o seguinte comando:
 
-   \```bash
+   ```bash
    npm run dev
-   \```
+   ```
 
 Isso iniciará tanto o servidor Laravel quanto o servidor React ao mesmo tempo. Você poderá acessar a plataforma completa através do navegador.
 
@@ -104,18 +104,9 @@ Além dos comandos de execução, existem outros comandos úteis disponíveis:
 
 - php artisan db:seed: Executa os seeders para popular o banco de dados com dados de exemplo.
 
-- cd frontend && npm run build: Compila o frontend React para produção, gerando uma versão otimizada em uma pasta chamada public/build.
+- cd app && npm run build: Compila o frontend React para produção, gerando uma versão otimizada em uma pasta chamada public/build.
 
-- cd frontend && npm run watch: Observa alterações nos arquivos do frontend React e compila automaticamente durante o desenvolvimento.
-
-## Contribuição
-
-Se você quiser contribuir com este projeto, siga as etapas abaixo:
-
-1. Crie um fork deste repositório.
-2. Crie uma nova branch com o nome descritivo da sua contribuição.
-3. Faça as alterações necessárias no código.
-4. Envie um pull request para revisão.
+- cd app && npm run watch: Observa alterações nos arquivos do frontend React e compila automaticamente durante o desenvolvimento.
 
 ## Licença
 
