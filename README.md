@@ -40,7 +40,7 @@ Follow the steps below to set up the project on your local machine:
    npm install
    ```
    
-3. Copy the .env.example configuration file to .env.
+3. Navigate to the 'web' folder and copy the .env.example configuration file to .env.
 
 4. Configure the .env file with your database information and other necessary settings.
 
