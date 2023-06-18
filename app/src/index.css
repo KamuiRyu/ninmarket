@@ -1,21 +1,100 @@
 /* styles.css */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-/* Seu CSS personalizado */
-/* ... */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.Sticky-nav {
+  height: 72px;
+  position: fixed;
+  top:0;
+}
+
+.Menu-header {
+  width: 1903px;
+}
+
+.Menu-header nav {
+  background: none;
+  line-height: 0;
+}
+
+.Nav-container {
+  display: flex;
+  flex-direction: inherit;
+  align-items: center;
+  max-width: 1380px;
+  padding: 0 15px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.Navbar {
+  margin-bottom: 3px;
+  padding: 0;
+  background: none;
+  font-size: 0;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  z-index: 2000;
+  position: relative;
+}
+
+.Navbar ul {
+  border-image: url(./assets/images/MenuBG.png) 0 66 0 66 fill repeat;
+  border-image-width: auto;
+  border-image-outset: 4px 63px;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+  line-height: 0;
+}
+
+.Navbar ul li {
+  background: none;
+  padding: 23px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.Navbar ul li a, .Navbar ul li .link-button{
+  margin-right: 0px;
+  text-shadow: 1px 1px rgb(255 255 185 / 60%);
+  font-weight: 600;
+  line-height: normal;
+  font-size: 16px;
+  color: #331f0f;
+  background: transparent;
+  border-radius: 0px;
+  padding: 0;
+  white-space: nowrap;
+  display: block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+}
+
+main{
+  height: 5000px;
 }
