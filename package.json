@@ -1,16 +1,30 @@
 {
-    "name": "ninmarket",
-    "version": "1.0.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "postinstall":"cd web && composer install && cd ../app && npm install",
-        "dev": "concurrently \"npm run laravel\" \"npm run react\"",
-        "laravel": "cd ./web && php artisan serve",
-        "react": "cd ./app && npm start"
-    },
-    "devDependencies": {
-        "axios": "^1.1.2",
-        "concurrently": "^8.2.0"
-    }
+  "name": "ninmarket",
+  "version": "1.0.0",
+  "main": "server/api.js",
+  "scripts": {
+    "start": "nodemon server/api.js",
+    "client": "cd app && npm start",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "secret-key": "node generateSecretKey.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.11.0",
+    "sequelize": "^6.32.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.22"
+  }
 }

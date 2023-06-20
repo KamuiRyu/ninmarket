@@ -1,1 +1,47 @@
+# Ignore arquivos gerados pela construção do aplicativo React
+/app/build
+/app/dist
+
+# Ignore arquivos gerados pelo servidor Node.js
+/server/node_modules
+
+# Ignore arquivos específicos
+/.env
+/.env.example
+
+# Ignorar diretórios específicos
+/server/uploads
+
+# Ignorar arquivos de log
+/*.log
+
+# Ignorar arquivos de configuração de ambiente local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar diretório de cache do Node.js
+/.pnp
+.pnp.js
+
+# Ignorar diretório de cache do yarn
+.yarn
+
+# Ignorar diretório de cache do npm
 /node_modules
+/.cache
+
+# Ignorar diretório de cobertura de teste
+/coverage
+
+# Ignorar arquivos de dependências opcionais
+/optionalDependencies
+
+# Ignorar arquivos de documentação
+/doc
+/docs
+
+# Ignorar diretório de construção do TypeScript
+/dist
+/out
