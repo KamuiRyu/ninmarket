@@ -118,22 +118,19 @@ This will install the sequelize-cli globally, allowing you to run the Sequelize 
 To start the project, you can use the following commands:
 
 To run the React client:
-
-    ```bash
-    npm run react
-    ```
+ ```bash
+npm run react
+```
 
 To run the Node.js server:
-
-    ```bash
-    npm start
-    ```
+```bash
+npm start
+ ```
 
 To run both the React client and Node.js server concurrently:
-
-    ```bash
-    npm run dev
-    ```
+ ```bash
+npm run dev
+```
 
 Remembering that it must be in the root folder of the project
 
