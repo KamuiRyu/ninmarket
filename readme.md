@@ -29,7 +29,7 @@ npm install -g nodemon
 -   pg (global installation required):
 
 ```bash
-npm install -g pg"
+npm install -g pg
 ```
 
 -   sequelize-cli (global installation required):
