@@ -26,12 +26,6 @@ Before running the project, make sure you have the following tools installed in 
 npm install -g nodemon
 ```
 
--   pg (global installation required):
-
-```bash
-npm install -g pg
-```
-
 -   sequelize-cli (global installation required):
 
 ```bash
