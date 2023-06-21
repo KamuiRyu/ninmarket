@@ -4,7 +4,7 @@
   "main": "server/app.js",
   "scripts": {
     "start": "nodemon server/app.js",
-    "client": "cd app && npm start",
+    "react": "cd app && npm start",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "secret-key": "node generateSecretKey.js"
   },
