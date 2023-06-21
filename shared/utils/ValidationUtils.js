@@ -8,11 +8,16 @@ class ValidationUtils {
         }
     }
     static validateEmail(email) {
-        const emailValidation = this.validateNull(email, "e-mail");
+        const emailValidation = this.validateNull(email, "email");
         if (emailValidation && emailValidation.isValid === false) {
             return emailValidation;
         }
-        if (email === "email-invalid") {
+        if (email === "email-required") {
+            return {
+                isValid: false,
+                errorMessage: "The field email is required",
+            };
+        } else if (email === "email-invalid") {
             return {
                 isValid: false,
                 errorMessage: "Please provide a valid email.",
@@ -32,27 +37,22 @@ class ValidationUtils {
         }
         return { isValid: true, errorMessage: "" };
     }
-    static validatePassword(password, confirmPassword = "") {
-        if (confirmPassword !== "") {
-            const confirmPasswordValidation = this.validateNull(
-                confirmPassword,
-                "confirm password"
-            );
-            if (
-                confirmPasswordValidation &&
-                confirmPasswordValidation.isValid === false
-            ) {
-                return confirmPasswordValidation;
-            }
-
-            if (password !== confirmPassword) {
-                return {
-                    isValid: false,
-                    errorMessage: "The passwords do not match.",
-                };
-            }
-            return { isValid: true, errorMessage: "" };
+    static validateConfirmPassword(password, confirmPassword) {
+        if (confirmPassword === "confirmPassword-invalid") {
+            return {
+                isValid: false,
+                errorMessage: "The passwords do not match.",
+            };
         }
+        if (password !== confirmPassword) {
+            return {
+                isValid: false,
+                errorMessage: "The passwords do not match.",
+            };
+        }
+        return { isValid: true, errorMessage: "" };
+    }
+    static validatePassword(password) {
         if (password === "password-invalid") {
             return {
                 isValid: false,
@@ -81,7 +81,7 @@ class ValidationUtils {
                 }
             }
         }
-        const passwordValidation = this.validateNull(password, "senha");
+        const passwordValidation = this.validateNull(password, "password");
         if (passwordValidation && passwordValidation.isValid === false) {
             return passwordValidation;
         }

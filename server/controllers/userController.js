@@ -5,15 +5,27 @@ const { Op } = require("sequelize");
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, confirmPassword } = req.body;
         const emailValidation = ValidationUtils.validateEmail(email);
         const nameValidation = ValidationUtils.validateNinjaName(name);
         const passwordValidation = ValidationUtils.validatePassword(password);
-        let responseData = {};
-
-        if (!emailValidation.isValid) {
+        const confirmPasswordValidation =
+            ValidationUtils.validateConfirmPassword(password, confirmPassword);
+        const emailNull = ValidationUtils.validateNull(email, "email");
+        let success = true;
+        const responseData = {};
+        if (emailNull && !emailNull.isValid) {
+            success = false;
+            responseData["emailRequired"] = {
+                field: "email",
+                isValid: emailNull.isValid,
+                error: emailNull.errorMessage,
+                errorTag: "email-required",
+            };
+        }
+        if (emailValidation && !emailValidation.isValid) {
+            success = false;
             responseData["emailInvalid"] = {
-                success: false,
                 field: "email",
                 isValid: emailValidation.isValid,
                 error: emailValidation.errorMessage,
@@ -21,9 +33,9 @@ const createUser = async (req, res) => {
             };
         }
 
-        if (!nameValidation.isValid) {
+        if (nameValidation && !nameValidation.isValid) {
+            success = false;
             responseData["nameInvalid"] = {
-                success: false,
                 field: "name",
                 isValid: nameValidation.isValid,
                 error: nameValidation.errorMessage,
@@ -31,13 +43,22 @@ const createUser = async (req, res) => {
             };
         }
 
-        if (!passwordValidation.isValid) {
+        if (passwordValidation && !passwordValidation.isValid) {
+            success = false;
             responseData["passwordInvalid"] = {
-                success: false,
                 field: "password",
                 isValid: passwordValidation.isValid,
                 error: passwordValidation.errorMessage,
                 errorTag: "password-invalid",
+            };
+        }
+        if (confirmPasswordValidation && !confirmPasswordValidation.isValid) {
+            success = false;
+            responseData["confirmPasswordInvalid"] = {
+                field: "confirmPassword",
+                isValid: confirmPasswordValidation.isValid,
+                error: confirmPasswordValidation.errorMessage,
+                errorTag: "confirmpassword-invalid",
             };
         }
 
@@ -49,8 +70,8 @@ const createUser = async (req, res) => {
 
         if (existingUser) {
             if (existingUser.email === email) {
+                success = false;
                 responseData["emailExisting"] = {
-                    success: false,
                     field: "email",
                     isValid: false,
                     error: "Email already exists",
@@ -59,8 +80,8 @@ const createUser = async (req, res) => {
             }
 
             if (existingUser.ninja_name === name) {
+                success = false;
                 responseData["nameExisting"] = {
-                    success: false,
                     field: "name",
                     isValid: false,
                     error: "Ninja name already exists",
@@ -69,8 +90,8 @@ const createUser = async (req, res) => {
             }
         }
 
-        if (Object.keys(responseData).length > 0) {
-            return res.status(400).json(responseData);
+        if (!success) {
+            return res.json({ success, ...responseData });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

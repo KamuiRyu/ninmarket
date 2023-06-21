@@ -1,9 +1,9 @@
 {
   "name": "ninmarket",
   "version": "1.0.0",
-  "main": "server/api.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "nodemon server/api.js",
+    "start": "nodemon server/app.js",
     "client": "cd app && npm start",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "secret-key": "node generateSecretKey.js"

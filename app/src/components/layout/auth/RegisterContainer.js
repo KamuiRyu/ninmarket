@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FormElements from "../../common/FormElements";
 import ValidationUtils from "../../utils/ValidationUtils";
 import axios from "axios";
 import { SuccessAlert } from "../../common/Alerts";
+import AuthToken from "../../../services/AuthToken";
 
 export default function RegisterContainer({ handlePageChange }) {
-    useEffect(() => {
-        checkTokenExpiration();
-    }, []);
     const [emailValidation, setEmailValidation] = useState(null);
     const [ninjaNameValidation, setNinjaNameValidation] = useState(null);
     const [passwordValidation, setPasswordValidation] = useState(null);
@@ -17,121 +15,135 @@ export default function RegisterContainer({ handlePageChange }) {
         name: "",
         email: "",
         password: "",
+        confirmPassword: "",
     });
     const [response, setResponse] = useState(null);
     const [success, setSuccess] = useState(false);
-    const fetchToken = async () => {
-        const url = "http://localhost:3000/api/login";
-        const data = {
-            email: "admin@ninmarket.com",
-            password: "Senha@2023",
-        };
-
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-
-            if (!response.ok) {
-                throw new Error("Falha na solicitação");
-            }
-
-            const tokenData = await response.json();
-            localStorage.setItem("token", tokenData.token);
-            localStorage.setItem("tokenExpirationTime", tokenData.expiresIn);
-        } catch (error) {
-            console.error("Erro ao obter o token:", error.message);
-        }
-    };
-    const checkTokenExpiration = () => {
-        const storedToken = localStorage.getItem("token");
-        const storedExpirationTime = localStorage.getItem(
-            "tokenExpirationTime"
-        );
-        console.log(storedToken);
-        if (storedToken && storedExpirationTime) {
-            const currentTime = Date.now();
-            const timeRemaining = storedExpirationTime - currentTime;
-            const fiveMinutes = 5 * 60 * 1000;
-
-            if (timeRemaining < fiveMinutes) {
-                return fetchToken();
-            } else {
-                return storedToken;
-            }
-        } else {
-            return fetchToken();
-        }
-    };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const token = await checkTokenExpiration();
-            if (token !== "") {
-                const response = await axios.post(
-                    "http://localhost:3000/api/users",
-                    formData,
-                    {
-                        headers: {
-                            Authorization: `${token}`,
-                        },
+        const validator = validateAll(
+            "",
+            formData.name,
+            formData.email,
+            formData.password,
+            formData.confirmPassword
+        );
+        if (validator) {
+            try {
+                const authToken = new AuthToken();
+                const tokenData = await authToken.checkTokenExpiration();
+                if (tokenData.token) {
+                    const response = await axios.post(
+                        "http://localhost:3000/api/users",
+                        formData,
+                        {
+                            headers: {
+                                Authorization: `${tokenData.token}`,
+                            },
+                        }
+                    );
+                    if (!response.status === 200) {
+                        throw new Error("Falha na solicitação");
                     }
-                );
-                setResponse(response.data);
-                console.log(response.data);
-                setSuccess(true);
+
+                    if (response.data.success === false) {
+                        validateAll(response.data);
+                        return false;
+                    }
+                    setResponse(response.data);
+                    setSuccess(true);
+                }
+            } catch (error) {
+                validateAll(error.response.data);
+                setResponse(null);
             }
-        } catch (error) {
-            console.log(error);
-            validateAll(error.response.data);
-            setResponse(null);
         }
     };
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const validateAll = (error) => {
-        if (error["nameInvalid"] || error["nameExisting"]) {
-            if (error["nameInvalid"]) {
-                setNinjaNameValidation(
-                    ValidationUtils.validateNinjaName(
-                        error["nameInvalid"].errorTag
-                    )
-                );
-            } else {
-                setNinjaNameValidation(
-                    ValidationUtils.validateNinjaName(
-                        error["nameExisting"].errorTag
+    const validateAll = (
+        error,
+        name = "",
+        email = "",
+        password = "",
+        confirmPasssword = ""
+    ) => {
+        if (name || email || password || confirmPasssword) {
+            const validationNinjaName = ValidationUtils.validateNinjaName(name),
+                validationEmail = ValidationUtils.validateEmail(email),
+                validationPassword = ValidationUtils.validatePassword(password),
+                validationConfirmPassword =
+                    ValidationUtils.validateConfirmPassword(
+                        password,
+                        confirmPasssword
+                    );
+            if (
+                !validationPassword.isValid ||
+                !validationEmail.isValid ||
+                !validationConfirmPassword.isValid ||
+                !validationNinjaName.isValid
+            ) {
+                return false;
+            }
+            return true;
+        } else {
+            if (error["nameInvalid"] || error["nameExisting"]) {
+                if (error["nameInvalid"]) {
+                    setEmailValidation(
+                        ValidationUtils.validateNinjaName(
+                            error["nameInvalid"].errorTag
+                        )
+                    );
+                } else {
+                    setNinjaNameValidation(
+                        ValidationUtils.validateNinjaName(
+                            error["nameExisting"].errorTag
+                        )
+                    );
+                }
+            }
+            if (
+                error["emailInvalid"] ||
+                error["emailExisting"] ||
+                error["emailRequired"]
+            ) {
+                if (error["emailRequired"]) {
+                    setEmailValidation(
+                        ValidationUtils.validateEmail(
+                            error["emailRequired"].errorTag
+                        )
+                    );
+                } else if (error["emailInvalid"]) {
+                    setEmailValidation(
+                        ValidationUtils.validateEmail(
+                            error["emailInvalid"].errorTag
+                        )
+                    );
+                } else {
+                    setEmailValidation(
+                        ValidationUtils.validateEmail(
+                            error["emailExisting"].errorTag
+                        )
+                    );
+                }
+            }
+            if (error["passwordInvalid"]) {
+                setPasswordValidation(
+                    ValidationUtils.validatePassword(
+                        error["passwordInvalid"].errorTag
                     )
                 );
             }
-        }
-        if (error["emailInvalid"] || error["emailExisting"]) {
-            if (error["emailInvalid"]) {
-                setEmailValidation(
-                    ValidationUtils.validateEmail(
-                        error["emailInvalid"].errorTag
-                    )
-                );
-            } else {
-                setEmailValidation(
-                    ValidationUtils.validateEmail(
-                        error["emailExisting"].errorTag
+            if (error["confirmPasswordInvalid"]) {
+                setconfirmPasswordValidation(
+                    ValidationUtils.validateConfirmPassword(
+                        "",
+                        error["confirmPasswordInvalid"].errorTag
                     )
                 );
             }
-        }
-        if (error["passwordInvalid"]) {
-            setPasswordValidation(
-                ValidationUtils.validatePassword(
-                    error["passwordInvalid"].errorTag
-                )
-            );
         }
     };
     const validateEmailReturn = (event) => {
@@ -153,7 +165,7 @@ export default function RegisterContainer({ handlePageChange }) {
     const validateConfirmPasswordReturn = (event) => {
         const passwordValue = document.getElementById("signupPassword").value;
         if (passwordValue !== "") {
-            const validation = ValidationUtils.validatePassword(
+            const validation = ValidationUtils.validateConfirmPassword(
                 event.target.value,
                 passwordValue
             );
@@ -185,7 +197,7 @@ export default function RegisterContainer({ handlePageChange }) {
                 </div>
                 <div className="m-6">
                     {success === true && <SuccessAlert />}
-                    <form className="mb-4" onSubmit={handleSubmit}>
+                    <form className="mb-4" onSubmit={handleSubmit} noValidate>
                         <div>
                             <FormElements.InputForm
                                 label="Ninja Name"
@@ -320,6 +332,7 @@ export default function RegisterContainer({ handlePageChange }) {
                                 label="Confirm password"
                                 id="signupConfirmPassword"
                                 type="Password"
+                                name="confirmPassword"
                                 placeholder="Confirm Password"
                                 classChildren="mb-6"
                                 classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
@@ -327,6 +340,7 @@ export default function RegisterContainer({ handlePageChange }) {
                                 classInputPlaceholder="placeholder:italic placeholder-gray-300"
                                 classLabel="block mb-2 text-sm"
                                 classColorLabel="text-gray-600 dark:text-gray-400"
+                                onChangeInput={handleChange}
                                 onBlurInput={validateConfirmPasswordReturn}
                                 {...(confirmPasswordValidation && {
                                     isValid: confirmPasswordValidation.isValid,
