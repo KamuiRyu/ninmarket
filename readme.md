@@ -26,12 +26,6 @@ Before running the project, make sure you have the following tools installed in 
 npm install -g nodemon
 ```
 
--   pg (global installation required):
-
-```bash
-npm install -g pg"
-```
-
 -   sequelize-cli (global installation required):
 
 ```bash
@@ -42,6 +36,12 @@ npm install -g sequelize-cli
 
 ```bash
 npm install -g sequelize
+```
+
+-   run all (global installation required):
+
+```bash
+npm install -g npm-run-all
 ```
 
 These global dependencies are necessary for the proper functioning of the project. Nodemon is used for automatic server restarts during development, pg is a PostgreSQL driver for database connectivity, and sequelize-cli and sequelize are tools for interacting with the database using Sequelize ORM.
@@ -66,9 +66,22 @@ git clone https://github.com/KamuiRyu/ninmarket.git
 cd ninmarket
 ```
 
-3. Install the project dependencies:
+3. Install all react and node dependencies:
 
 ```bash
+npm run dev-install
+```
+
+### If you don't have run all installed, run the command separately
+
+-   Node:
+```bash
+npm-install
+```
+
+-   React:
+```bash
+cd app
 npm install
 ```
 
@@ -100,7 +113,7 @@ This command will execute the pending migrations and create the tables in the da
 2. (Optional) If you want to populate the database with sample data, you can run the seeds:
 
 ```bash
-npx npx sequelize-cli db:seed:all
+npx sequelize-cli db:seed:all
 ```
 
 This command will execute the seed files and insert the predefined data into the tables.
