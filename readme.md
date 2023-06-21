@@ -44,6 +44,12 @@ npm install -g sequelize-cli
 npm install -g sequelize
 ```
 
+-   run all (global installation required):
+
+```bash
+npm install -g npm-run-all
+```
+
 These global dependencies are necessary for the proper functioning of the project. Nodemon is used for automatic server restarts during development, pg is a PostgreSQL driver for database connectivity, and sequelize-cli and sequelize are tools for interacting with the database using Sequelize ORM.
 
 Make sure to have administrator or superuser permissions to install the global dependencies.
@@ -66,10 +72,23 @@ git clone https://github.com/KamuiRyu/ninmarket.git
 cd ninmarket
 ```
 
-3. Install the project dependencies:
+3. Install server dependencies:
 
 ```bash
 npm install
+```
+
+4. Install app dependencies:
+
+```bash
+cd app
+npm install
+```
+
+### if you installed run all, run the command below to install all react and node dependencies together:
+
+```bash
+npm-run-all
 ```
 
 ### Configuration
@@ -100,7 +119,7 @@ This command will execute the pending migrations and create the tables in the da
 2. (Optional) If you want to populate the database with sample data, you can run the seeds:
 
 ```bash
-npx npx sequelize-cli db:seed:all
+npx sequelize-cli db:seed:all
 ```
 
 This command will execute the seed files and insert the predefined data into the tables.
