@@ -66,23 +66,23 @@ git clone https://github.com/KamuiRyu/ninmarket.git
 cd ninmarket
 ```
 
-3. Install server dependencies:
+3. Install all react and node dependencies:
 
 ```bash
-npm install
+npm run dev-install
 ```
 
-4. Install app dependencies:
+### If you don't have run all installed, run the command separately
 
+-   Node:
+```bash
+npm-install
+```
+
+-   React:
 ```bash
 cd app
 npm install
-```
-
-### if you installed run all, run the command below to install all react and node dependencies together:
-
-```bash
-npm-run-all
 ```
 
 ### Configuration
