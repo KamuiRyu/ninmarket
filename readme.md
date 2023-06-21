@@ -164,7 +164,9 @@ This will create a "build" folder with the compiled and optimized assets that ca
 
 To generate a secret key for your application, you can use the following command:
 
-"node generateSecretKey.js"
+```bash
+node generateSecretKey.js
+```
 
 This script will generate a random secret key that can be used to secure your application.
 
