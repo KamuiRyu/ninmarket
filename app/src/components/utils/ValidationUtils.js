@@ -41,6 +41,12 @@ class ValidationUtils {
         return { isValid: true, errorMessage: "" };
     }
     static validateConfirmPassword(password, confirmPassword) {
+        if (confirmPassword === "" && password === "") {
+            return {
+                isValid: false,
+                errorMessage: "The field confirm password is required",
+            };
+        }
         if (confirmPassword === "confirmPassword-invalid") {
             return {
                 isValid: false,

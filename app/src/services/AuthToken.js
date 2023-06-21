@@ -1,8 +1,9 @@
 export default class AuthToken {
     async fetchToken() {
-        const url = "http://localhost:3000/api/login";
+        const url = process.env.REACT_APP_API_URL+":"+process.env.REACT_APP_API_PORT+"/api/login";
         const data = {
-            email: "api@ninmarket.com",
+            email: process.env.REACT_APP_LOGIN,
+            password: process.env.REACT_APP_PASSWORD,
         };
 
         try {
@@ -43,7 +44,7 @@ export default class AuthToken {
             if (storedToken && storedExpirationTime) {
                 const currentTime = Date.now();
                 const timeRemaining = storedExpirationTime - currentTime;
-                const thirtyMinutes = 40 * 60 * 1000;
+                const thirtyMinutes = 20 * 60 * 1000;
 
                 if (timeRemaining <= thirtyMinutes) {
                     const tokenData = await this.fetchToken();

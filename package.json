@@ -4,9 +4,12 @@
   "main": "server/app.js",
   "scripts": {
     "start": "nodemon server/app.js",
-    "react": "cd app && npm start",
+    "client": "npm start --prefix app",
     "dev": "concurrently \"npm start\" \"npm run client\"",
-    "secret-key": "node generateSecretKey.js"
+    "secret-key": "node generateSecretKey.js",
+    "dev-install": "npm-run-all --parallel app-install server-install",
+    "app-install": "cd app && npm install",
+    "server-install": "cd server && npm install"
   },
   "author": "",
   "license": "MIT",
