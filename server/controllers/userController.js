@@ -1,5 +1,5 @@
 const User = require("../models/user");
-import ValidationUtils from "../../shared/utils/ValidationUtils";
+import ValidationUtils from "../utils/ValidationUtils";
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
 
