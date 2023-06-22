@@ -1,39 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function SuccessAlert(props) {
-    return (
-        <div className="flex w-96 shadow-lg rounded-lg">
-            <div className="bg-green-600 py-4 px-6 rounded-l-lg flex items-center">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-white fill-current"
-                    viewBox="0 0 16 16"
-                    width={20}
-                    height={20}
-                >
-                    <path
-                        fillRule="evenodd"
-                        d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"
-                    />
-                </svg>
+  const [isClosed, setIsClosed] = useState(false);
+
+  const handleClose = () => {
+    setIsClosed(true);
+    if (props.onClose) {
+      props.onClose();
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {!isClosed && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className={`relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 ${props.divClass}`}
+        >
+          <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
+            <div className="text-green-500">
+              <svg
+                className="w-6 sm:w-5 h-6 sm:h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
             </div>
-            <div className="px-4 py-6 bg-white rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
-                <div>Success alert</div>
-                <button>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="fill-current text-gray-700"
-                        viewBox="0 0 16 16"
-                        width={20}
-                        height={20}
-                    >
-                        <path
-                            fillRule="evenodd"
-                            d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"
-                        />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    );
+            <div className="text-sm font-medium ml-3">{props.label}</div>
+          </div>
+          <div className="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
+            {props.children}
+                  </div>
+                  {props.onCloseBtn && (
+                     <div
+                     onClick={handleClose}
+                     className="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer"
+                   >
+                     <svg
+                       className="w-4 h-4"
+                       fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24"
+                       xmlns="http://www.w3.org/2000/svg"
+                     >
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                     </svg>
+                   </div> 
+            )}
+          
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }

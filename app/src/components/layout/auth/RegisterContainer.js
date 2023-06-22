@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormElements from "../../common/FormElements";
-import ValidationUtils from "../../utils/ValidationUtils";
+import ValidationUtils from "../../../utils/ValidationUtils";
 import axios from "axios";
 import { SuccessAlert } from "../../common/Alerts";
 import AuthToken from "../../../services/AuthToken";
@@ -11,6 +11,7 @@ export default function RegisterContainer({ handlePageChange }) {
   const [passwordValidation, setPasswordValidation] = useState(null);
   const [confirmPasswordValidation, setconfirmPasswordValidation] =
     useState(null);
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,10 +19,9 @@ export default function RegisterContainer({ handlePageChange }) {
     confirmPassword: "",
   });
   const [response, setResponse] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [countdown, setCountdown] = useState(4);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     const validator = validateAll(
       "",
       formData.name,
@@ -33,7 +33,10 @@ export default function RegisterContainer({ handlePageChange }) {
       try {
         const authToken = new AuthToken();
         const tokenData = await authToken.checkTokenExpiration();
-        if (tokenData.token) {
+        const csrfData = await authToken.fetchCSRFToken(tokenData.token);
+
+        if (tokenData.token && csrfData.csrfToken) {
+          axios.defaults.withCredentials = true;
           const response = await axios.post(
             process.env.REACT_APP_API_URL +
               ":" +
@@ -42,7 +45,8 @@ export default function RegisterContainer({ handlePageChange }) {
             formData,
             {
               headers: {
-                Authorization: `${tokenData.token}`,
+                Authorization: `Bearer ${tokenData.token}`,
+                "X-CSRF-Token": csrfData.csrfToken
               },
             }
           );
@@ -55,9 +59,9 @@ export default function RegisterContainer({ handlePageChange }) {
             return false;
           }
           setResponse(response.data);
-          setSuccess(true);
         }
       } catch (error) {
+        console.log(error);
         validateAll(error.response.data);
         setResponse(null);
       }
@@ -135,7 +139,7 @@ export default function RegisterContainer({ handlePageChange }) {
         setNinjaNameValidation(validationNinjaName);
         setEmailValidation(validationEmail);
         setPasswordValidation(validationPassword);
-          setconfirmPasswordValidation(validationConfirmPassword);
+        setconfirmPasswordValidation(validationConfirmPassword);
         return false;
       }
       return true;
@@ -165,14 +169,29 @@ export default function RegisterContainer({ handlePageChange }) {
       setconfirmPasswordValidation(validation);
     }
   };
-
-  const handleClick = () => {
+  useEffect(() => {
+    let countdownInterval;
+    if (response && response.success === true) {
+      countdownInterval = setInterval(() => {
+        if (countdown === 0) {
+          handleClick();
+        } else {
+          setCountdown((countdown) => countdown - 1);
+        }
+      }, 1000);
+    }
+    return () => {
+      clearInterval(countdownInterval);
+    };
+  });
+  const handleClick = (e = "") => {
     handlePageChange("login");
   };
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <>
-        <div className="text-center my-6">
+        <div className="text-center m-6">
           <h1 className="text-3xl font-semibold text-gray-700">Sign up</h1>
           <p className="text-sm text-center text-gray-400 mt-1">
             Existing user?&nbsp;
@@ -186,8 +205,17 @@ export default function RegisterContainer({ handlePageChange }) {
             </FormElements.ButtonForm>
           </p>
         </div>
-        <div className="m-6">
-          {success === true && <SuccessAlert />}
+        <div className="mx-6">
+          {response && response.success === true && (
+            <SuccessAlert
+              divClass="mb-4"
+              onClose={true}
+              onCloseBtn={false}
+            >
+              Your account has been created successfully! You will be redirected
+              on <span id="success-alert-cont">{countdown}</span>
+            </SuccessAlert>
+          )}
           <form className="mb-4" onSubmit={handleSubmit} noValidate>
             <div>
               <FormElements.InputForm

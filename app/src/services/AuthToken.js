@@ -28,7 +28,6 @@ export default class AuthToken {
                 token: tokenData.token,
             };
         } catch (error) {
-            console.log(error);
             return {
                 success: false,
                 error: error.message,
@@ -63,4 +62,29 @@ export default class AuthToken {
             return error;
         }
     }
+    async fetchCSRFToken(token) {
+        const url = process.env.REACT_APP_API_URL+":"+process.env.REACT_APP_API_PORT+"/api/csrftoken"; 
+        try {
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer "+token
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Falha na solicitação");
+            }
+            const csrfToken = await response.json();
+            return {
+                success: true,
+                csrfToken: csrfToken.csrfToken,
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message,
+            };
+        }
+      };
 }
