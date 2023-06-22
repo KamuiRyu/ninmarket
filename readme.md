@@ -21,21 +21,10 @@ Before running the project, make sure you have the following tools installed in 
 -   Node.js (v14.0.0 or later)
 -   React (v16.0.0 or later)
 -   Nodemon (global installation required):
-
-```bash
-npm install -g nodemon
-```
-
 -   sequelize-cli (global installation required):
 
 ```bash
 npm install -g sequelize-cli
-```
-
--   sequelize (global installation required):
-
-```bash
-npm install -g sequelize
 ```
 
 -   run all (global installation required):
@@ -81,8 +70,7 @@ npm-install
 
 -   React:
 ```bash
-cd app
-npm install
+npm run app-install
 ```
 
 ### Configuration
@@ -122,7 +110,9 @@ Once the migrations and seeds are executed successfully, you can proceed to run 
 
 Note: Make sure you have installed the sequelize-cli globally by running the following command:
 
-"npm install -g sequelize-cli"
+```bash
+npm install -g sequelize-cli
+```
 
 This will install the sequelize-cli globally, allowing you to run the Sequelize commands.
 
@@ -132,7 +122,7 @@ To start the project, you can use the following commands:
 
 To run the React client:
  ```bash
-npm run react
+npm run client
 ```
 
 To run the Node.js server:
