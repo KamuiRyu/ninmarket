@@ -45,9 +45,13 @@ export default function RegisterContainer({ handlePageChange }) {
             formData,
             {
               headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
                 Authorization: `Bearer ${tokenData.token}`,
-                "X-CSRF-Token": csrfData.csrfToken
+                "xsrf-token": csrfData.csrfToken,
               },
+              credentials: "include",
+              mode: "cors"
             }
           );
           if (!response.status === 200) {
@@ -61,8 +65,9 @@ export default function RegisterContainer({ handlePageChange }) {
           setResponse(response.data);
         }
       } catch (error) {
-        console.log(error);
-        validateAll(error.response.data);
+        if (error.response) {
+          validateAll(error.response.data);
+        }
         setResponse(null);
       }
     }

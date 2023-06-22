@@ -68,8 +68,12 @@ export default class AuthToken {
             const response = await fetch(url, {
                 method: "GET",
                 headers: {
+                    Accept: "application/json",
+                    "Content-Tyoe":"application/json",
                     Authorization: "Bearer "+token
                 },
+                credentials: "include",
+                mode: "cors"
             });
 
             if (!response.ok) {

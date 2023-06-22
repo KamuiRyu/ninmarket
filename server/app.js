@@ -4,12 +4,20 @@ const app = express();
 const cors = require("cors");
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
+const corsGate = require('cors-gate');
 
 app.use(express.json());
-app.use(
-  cors({
-  })
-);
+app.use(corsGate.originFallbackToReferrer());
+app.use(cors({
+  origin: [process.env.APP_URL],
+  credentials: true
+}));
+
+app.use(corsGate({
+  strict: true,
+  allowSafe: true,
+  origin: process.env.APP_URL
+}));
 app.use(cookieParser());
 
 const csrfProtection = csrf({ cookie: true });
