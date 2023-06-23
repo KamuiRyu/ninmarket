@@ -87,11 +87,11 @@ export default function RegisterContainer({ handlePageChange }) {
       if (error["nameInvalid"] || error["nameExisting"]) {
         if (error["nameInvalid"]) {
           setEmailValidation(
-            ValidationUtils.validateNinjaName(error["nameInvalid"].errorTag)
+            ValidationUtils.validateNinjaName("",error["nameInvalid"].errorTag)
           );
         } else {
           setNinjaNameValidation(
-            ValidationUtils.validateNinjaName(error["nameExisting"].errorTag)
+            ValidationUtils.validateNinjaName("",error["nameExisting"].errorTag)
           );
         }
       }
@@ -102,28 +102,28 @@ export default function RegisterContainer({ handlePageChange }) {
       ) {
         if (error["emailRequired"]) {
           setEmailValidation(
-            ValidationUtils.validateEmail(error["emailRequired"].errorTag)
+            ValidationUtils.validateEmail("",1,error["emailRequired"].errorTag)
           );
         } else if (error["emailInvalid"]) {
           setEmailValidation(
-            ValidationUtils.validateEmail(error["emailInvalid"].errorTag)
+            ValidationUtils.validateEmail("",1,error["emailInvalid"].errorTag)
           );
         } else {
           setEmailValidation(
-            ValidationUtils.validateEmail(error["emailExisting"].errorTag)
+            ValidationUtils.validateEmail("",1,error["emailExisting"].errorTag)
           );
         }
       }
       if (error["passwordInvalid"]) {
         setPasswordValidation(
-          ValidationUtils.validatePassword(error["passwordInvalid"].errorTag)
+          ValidationUtils.validatePassword("",1,error["passwordInvalid"].errorTag)
         );
       }
       if (error["confirmPasswordInvalid"]) {
         setconfirmPasswordValidation(
           ValidationUtils.validateConfirmPassword(
             "",
-            error["confirmPasswordInvalid"].errorTag
+            "",error["confirmPasswordInvalid"].errorTag,
           )
         );
       }
@@ -178,7 +178,7 @@ export default function RegisterContainer({ handlePageChange }) {
     let countdownInterval;
     if (response && response.success === true) {
       countdownInterval = setInterval(() => {
-        if (countdown === 0) {
+        if (countdown === 1) {
           handleClick();
         } else {
           setCountdown((countdown) => countdown - 1);

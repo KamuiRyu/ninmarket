@@ -13,6 +13,8 @@ app.use(cors({
   credentials: true
 }));
 
+
+
 app.use(corsGate({
   strict: true,
   allowSafe: true,

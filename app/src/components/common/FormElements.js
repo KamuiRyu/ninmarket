@@ -118,10 +118,43 @@ export function SeperatorForm(props) {
   );
 }
 
+export function CheckboxDescForm(props) {
+  return (
+    <div className={`relative flex items-start ${props.divClass}`}>
+      <div className={`flex items-center h-5 mt-1 ${props.divChildrenClass}`}>
+        <input
+          id={props.id}
+          name={props.name}
+          type="checkbox"
+          className={`border-gray-200 rounded text-blue-600 ${props.checkClass}`}
+          aria-describedby="hs-checkbox-delete-description"
+          defaultChecked=""
+          onBlur={props.onBlurCheck}
+        />
+      </div>
+      <label
+        htmlFor="hs-checkbox-delete"
+        className={`ml-3 ${props.labelClass}`}
+      >
+        <span className="block text-sm font-semibold text-gray-800">
+          {props.labelTitle}
+        </span>
+        <span
+          id="hs-checkbox-delete-description"
+          className="block text-sm text-gray-600"
+        >
+          {props.spanTitle}
+        </span>
+      </label>
+    </div>
+  );
+}
+
 const FormElements = {
   InputForm,
   ButtonForm,
   SeperatorForm,
+  CheckboxDescForm,
 };
 
 export default FormElements;

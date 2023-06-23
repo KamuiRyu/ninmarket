@@ -7,12 +7,13 @@ class ValidationUtils {
       };
     }
   }
-  static validateEmail(email) {
+  static validateEmail(email, type = 1, error = "") {
+    // Type 1 = register, Type 2 = login
     const emailValidation = this.validateNull(email, "email");
     if (emailValidation && emailValidation.isValid === false) {
       return emailValidation;
     }
-    switch (email) {
+    switch (error) {
       case "email-required":
         return {
           isValid: false,
@@ -40,14 +41,14 @@ class ValidationUtils {
     }
     return { isValid: true, errorMessage: "" };
   }
-  static validateConfirmPassword(password, confirmPassword) {
+  static validateConfirmPassword(password, confirmPassword, error = "") {
     if (confirmPassword === "" && password === "") {
       return {
         isValid: false,
         errorMessage: "The field confirm password is required",
       };
     }
-    if (confirmPassword === "confirmPassword-invalid") {
+    if (error === "confirmPassword-invalid") {
       return {
         isValid: false,
         errorMessage: "The passwords do not match.",
@@ -61,54 +62,55 @@ class ValidationUtils {
     }
     return { isValid: true, errorMessage: "" };
   }
-  static validatePassword(password) {
-    if (password === "password-invalid") {
+  static validatePassword(password, type = 1, error = "") {
+    // Type 1 = register, Type 2 = login
+    if (error === "password-invalid") {
       return {
         isValid: false,
         errorMessage: "The field password is required.",
       };
-    }
-
-    const regexPassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$|^(?=.*[a-zA-Z]).{8,}$|^(?=.*[a-z])(?=.*[A-Z]).{8,}$|^(?=.*[a-z])(?=.*\d).{8,}$/;
-    let isLevel = "weak";
-
-    if (regexPassword.test(password)) {
-      if (regexPassword.test(password)) {
-        if (
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$/.test(
-            password
-          )
-        ) {
-          isLevel = "strongest";
-        } else if (/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
-          isLevel = "strong";
-        } else if (/^(?=.*[a-z])(?=.*\d).{8,}$/.test(password)) {
-          isLevel = "medium";
-        } else if (/^(?=.*[a-zA-Z]).{8,}$/.test(password)) {
-          isLevel = "weak";
-        }
-      }
     }
     const passwordValidation = this.validateNull(password, "password");
     if (passwordValidation && passwordValidation.isValid === false) {
       return passwordValidation;
     }
 
-    if (password.length < 8) {
-      return {
-        isLevel: isLevel,
-        isValid: false,
-        errorMessage: "The password must have at least 8 characters.",
-      };
-    }
+    if (type === 1) {
+      const regexPassword =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$|^(?=.*[a-zA-Z]).{8,}$|^(?=.*[a-z])(?=.*[A-Z]).{8,}$|^(?=.*[a-z])(?=.*\d).{8,}$/;
+        let isLevel = "weak";
 
-    return { isLevel: isLevel, isValid: true, errorMessage: "" };
+      if (regexPassword.test(password)) {
+        if (regexPassword.test(password)) {
+          if (
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$/.test(
+              password
+            )
+          ) {
+            isLevel = "strongest";
+          } else if (/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
+            isLevel = "strong";
+          } else if (/^(?=.*[a-z])(?=.*\d).{8,}$/.test(password)) {
+            isLevel = "medium";
+          } else if (/^(?=.*[a-zA-Z]).{8,}$/.test(password)) {
+            isLevel = "weak";
+          }
+        }
+        if (password.length < 8 && type === 1) {
+          return {
+            isLevel: isLevel,
+            isValid: false,
+            errorMessage: "The password must have at least 8 characters.",
+          };
+        }
+      }
+    }
+    return { isValid: true, errorMessage: "" };
   }
 
-  static validateNinjaName(ninjaName) {
-    if (ninjaName === "name-invalid" || ninjaName === "name-existing") {
-      if (ninjaName === "name-invalid") {
+  static validateNinjaName(ninjaName, error = "") {
+    if (error === "name-invalid" || error === "name-existing") {
+      if (error === "name-invalid") {
         return {
           isValid: false,
           errorMessage: "The field ninja name is required.",

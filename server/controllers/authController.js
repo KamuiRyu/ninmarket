@@ -5,7 +5,53 @@ require("dotenv").config({
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-async function login(req, res) {
+async function userLogin(req, res) {
+  const { email, password } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (user) {
+    try {
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (validPassword) {
+        const rememberMe = req.body.rememberMe === true;
+        
+        const expiresIn = rememberMe ? "1d" : "1h";
+        const token = await generateAuthToken(user, expiresIn);
+        const tokenExpirationTime = (expiresIn === '1d') ? Date.now() + 86400000 : Date.now() + 3600000;
+
+        await User.update(
+          { remember_token: token },
+          { where: { id: user.id } }
+        );
+        return res.json({
+          remember_token: {
+            token: token,
+            expireTime: tokenExpirationTime,
+          },
+          user: {
+            id: user.id,
+            ninja_name: user.ninja_name, 
+            email: user.email,
+          },
+        });
+        
+        
+      } else {
+        return res
+          .json({ login: false, error: "The email address or password was incorrect. Please try again", errorTag: "invalid-login" });
+      }
+    } catch (error) {
+      return res.json({
+        login: false,
+        error: "Falha ao realizar a solicitação",
+        errorTag: "invalid-request",
+      });
+    }
+  } else {
+    return res
+      .json({ login: false, error: "The email address or password was incorrect. Please try again", errorTag: "invalid-login" });
+  }
+}
+async function apiLogin(req, res) {
   const { email, password } = req.body;
 
   if (email === "api@ninmarket.com" || email === "admin@ninmarket.com") {
@@ -37,9 +83,15 @@ async function login(req, res) {
   } else {
     return res.status(401).json({ error: "Credenciais inválidas" });
   }
-
 }
-
+const generateAuthToken = (user, expiresIn) => {
+  const payload = {
+    id: user.id,
+    email: user.email,
+  };
+  const token = jwt.sign(payload, process.env.SECRET, { expiresIn });
+  return token;
+};
 function generateToken(payload) {
   const options = {
     expiresIn: "1h",
@@ -74,6 +126,7 @@ function authenticate(req, res, next) {
 }
 
 module.exports = {
-  login,
+  apiLogin,
   authenticate,
+  userLogin,
 };
