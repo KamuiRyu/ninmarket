@@ -1,0 +1,12 @@
+.content-all {
+  background: white;
+  z-index: 3;
+  box-shadow: 0 10px 10px -5px rgb(7 16 19 / 25%);
+}
+.bg-orange-color {
+  background: orange;
+}
+
+.color-orange {
+  color: orange;
+}

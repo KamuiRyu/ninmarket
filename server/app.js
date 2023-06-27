@@ -4,25 +4,33 @@ const app = express();
 const cors = require("cors");
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
-const corsGate = require('cors-gate');
+const corsGate = require("cors-gate");
+const session = require("express-session");
 
 app.use(express.json());
 app.use(corsGate.originFallbackToReferrer());
-app.use(cors({
-  origin: [process.env.APP_URL],
-  credentials: true
-}));
 
-
-
-app.use(corsGate({
-  strict: true,
-  allowSafe: true,
-  origin: process.env.APP_URL
-}));
 app.use(cookieParser());
 
-const csrfProtection = csrf({ cookie: true });
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+const csrfProtection = csrf({
+  cookie: true,
+  ignoreMethods: ["GET"], // Ignorar verificação CSRF para requisições GET
+});
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiPort = process.env.REACT_APP_API_PORT;
@@ -31,11 +39,16 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const csrfRoutes = require("./routes/csrfRoutes");
+
+app.get("/api/csrftoken", csrfProtection, (req, res) => {
+  const csrfToken = req.csrfToken();
+  req.session._csrf = csrfToken;
+  res.cookie("_csrf", csrfToken, { httpOnly: true, maxAge: 60000 });
+  res.json({ csrfToken });
+});
 
 app.use("/api", authRoutes);
-app.use("/api/csrftoken", csrfRoutes);
-app.use("/api/users", csrfProtection, userRoutes);
+app.use("/api/users", userRoutes);
 
 // Inicie o servidor
 app.listen(apiPort, () => {

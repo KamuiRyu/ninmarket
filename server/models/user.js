@@ -4,9 +4,8 @@ require("dotenv").config();
 
 let dbSchema = "public";
 if (process.env.DB_SCHEMA) {
-    dbSchema = process.env.DB_SCHEMA;
+  dbSchema = process.env.DB_SCHEMA;
 }
-
 
 const User = sequelize.define(
   "User",
@@ -17,7 +16,7 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    ninja_name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -31,14 +30,33 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    remember_token: {
+    auth_token: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
+    },
+    token_expirationTime: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    photo_url: {
+      type: DataTypes.STRING(650),
+      allowNull: true,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     tableName: "users",
     schema: dbSchema,
+    timestamps: true,
+    createdAt: "createdAt",
+    updatedAt: "updatedAt",
   }
 );
 

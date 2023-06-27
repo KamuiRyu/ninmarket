@@ -1,0 +1,5 @@
+.search-input {
+  border-image: url(../images/MenuBG.png) 0 66 0 66 fill repeat;
+  border-image-width: auto;
+  border-image-outset: 4px 63px;
+}

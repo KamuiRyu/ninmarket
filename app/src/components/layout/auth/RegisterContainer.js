@@ -1,59 +1,53 @@
-import React, { useState, useEffect } from "react";
-import FormElements from "../../common/FormElements";
-import ValidationUtils from "../../../utils/ValidationUtils";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import AuthServices from "../../../services/AuthServices";
+import ValidationUtils from "../../../utils/ValidationUtils";
+import FormElements from "../../common/FormElements";
 import { SuccessAlert } from "../../common/Alerts";
-import AuthToken from "../../../services/AuthToken";
+
+const INITIAL_FORM_DATA = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 export default function RegisterContainer({ handlePageChange }) {
   const [emailValidation, setEmailValidation] = useState(null);
   const [ninjaNameValidation, setNinjaNameValidation] = useState(null);
   const [passwordValidation, setPasswordValidation] = useState(null);
-  const [confirmPasswordValidation, setconfirmPasswordValidation] =
+  const [confirmPasswordValidation, setConfirmPasswordValidation] =
     useState(null);
-  
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [response, setResponse] = useState(null);
   const [countdown, setCountdown] = useState(4);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validator = validateAll(
-      "",
-      formData.name,
-      formData.email,
-      formData.password,
-      formData.confirmPassword
-    );
+    const validator = validateAll();
     if (validator) {
       try {
-        const authToken = new AuthToken();
-        const tokenData = await authToken.checkTokenExpiration();
-        const csrfData = await authToken.fetchCSRFToken(tokenData.token);
+        const authToken = new AuthServices();
+        const csrfData = await authToken.fetchCSRFToken();
 
-        if (tokenData.token && csrfData.csrfToken) {
+        if (csrfData.csrfToken) {
           axios.defaults.withCredentials = true;
+          const config = {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "xsrf-token": csrfData.csrfToken,
+            },
+            credentials: "include",
+            mode: "cors",
+          };
+
           const response = await axios.post(
-            process.env.REACT_APP_API_URL +
-              ":" +
-              process.env.REACT_APP_API_PORT +
-              "/api/users",
+            `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/users`,
             formData,
-            {
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenData.token}`,
-                "xsrf-token": csrfData.csrfToken,
-              },
-              credentials: "include",
-              mode: "cors"
-            }
+            config
           );
+
           if (!response.status === 200) {
             throw new Error("Falha na solicitação");
           }
@@ -62,9 +56,11 @@ export default function RegisterContainer({ handlePageChange }) {
             validateAll(response.data);
             return false;
           }
+
           setResponse(response.data);
         }
       } catch (error) {
+        console.log(error);
         if (error.response) {
           validateAll(error.response.data);
         }
@@ -72,88 +68,95 @@ export default function RegisterContainer({ handlePageChange }) {
       }
     }
   };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const validateAll = (
     error,
-    name = "",
-    email = "",
-    password = "",
-    confirmPasssword = ""
+    name = formData.name,
+    email = formData.email,
+    password = formData.password,
+    confirmPassword = formData.confirmPassword
   ) => {
     if (error) {
-      if (error["nameInvalid"] || error["nameExisting"]) {
-        if (error["nameInvalid"]) {
-          setEmailValidation(
-            ValidationUtils.validateNinjaName("",error["nameInvalid"].errorTag)
-          );
-        } else {
-          setNinjaNameValidation(
-            ValidationUtils.validateNinjaName("",error["nameExisting"].errorTag)
-          );
-        }
-      }
-      if (
-        error["emailInvalid"] ||
-        error["emailExisting"] ||
+      setEmailValidation(
         error["emailRequired"]
-      ) {
-        if (error["emailRequired"]) {
-          setEmailValidation(
-            ValidationUtils.validateEmail("",1,error["emailRequired"].errorTag)
-          );
-        } else if (error["emailInvalid"]) {
-          setEmailValidation(
-            ValidationUtils.validateEmail("",1,error["emailInvalid"].errorTag)
-          );
-        } else {
-          setEmailValidation(
-            ValidationUtils.validateEmail("",1,error["emailExisting"].errorTag)
-          );
-        }
-      }
-      if (error["passwordInvalid"]) {
-        setPasswordValidation(
-          ValidationUtils.validatePassword("",1,error["passwordInvalid"].errorTag)
-        );
-      }
-      if (error["confirmPasswordInvalid"]) {
-        setconfirmPasswordValidation(
-          ValidationUtils.validateConfirmPassword(
-            "",
-            "",error["confirmPasswordInvalid"].errorTag,
-          )
-        );
-      }
+          ? ValidationUtils.validateEmail(
+              "",
+              1,
+              error["emailRequired"].errorTag
+            )
+          : error["emailInvalid"]
+          ? ValidationUtils.validateEmail("", 1, error["emailInvalid"].errorTag)
+          : error["emailExisting"]
+          ? ValidationUtils.validateEmail(
+              "",
+              1,
+              error["emailExisting"].errorTag
+            )
+          : null
+      );
+
+      setNinjaNameValidation(
+        error["nameInvalid"]
+          ? ValidationUtils.validateNinjaName("", error["nameInvalid"].errorTag)
+          : error["nameExisting"]
+          ? ValidationUtils.validateNinjaName(
+              "",
+              error["nameExisting"].errorTag
+            )
+          : null
+      );
+
+      setPasswordValidation(
+        error["passwordInvalid"]
+          ? ValidationUtils.validatePassword(
+              "",
+              1,
+              error["passwordInvalid"].errorTag
+            )
+          : null
+      );
+
+      setConfirmPasswordValidation(
+        error["confirmPasswordInvalid"]
+          ? ValidationUtils.validateConfirmPassword(
+              "",
+              "",
+              error["confirmPasswordInvalid"].errorTag
+            )
+          : null
+      );
     } else {
-      const validationNinjaName = ValidationUtils.validateNinjaName(name),
-        validationEmail = ValidationUtils.validateEmail(email),
-        validationPassword = ValidationUtils.validatePassword(password),
-        validationConfirmPassword = ValidationUtils.validateConfirmPassword(
-          password,
-          confirmPasssword
-        );
-      if (
-        !validationPassword.isValid ||
-        !validationEmail.isValid ||
-        !validationConfirmPassword.isValid ||
-        !validationNinjaName.isValid
-      ) {
-        setNinjaNameValidation(validationNinjaName);
-        setEmailValidation(validationEmail);
-        setPasswordValidation(validationPassword);
-        setconfirmPasswordValidation(validationConfirmPassword);
-        return false;
-      }
-      return true;
+      const validationNinjaName = ValidationUtils.validateNinjaName(name);
+      const validationEmail = ValidationUtils.validateEmail(email);
+      const validationPassword = ValidationUtils.validatePassword(password);
+      const validationConfirmPassword = ValidationUtils.validateConfirmPassword(
+        password,
+        confirmPassword
+      );
+
+      setNinjaNameValidation(validationNinjaName);
+      setEmailValidation(validationEmail);
+      setPasswordValidation(validationPassword);
+      setConfirmPasswordValidation(validationConfirmPassword);
+
+      return (
+        validationNinjaName.isValid &&
+        validationEmail.isValid &&
+        validationPassword.isValid &&
+        validationConfirmPassword.isValid
+      );
     }
   };
+
   const validateEmailReturn = (event) => {
     const validation = ValidationUtils.validateEmail(event.target.value);
     setEmailValidation(validation);
   };
+
   const validateNinjaNameReturn = (event) => {
     const validation = ValidationUtils.validateNinjaName(event.target.value);
     setNinjaNameValidation(validation);
@@ -165,15 +168,16 @@ export default function RegisterContainer({ handlePageChange }) {
   };
 
   const validateConfirmPasswordReturn = (event) => {
-    const passwordValue = document.getElementById("signupPassword").value;
+    const passwordValue = formData.password;
     if (passwordValue !== "") {
       const validation = ValidationUtils.validateConfirmPassword(
         event.target.value,
         passwordValue
       );
-      setconfirmPasswordValidation(validation);
+      setConfirmPasswordValidation(validation);
     }
   };
+
   useEffect(() => {
     let countdownInterval;
     if (response && response.success === true) {
@@ -188,7 +192,8 @@ export default function RegisterContainer({ handlePageChange }) {
     return () => {
       clearInterval(countdownInterval);
     };
-  });
+  }, [response, countdown]);
+
   const handleClick = (e = "") => {
     handlePageChange("login");
   };
@@ -212,11 +217,7 @@ export default function RegisterContainer({ handlePageChange }) {
         </div>
         <div className="mx-6">
           {response && response.success === true && (
-            <SuccessAlert
-              divClass="mb-4"
-              onClose={true}
-              onCloseBtn={false}
-            >
+            <SuccessAlert divClass="mb-4" onClose={true} onCloseBtn={false}>
               Your account has been created successfully! You will be redirected
               on <span id="success-alert-cont">{countdown}</span>
             </SuccessAlert>
@@ -229,6 +230,7 @@ export default function RegisterContainer({ handlePageChange }) {
                 name="name"
                 type="text"
                 placeholder="Ninja name"
+                classTo="w-full"
                 classChildren="mb-6"
                 classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 classInputFocus="focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
@@ -251,6 +253,7 @@ export default function RegisterContainer({ handlePageChange }) {
                 type="email"
                 name="email"
                 placeholder="Email address"
+                classTo="w-full"
                 classChildren="mb-6"
                 classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 classInputFocus="focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
@@ -273,6 +276,7 @@ export default function RegisterContainer({ handlePageChange }) {
                 type="Password"
                 name="password"
                 placeholder="Password"
+                classTo="w-full"
                 classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 classInputFocus="focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
                 classInputPlaceholder="placeholder:italic placeholder-gray-300"
@@ -346,6 +350,7 @@ export default function RegisterContainer({ handlePageChange }) {
                 type="Password"
                 name="confirmPassword"
                 placeholder="Confirm Password"
+                classTo="w-full"
                 classChildren="mb-6"
                 classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
                 classInputFocus="focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"

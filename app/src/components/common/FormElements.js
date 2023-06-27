@@ -28,7 +28,7 @@ export function ButtonForm(props) {
 }
 export function InputForm(props) {
   return (
-    <div className={`flex flex-col w-full gap-2 ${props.classTo}`}>
+    <div className={`flex flex-col gap-2 ${props.classTo}`}>
       <div className={`${props.classChildren}`}>
         <div className={`${props.classSubChildren}`}>
           <label
@@ -52,7 +52,7 @@ export function InputForm(props) {
             id={props.id}
             maxLength={props.maxLength}
             placeholder={props.placeholder}
-            className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
+            className={`mt-2 flex h-12 items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
               props.classInput
             } ${props.classInputFocus} ${props.classInputHover} ${
               props.classInputPlaceholder
@@ -95,7 +95,8 @@ export function InputForm(props) {
             </div>
           )}
         </div>
-        {!props.isValid ? (
+        {!props.isValid &&
+        (props.validate === undefined || props.validate === true) ? (
           <p
             className={`mt-2 text-sm text-red-600 dark:text-red-500 ${props.classError}`}
           >

@@ -1,13 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
-const csrf = require("csurf");
 
+router.post("/auth/login", authController.userLogin);
 
-const csrfProtection = csrf({ cookie: true });
-
-router.post("/login", authController.apiLogin);
-
-router.post("/auth/login",csrfProtection,authController.userLogin);
+router.post("/auth/checkauthtoken", authController.checkAuthToken);
 
 module.exports = router;

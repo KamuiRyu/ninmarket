@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import FormElements from "../../common/FormElements";
 import ValidationUtils from "../../../utils/ValidationUtils";
-import AuthToken from "../../../services/AuthToken";
+import AuthServices from "../../../services/AuthServices";
 import axios from "axios";
 import { ErrorAlert } from "../../common/Alerts";
 
-function LoginContainer({ handlePageChange }) {
+function LoginContainer({ handlePageChange, onCallback }) {
   const [emailValidation, setEmailValidation] = useState(null);
   const [passwordValidation, setPasswordValidation] = useState(null);
   const [error, setError] = useState(null);
@@ -13,6 +13,7 @@ function LoginContainer({ handlePageChange }) {
     const validation = ValidationUtils.validateEmail(event.target.value, "", 2);
     setEmailValidation(validation);
   };
+  const [onCloseLogin, setOnCloseLogin] = useState("");
   const validatePasswordReturn = (event) => {
     const validation = ValidationUtils.validatePassword(
       event.target.value,
@@ -26,7 +27,7 @@ function LoginContainer({ handlePageChange }) {
     password: "",
     rememberMe: false,
   });
-    const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -61,16 +62,15 @@ function LoginContainer({ handlePageChange }) {
       }
       return true;
     }
-    };
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validator = validateAll("", formData.email, formData.password);
     if (validator) {
       try {
-        const authToken = new AuthToken();
-        const tokenData = await authToken.checkTokenExpiration();
-        const csrfData = await authToken.fetchCSRFToken(tokenData.token);
-        if (tokenData.token && csrfData.csrfToken) {
+        const authToken = new AuthServices();
+        const csrfData = await authToken.fetchCSRFToken();
+        if (csrfData.csrfToken) {
           axios.defaults.withCredentials = true;
           const response = await axios.post(
             process.env.REACT_APP_API_URL +
@@ -86,7 +86,6 @@ function LoginContainer({ handlePageChange }) {
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${tokenData.token}`,
                 "xsrf-token": csrfData.csrfToken,
               },
               credentials: "include",
@@ -94,43 +93,41 @@ function LoginContainer({ handlePageChange }) {
             }
           );
           if (response.data.login === false) {
+            console.log(response);
             setError(response.data);
-              setIsOpened(true);
-              setEmailValidation(({
-                isValid: false,
-                errorMessage: "Email not registered or invalid"
-              }));
-              setPasswordValidation(({
-                isValid: false,
-                errorMessage: "Invalid email or password"
-              }));
+            setIsOpened(true);
+            setEmailValidation({
+              isValid: false,
+              errorMessage: "Email not registered or invalid",
+            });
+            setPasswordValidation({
+              isValid: false,
+              errorMessage: "Invalid email or password",
+            });
 
             return false;
           }
           const data = response.data;
           localStorage.setItem("auth_login", true);
-          localStorage.setItem("user_id", data.user.id);
-          localStorage.setItem("user_ninja_name", data.user.ninja_name);
-          localStorage.setItem("user_email", data.user.email);
+          localStorage.setItem("auth_email", data.user.email);
+          localStorage.setItem("auth_name", data.user.name);
+          localStorage.setItem("auth_photo", data.user.photo);
+          localStorage.setItem("auth_status", data.user.status);
           localStorage.setItem(
-            "user_remember_token",
-            data.remember_token.token
+            "auth_expirationToken",
+            data.user.expirationToken
           );
-          localStorage.setItem(
-            "user_rememberExpirationTime",
-            data.remember_token.expireTime
-            );
-            setIsOpened(false);
+          setIsOpened(false);
+          window.location.reload();
         }
       } catch (error) {
         console.error("Erro ao fazer login:", error);
       }
     }
   };
-
   const handleClick = (page) => {
     handlePageChange(page);
-    };
+  };
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="text-center mx-6">
@@ -158,6 +155,7 @@ function LoginContainer({ handlePageChange }) {
               name="email"
               type="email"
               placeholder="Email Address"
+              classTo="w-full"
               classChildren="mb-6"
               classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
               classInputFocus="focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
@@ -179,6 +177,7 @@ function LoginContainer({ handlePageChange }) {
               name="password"
               type="password"
               placeholder="Password"
+              classTo="w-full"
               classSubChildren="flex justify-between"
               classChildren="mb-6"
               classInput="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"

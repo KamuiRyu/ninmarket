@@ -74,38 +74,36 @@ class ValidationUtils {
     if (passwordValidation && passwordValidation.isValid === false) {
       return passwordValidation;
     }
-
+    let isLevel = "";
     if (type === 1) {
-      const regexPassword =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$|^(?=.*[a-zA-Z]).{8,}$|^(?=.*[a-z])(?=.*[A-Z]).{8,}$|^(?=.*[a-z])(?=.*\d).{8,}$/;
-        let isLevel = "weak";
-
-      if (regexPassword.test(password)) {
-        if (regexPassword.test(password)) {
-          if (
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$/.test(
-              password
-            )
-          ) {
-            isLevel = "strongest";
-          } else if (/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
-            isLevel = "strong";
-          } else if (/^(?=.*[a-z])(?=.*\d).{8,}$/.test(password)) {
-            isLevel = "medium";
-          } else if (/^(?=.*[a-zA-Z]).{8,}$/.test(password)) {
-            isLevel = "weak";
-          }
-        }
-        if (password.length < 8 && type === 1) {
-          return {
-            isLevel: isLevel,
-            isValid: false,
-            errorMessage: "The password must have at least 8 characters.",
-          };
-        }
+      if (password.length < 8) {
+        return {
+          isLevel: "",
+          isValid: false,
+          errorMessage: "The password must have at least 8 characters.",
+        };
       }
+
+      if (
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/.test(
+          password
+        )
+      ) {
+        isLevel = "strongest";
+      } else if (/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,}$/.test(password)) {
+        isLevel = "strong";
+      } else if (/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+        isLevel = "medium";
+      } else if (/.{8,}/.test(password)) {
+        isLevel = "weak";
+      }
+      return {
+        isLevel: isLevel,
+        isValid: true,
+        errorMessage: "",
+      };
     }
-    return { isValid: true, errorMessage: "" };
+    return { isLevel: isLevel, isValid: true, errorMessage: "" };
   }
 
   static validateNinjaName(ninjaName, error = "") {

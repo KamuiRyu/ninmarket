@@ -23,9 +23,14 @@
     "esm": "^3.2.25",
     "express": "^4.18.2",
     "express-jwt": "^8.4.1",
+    "express-session": "^1.17.3",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "pg": "^8.11.0",
-    "sequelize": "^6.32.1"
+    "sequelize": "^6.32.1",
+    "set-tz": "^0.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
