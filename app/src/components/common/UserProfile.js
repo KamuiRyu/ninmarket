@@ -1,6 +1,7 @@
 import React from "react";
 
 function UserProfile(props) {
+  console.log(props);
   return (
     <div className={props.divClass}>
       {props.photo ? (

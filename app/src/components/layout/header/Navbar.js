@@ -13,6 +13,7 @@ import Logo from "../../../assets/images/logo.png";
 import AuthServices from "../../../services/AuthServices";
 import UserProfile from "../../common/UserProfile";
 import axios from "axios";
+import UserExample from "../../../assets/images/user_example.png";
 
 function Navbar(props) {
   const isLoggedIn = localStorage.getItem("auth_login");
@@ -77,143 +78,101 @@ function Navbar(props) {
     status: localStorage.getItem("auth_status"),
   };
   const auth = new AuthServices();
+
+  const toggleSidebar = () => {
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    sidebar.classList.toggle("open");
+    if (sidebar.classList.contains("open")) {
+      closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+    } else {
+      closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+    }
+  };
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-logo">
-          <button className="smartLink-button">
-            <img src={Logo} alt="Nin Market" />
-          </button>
+      <div className="sidebar">
+        <div className="logo-details">
+          <i className="bx bxl-c-plus-plus icon" />
+          <div className="logo_name">CodingLab</div>
+          <i className="bx bx-menu" id="btn" onClick={toggleSidebar} />
         </div>
-        <ul className="navbar-section grow">
-          <li className="navbarBox-link">
-            <button className="smartLink-button">
-              <FontAwesomeIcon icon={faCartShopping} className="wfm-icon" />
-              <div className="navbarBox-title">
-                <span>Market</span>
-              </div>
-            </button>
+        <ul className="nav-list">
+          <li>
+            <i className="bx bx-search" onClick={toggleSidebar} />
+            <input type="text" placeholder="Search..." />
+            <span className="tooltip">Search</span>
           </li>
-
-          {isLoggedIn && (
-            <>
-              <li className="navbar-separator"></li>
-              <li className="navbarBox-link">
-                <button className="smartLink-button">
-                  <FontAwesomeIcon icon={faUser} className="wfm-icon" />
-                  <div className="navbarBox-title">
-                    <span>My profile</span>
-                  </div>
-                </button>
-              </li>
-              <li className="navbarBox-link">
-                <button className="smartLink-button">
-                  <FontAwesomeIcon icon={faEnvelope} className="wfm-icon" />
-                  <div className="navbarBox-title">
-                    <span>My Messages</span>
-                  </div>
-                </button>
-              </li>
-              <li className="navbar-box">
-                <ul className="shift-5">
-                  <li className="navbarBox-text">Select your status</li>
-                  <li className="ninjaStatus-switch">
-                    <span
-                      onClick={() => handleStatusChange("online")}
-                      className={`online-status ${
-                        userStatusClass === "online" ? "active" : ""
-                      }`}
-                    >
-                      Online
-                    </span>
-                    <span
-                      onClick={() => handleStatusChange("ingame")}
-                      className={`ingame-status ${
-                        userStatusClass === "ingame" ? "active" : ""
-                      }`}
-                    >
-                      Online in game
-                    </span>
-                    <span
-                      onClick={() => handleStatusChange("invisible")}
-                      className={`invisible-status ${
-                        userStatusClass === "invisible" ? "active" : ""
-                      }`}
-                    >
-                      Invisible
-                    </span>
-                  </li>
-                  <li className="list-category">
-                    <button className="smartLink-button" href="/settings">
-                      <FontAwesomeIcon icon={faGear} className="wfm-icon" />
-                      <div className="listTitle-category">
-                        <span>Settings</span>
-                      </div>
-                    </button>
-                  </li>
-                  <li className="list-category">
-                    <button
-                      className="smartLink-button"
-                      onClick={() => auth.logoutUser("action-user")}
-                    >
-                      <FontAwesomeIcon
-                        icon={faRightFromBracket}
-                        className="wfm-icon"
-                      />
-                      <div className="listTitle-category">
-                        <span>Sign out</span>
-                      </div>
-                    </button>
-                  </li>
-                </ul>
-                <div className="navbarBox-title navbarBox-avatar">
-                  {user.photo !== null ? (
-                    <UserProfile
-                      photo={user.photo}
-                      imgAlt={`Photo ${user.name}`}
-                      imgClass="userAvatar"
-                    />
-                  ) : (
-                    <UserProfile
-                      name={user.name}
-                      imgClass="userAvatarName"
-                    ></UserProfile>
-                  )}
-
-                  <div className="ninjaBox-status">
-                    <span className="ninja-name">{user.name}</span>
-                    <div className="ninja-status online-indicator">
-                      <span className={`${userStatusClass}-status`}>
-                        {userStatusClass}
-                      </span>
-                    </div>
-                  </div>
-                  <FontAwesomeIcon
-                    icon={faCaretLeft}
-                    className="text-black wfm-icon icon-caret-left"
-                  />
+          <li>
+            <a href="#">
+              <i className="bx bx-grid-alt" />
+              <span className="links_name">Dashboard</span>
+            </a>
+            <span className="tooltip">Dashboard</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-user" />
+              <span className="links_name">User</span>
+            </a>
+            <span className="tooltip">User</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-chat" />
+              <span className="links_name">Messages</span>
+            </a>
+            <span className="tooltip">Messages</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-pie-chart-alt-2" />
+              <span className="links_name">Analytics</span>
+            </a>
+            <span className="tooltip">Analytics</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-folder" />
+              <span className="links_name">File Manager</span>
+            </a>
+            <span className="tooltip">Files</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-cart-alt" />
+              <span className="links_name">Order</span>
+            </a>
+            <span className="tooltip">Order</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-heart" />
+              <span className="links_name">Saved</span>
+            </a>
+            <span className="tooltip">Saved</span>
+          </li>
+          <li>
+            <a href="#">
+              <i className="bx bx-cog" />
+              <span className="links_name">Setting</span>
+            </a>
+            <span className="tooltip">Setting</span>
+          </li>
+          <li className="profile">
+            <div className="profile-details">
+              <img src={UserExample} alt="profileImg" />
+              <div className="profile-user">
+                <div className="name">{user.name}</div>
+                <div className={`status ${userStatusClass}-status`}>
+                  {userStatusClass}
                 </div>
-              </li>
-            </>
-          )}
-          {!isLoggedIn && (
-            <>
-              <li className="navbar-separator"></li>
-              <li className="navbarBox-link">
-                <button className="smartLink-button" onClick={props.openModal}>
-                  <FontAwesomeIcon
-                    icon={faRightFromBracket}
-                    className="wfm-icon"
-                  />
-                  <div className="navbarBox-title">
-                    <span>Sign in</span>
-                  </div>
-                </button>
-              </li>
-            </>
-          )}
+              </div>
+            </div>
+            <i className="bx bx-log-out" id="log_out" />
+          </li>
         </ul>
-      </nav>
+      </div>
     </>
   );
 }

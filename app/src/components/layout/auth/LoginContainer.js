@@ -93,7 +93,6 @@ function LoginContainer({ handlePageChange, onCallback }) {
             }
           );
           if (response.data.login === false) {
-            console.log(response);
             setError(response.data);
             setIsOpened(true);
             setEmailValidation({

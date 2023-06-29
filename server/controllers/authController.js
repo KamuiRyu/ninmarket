@@ -38,9 +38,12 @@ async function userLogin(req, res) {
             user: {
               email: user.email,
               name: user.name,
-              photo: user.photo_url,
+              photo: user.photo_url == !null ? user.photo_url : "",
               status: user.status ?? "invisible",
-              expirationToken: user.token_expirationTime,
+              expirationToken:
+                token.expirationTime == !null
+                  ? token.expirationTime
+                  : user.token_expirationTime,
             },
           });
         }
