@@ -8,15 +8,6 @@ import ForgotPasswordContainer from "./ForgotPasswordContainer";
 function AutheticationModal({ onClose }) {
   const [currentAuthPage, setCurrentAuthPage] = useState("login");
   const [onCloseLoginModal, setOnCloseLoginModal] = useState(false);
-  useEffect(() => {
-    const stickyNav = document.querySelector(".navbar");
-    document.body.classList.add("overflow-hidden");
-    stickyNav.classList.remove("z-40");
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-      stickyNav.classList.add("z-40");
-    };
-  }, []);
 
   const handlePageChange = (page) => {
     setCurrentAuthPage(page);
