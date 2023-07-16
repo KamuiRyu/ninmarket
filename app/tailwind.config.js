@@ -7,6 +7,10 @@ module.exports = {
         "60vh": "60vh",
         "70vh": "70vh",
         "80vh": "80vh",
+        ringColor: {
+          'transparent': 'transparent',
+        },
+        ringWidth: {},
       },
     },
   },

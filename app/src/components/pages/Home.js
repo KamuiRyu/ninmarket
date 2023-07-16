@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import Navbar from "../layout/header/Navbar";
 import HeaderJumbotron from "../layout/header/HeaderJumbotron";
-import Header from "../layout/Header";
 import AutheticationModal from "../layout/auth/AutheticationModal";
 import FormElements from "../common/FormElements";
 import "../../assets/styles/home.css";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   const userAuth = {
     name: localStorage.getItem("auth_name"),
     email: localStorage.getItem("auth_email"),
@@ -25,16 +27,10 @@ function Home() {
       {isModalOpen && (
         <AutheticationModal isOpen={isModalOpen} onClose={closeModal} />
       )}
+
       <Navbar openModal={openModal} userName={userAuth.name} />
       <div className="main-content">
         <HeaderJumbotron height="h-80vh">
-          <div className="flex items-center justify-center sticky top-16 z-20 w-full">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="search-input h-[3rem] w-3/5"
-            />
-          </div>
         </HeaderJumbotron>
         <main className="bg-white relative">
           <section className="container-full mx-auto py-4 content-all">

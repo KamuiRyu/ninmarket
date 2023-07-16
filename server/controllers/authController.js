@@ -33,15 +33,23 @@ async function userLogin(req, res) {
           formattedDateTime
         );
         if (token) {
+          if (user.photo_url !== null) {
+            const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,})(:\d{1,5})?([/?#]\S*)?$/i;
+            if (!urlPattern.test(user.photo_url)) {
+              user.photo_url = null;
+            }
+          } else {
+            user.photo_url = null;
+          }
           return res.json({
             auth_login: true,
             user: {
               email: user.email,
               name: user.name,
-              photo: user.photo_url == !null ? user.photo_url : "",
+              photo: user.photo_url !== null ? user.photo_url : "",
               status: user.status ?? "invisible",
               expirationToken:
-                token.expirationTime == !null
+                token.expirationTime !== null
                   ? token.expirationTime
                   : user.token_expirationTime,
             },

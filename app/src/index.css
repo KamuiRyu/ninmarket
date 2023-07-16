@@ -20,3 +20,44 @@ code {
 main {
   height: 5000px;
 }
+
+.bg-dark-1000{
+  background-color: #161616;
+}
+
+.bg-dark-900{
+  background-color: #212121;
+}
+
+.bg-dark-800{
+  background-color: #424242;
+}
+.bg-dark-700{
+  background-color: #616161;
+}
+.bg-dark-600{
+  background-color: #757575;
+}
+.bg-dark-500{
+  background-color: #9E9E9E;
+}
+.bg-dark-400{
+  background-color: #BDBDBD;
+}
+.bg-dark-300{
+  background-color: #E0E0E0;
+}
+
+.text-dark-high{
+  color: rgba(255, 255, 255, 0.87);
+}
+.text-dark-medium{
+  color: rgba(255, 255, 255, 0.60);
+}
+.text-dark-disable{
+  color: rgba(255, 255, 255, 0.38);
+} 
+
+.text-color-main{
+  color: #fedc00;
+}

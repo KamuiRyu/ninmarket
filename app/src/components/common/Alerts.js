@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, m } from "framer-motion";
 
 export function SuccessAlert(props) {
   const [isClosed, setIsClosed] = useState(false);
@@ -10,6 +10,14 @@ export function SuccessAlert(props) {
       props.onClose(props.onClose);
     }
   };
+  
+
+  const label = props.label ? props.label : "",
+  children = props.children ? props.children : "",
+  divClass = props.divClass ? props.divClass : "",
+  labelClass = props.labelClass ? props.labelClass : "",
+  childrenClass = props.childrenClass ? props.childrenClass : "";
+
 
   return (
     <AnimatePresence>
@@ -19,7 +27,7 @@ export function SuccessAlert(props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 ${props.divClass}`}
+          className={`relative flex flex-col sm:flex-row sm:items-center  ${divClass}`}
         >
           <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
             <div className="text-green-500">
@@ -38,10 +46,10 @@ export function SuccessAlert(props) {
                 />
               </svg>
             </div>
-            <div className="text-sm font-medium ml-3">{props.label}</div>
+            <div className={`text-sm font-medium ml-3 ${labelClass}`}>{label}</div>
           </div>
-          <div className="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
-            {props.children}
+          <div className={`text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4 ${childrenClass}`}>
+            {children}
           </div>
           {props.onCloseBtn && (
             <div

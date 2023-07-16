@@ -1,25 +1,6 @@
-import React from "react";
+import { React } from "react";
+import "../../assets/styles/modal.css";
 
-function Modal({ isOpen, onClose, children }) {
-  if (!isOpen) {
-    return null;
-  }
-  return (
-    <div className="fixed inset-0 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black opacity-50 z-40"></div>
-      <div className="bg-white dark:bg-slate-800 rounded-lg p-8 z-50 w-1/3">
-        <h2 className="text-2xl font-bold mb-4">Modal Title</h2>
-        {children}
-        <button
-          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded"
-          onClick={onClose}
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  );
-}
 function ModalSessionExpire() {
   return (
     <div
@@ -85,6 +66,68 @@ function ModalSessionExpire() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Modal(props) {
+  const title = props.title ? props.title : "",
+    children = props.children ? props.children : "",
+    modalIcon = props.modalIcon ? props.modalIcon : "",
+    buttonOn = props.buttonOn ? true : false,
+    id = props.id ? props.id : "",
+    onClose = props.onClose ? props.onClose : undefined,
+    onClickAccept = props.onClickAccept ? props.onClickAccept : undefined,
+    onClickDecline = props.onClickDecline ? props.onClickDecline : undefined;
+
+
+    const handleModalClose = () => {
+      onClose();
+    };
+  
+    const handleOutsideClick = (event) => {
+      if (event.target === event.currentTarget) {
+        handleModalClose();
+      }
+    };
+
+  return (
+    <>
+      <div className={`modal`} onClick={handleOutsideClick} id={id}>
+        <article className="modal-container">
+          <header className="modal-container-header">
+            <h1 className="modal-container-title">
+              <i className={`${modalIcon}`}></i>
+              {title}
+            </h1>
+            <button className="icon-button" onClick={handleModalClose}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width={24}
+                height={24}
+              >
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  fill="currentColor"
+                  d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+                />
+              </svg>
+            </button>
+          </header>
+          <section className="modal-container-body rtf">{children}</section>
+          {buttonOn && (
+            <footer className="modal-container-footer">
+              <button className="button is-ghost" onClick={onClickDecline}>
+                Decline
+              </button>
+              <button className="button is-primary" onClick={onClickAccept}>
+                Accept
+              </button>
+            </footer>
+          )}
+        </article>
+      </div>
+    </>
   );
 }
 

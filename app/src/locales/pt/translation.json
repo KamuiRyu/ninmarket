@@ -1,0 +1,118 @@
+{
+  "navbar": {
+    "search": "Pesquisar...",
+    "market": "Mercado",
+    "messages": "Minhas mensagens",
+    "signin": "Entrar",
+    "status":{
+        "online":"Disponível",
+        "ingame":"Disponível no jogo",
+        "invisible":"Invisível",
+        "onlineShort":"Disponível",
+        "ingameShort":"No jogo",
+        "invisibleShort":"Invisível"
+    }
+  },
+  "actionbtn":{
+    "placeorder":"Fazer anúncio",
+    "createbuild":"Criar build"
+  },
+  "register":{
+    "successAlertMessage": "Sua conta foi criada com sucesso! Você será redirecionado em {{ countdown }}.",
+    "termsOfService":{
+        "1": "Ao se cadastrar, você concorda com os",
+        "2": "e a",
+        "3": "do Nin Market."
+    },
+    "title": "Registrar",
+    "ninjaNameLabel": "Nome do Ninja",
+    "emailLabel": "Endereço de e-mail",
+    "passwordLabel": "Senha",
+    "confirmPasswordLabel": "Confirmar senha",
+    "joinNow": "Junte-se agora",
+    "termsLink": "termos de serviço",
+    "privacyLink": "política de privacidade",
+    "existingUserPrompt": "Usuário existente?",
+    "signInLink": "Entrar"
+  },
+  "termsServices": {
+    "title": "Termos de Serviço",
+    "section1Title": "1. Registro de Conta",
+    "section1Content1": "1.1. Para acessar e usar o Serviço, você deve criar uma conta no website. Você deve fornecer informações precisas, completas e atualizadas durante o processo de registro. Você é o único responsável por manter a confidencialidade das credenciais da sua conta e por todas as atividades que ocorrem em sua conta.",
+    "section1Content2": "1.2. Você deve ter pelo menos 18 anos de idade ou ter atingido a maioridade em sua jurisdição para criar uma conta. Se você tiver menos de 18 anos ou ainda não tiver atingido a maioridade, você deve obter o consentimento dos pais ou do responsável legal antes de usar o Serviço.",
+    "section2Title": "2. Uso do Serviço",
+    "section2Content1": "2.1. O Serviço fornecido pela Nin Market permite que os jogadores de Nin Online realizem negociações e transações de itens, equipamentos e recursos do jogo.",
+    "section2Content2": "2.2. Você reconhece e concorda que a Nin Market não é responsável pela autenticidade, qualidade ou legalidade dos itens, equipamentos ou recursos negociados no website. Os usuários são os únicos responsáveis por verificar a precisão e autenticidade de quaisquer itens antes de realizar transações.",
+    "section2Content3": "2.3. Você concorda em não utilizar o Serviço para fins ilegais ou não autorizados, incluindo, mas não se limitando a fraude, lavagem de dinheiro ou qualquer outra atividade que viole leis ou regulamentos aplicáveis. Você também concorda em não interferir ou interromper a integridade ou desempenho do Serviço ou do website.",
+    "section2Content4": "2.4. Você reconhece e concorda que a Nin Market reserva-se o direito de monitorar e moderar as atividades dos usuários no website e pode tomar medidas, incluindo a suspensão ou término de contas, em resposta a qualquer violação destes Termos.",
+    "section3Title": "3. Transações",
+    "section3Content1": "3.1. O Serviço permite que os usuários listem itens disponíveis para negociação, pesquisem itens específicos desejados e participem de leilões para itens disputados.",
+    "section3Content2": "3.2. Você compreende e concorda que quaisquer transações realizadas por meio do Serviço são exclusivamente entre compradores e vendedores. A Nin Market não é parte de nenhuma transação e não garante a qualidade, disponibilidade ou entrega de quaisquer itens.",
+    "section3Content3": "3.3. Você reconhece e concorda que é o único responsável por quaisquer riscos associados a transações realizadas por meio do Serviço, incluindo, mas não se limitando ao risco de fraude, falsificação ou não entrega de itens.",
+    "section4Title": "4. Comunicação e Privacidade",
+    "section4Content1": "4.1. O Serviço inclui recursos de chat e mensagens para facilitar a comunicação entre jogadores durante as negociações. Você concorda em usar esses recursos de forma respeitosa e apropriada, aderindo às regras e diretrizes fornecidas pela Nin Market.",
+    "section4Content2": "4.2. Você reconhece e concorda que a Nin Market pode coletar e processar informações pessoais conforme descrito na Política de Privacidade. Ao usar o Serviço, você consente a coleta, armazenamento e uso de suas informações pessoais de acordo com a Política de Privacidade.",
+    "section5Title": "5. Propriedade Intelectual",
+    "section5Content1": "5.1. O website, serviço e todo o conteúdo associado, incluindo, mas não se limitando a textos, gráficos, logotipos e imagens, são propriedade intelectual da Nin Market ou de seus licenciadores. Você não pode reproduzir, modificar, distribuir ou criar obras derivadas com base nesse conteúdo sem permissão prévia por escrito da Nin Market.",
+    "section6Title": "6. Limitação de Responsabilidade",
+    "section6Content1": "6.1. Na máxima extensão permitida pela lei aplicável, a Nin Market e suas afiliadas, diretores, funcionários e agentes não serão responsáveis por quaisquer danos diretos, indiretos, incidentais, especiais, consequenciais ou punitivos decorrentes ou relacionados ao uso do website ou serviço, incluindo, mas não se limitando a quaisquer perdas resultantes de transações ou do uso ou incapacidade de usar o serviço.",
+    "section7Title": "7. Término",
+    "section7Content1": "7.1. A Nin Market pode suspender ou encerrar sua conta ou acesso ao serviço a qualquer momento, com ou sem motivo, e sem aviso prévio. Após o término, seu direito de acessar e usar o serviço será encerrado imediatamente.",
+    "section8Title": "8. Lei Aplicável e Jurisdição",
+    "section8Content1": "8.1. Estes Termos serão regidos e interpretados de acordo com as leis de [Inserir Jurisdição]. Qualquer disputa decorrente ou relacionada a estes Termos será submetida à jurisdição exclusiva dos tribunais de [Inserir Jurisdição].",
+    "section9Title": "9. Alterações",
+    "section9Content1": "9.1. A Nin Market reserva-se o direito de modificar ou alterar estes Termos a qualquer momento. Quaisquer alterações nos Termos serão efetivas após a publicação no website. O uso contínuo do serviço após a publicação de quaisquer alterações constitui sua aceitação dos Termos modificados.",
+    "section10Title": "10. Contate-nos",
+    "section10Content1": "10.1. Se você tiver alguma dúvida ou preocupação sobre estes Termos ou o serviço, entre em contato conosco em [Inserir Informações de Contato]."
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidade",
+    "informationWeCollectTitle": "Informações que Coletamos",
+    "informationWeCollectContent": "Não coletamos nenhuma informação pessoal sua quando você visita nosso website. Podemos coletar informações não pessoais, como seu endereço IP, tipo de navegador e sistema operacional, para fins analíticos e de segurança.",
+    "cookiesTitle": "Cookies",
+    "cookiesContent": "Podemos usar cookies em nosso website para aprimorar sua experiência de navegação. Você pode configurar seu navegador para recusar todos ou alguns cookies de navegador ou para alertá-lo quando sites definirem ou acessarem cookies. No entanto, se você desabilitar ou recusar cookies, observe que algumas partes do nosso website podem ficar inacessíveis ou não funcionar corretamente.",
+    "thirdPartyLinksTitle": "Links de Terceiros",
+    "thirdPartyLinksContent": "Nosso website pode conter links para websites ou serviços de terceiros. Não somos responsáveis pelas práticas de privacidade ou pelo conteúdo desses websites ou serviços de terceiros. Recomendamos que você leia as políticas de privacidade desses websites ou serviços.",
+    "dataSecurityTitle": "Segurança dos Dados",
+    "dataSecurityContent": "Implementamos medidas razoáveis para proteger a segurança de suas informações. No entanto, esteja ciente de que nenhum método de transmissão pela internet ou armazenamento eletrônico é completamente seguro.",
+    "changesTitle": "Alterações a esta Política de Privacidade",
+    "changesContent": "Reservamos o direito de atualizar ou alterar nossa Política de Privacidade a qualquer momento. Quaisquer alterações na Política de Privacidade serão efetivas imediatamente após a publicação em nosso website.",
+    "contactTitle": "Contate-nos",
+    "contactContent": "Se você tiver alguma dúvida ou preocupação sobre nossa Política de Privacidade, entre em contato conosco em [Inserir Informações de Contato]."
+  },
+  "login": {
+    "welcomeBack": {
+      "title": "Bem-vindo de volta!",
+      "subtitle": "Estamos muito felizes em vê-lo novamente!"
+    },
+    "signInWith": "ou faça login com",
+    "emailAddress": "Endereço de email",
+    "password": "Senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "rememberMe": {
+      "title": "Lembrar-me",
+      "subtitle": "Não recomendado em computadores compartilhados"
+    },
+    "needAccount": "Precisa de uma conta?",
+    "signUp": "Cadastrar",
+    "signIn": "Entrar"
+  },
+  "validation": {
+    "fieldRequired": "O campo {{field}} é obrigatório.",
+    "emailRequired": "O campo email é obrigatório.",
+    "emailInvalid": "Por favor, forneça um email válido.",
+    "emailExisting": "O email {{email}} já está em uso.",
+    "confirmPasswordRequired": "O campo confirmar senha é obrigatório.",
+    "passwordMismatch": "As senhas não coincidem.",
+    "passwordLength": "A senha deve ter pelo menos 8 caracteres.",
+    "ninjaNameRequired": "O campo nome do ninja é obrigatório.",
+    "ninjaNameExisting": "O nome do ninja {{ninjaName}} já está em uso.",
+    "ninjaNameLength": "O nome do ninja deve ter no máximo 20 caracteres.",
+    "emailOrPasswordInvalid": "E-mail ou senha inválidos",
+    "emailField":"email",
+    "passwordField":"senha",
+    "ninjaNameField":"nome ninja",
+    "confirmPassswordField":"confirmar senha"
+  }
+
+}

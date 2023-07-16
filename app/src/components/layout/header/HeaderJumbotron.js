@@ -1,5 +1,4 @@
 import React from "react";
-import jumbotronBG from "../../../assets/images/JumbotronBG.png";
 import "../../../assets/styles/headerJumbotron.css";
 
 function HeaderJumbotron(props) {

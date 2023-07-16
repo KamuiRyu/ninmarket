@@ -1,0 +1,117 @@
+{
+  "navbar": {
+    "search": "Search...",
+    "market": "Market",
+    "messages": "My Messages",
+    "signin": "Sign In",
+    "status":{
+        "online":"Online",
+        "ingame":"Online in game",
+        "invisible":"Invisible",
+        "onlineShort":"Online",
+        "ingameShort":"Ingame",
+        "invisibleShort":"Invisible"
+    }
+  },
+  "actionbtn":{
+    "placeorder":"Place order",
+    "createbuild":"Create build"
+  },
+  "register": {
+    "successAlertMessage": "Your account has been successfully created! You will be redirected in {{ countdown }}.",
+    "termsOfService": {
+      "1": "By registering, you agree to the",
+      "2": "and",
+      "3": "of Nin Market."
+    },
+    "title": "Register",
+    "ninjaNameLabel": "Ninja Name",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "joinNow": "Join Now",
+    "termsLink": "terms of service",
+    "privacyLink": "privacy policy",
+    "existingUserPrompt": "Existing user?",
+    "signInLink": "Sign In"
+  },
+  "termsServices": {
+    "title": "Terms of Service",
+    "section1Title": "1. Account Registration",
+    "section1Content1": "1.1. To access and use the Service, you must create an account on the website. You must provide accurate, complete, and up-to-date information during the registration process. You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.",
+    "section1Content2": "1.2. You must be at least 18 years old or have reached the age of majority in your jurisdiction to create an account. If you are under 18 years old or have not yet reached the age of majority, you must obtain consent from your parents or legal guardian before using the Service.",
+    "section2Title": "2. Use of the Service",
+    "section2Content1": "2.1. The Service provided by Nin Market allows Nin Online players to engage in trading and transactions of in-game items, equipment, and resources.",
+    "section2Content2": "2.2. You acknowledge and agree that Nin Market is not responsible for the authenticity, quality, or legality of the items, equipment, or resources traded on the website. Users are solely responsible for verifying the accuracy and authenticity of any items before engaging in transactions.",
+    "section2Content3": "2.3. You agree not to use the Service for illegal or unauthorized purposes, including, but not limited to, fraud, money laundering, or any other activity that violates applicable laws or regulations. You also agree not to interfere with or disrupt the integrity or performance of the Service or the website.",
+    "section2Content4": "2.4. You acknowledge and agree that Nin Market reserves the right to monitor and moderate user activities on the website and may take actions, including the suspension or termination of accounts, in response to any violation of these Terms.",
+    "section3Title": "3. Transactions",
+    "section3Content1": "3.1. The Service allows users to list items available for trade, search for specific desired items, and participate in auctions for contested items.",
+    "section3Content2": "3.2. You understand and agree that any transactions conducted through the Service are solely between buyers and sellers. Nin Market is not a party to any transaction and does not guarantee the quality, availability, or delivery of any items.",
+    "section3Content3": "3.3. You acknowledge and agree that you are solely responsible for any risks associated with transactions conducted through the Service, including, but not limited to, the risk of fraud, counterfeit items, or non-delivery.",
+    "section4Title": "4. Communication and Privacy",
+    "section4Content1": "4.1. The Service includes chat and messaging features to facilitate communication between players during trades. You agree to use these features in a respectful and appropriate manner, adhering to the rules and guidelines provided by Nin Market.",
+    "section4Content2": "4.2. You acknowledge and agree that Nin Market may collect and process personal information as described in the Privacy Policy. By using the Service, you consent to the collection, storage, and use of your personal information in accordance with the Privacy Policy.",
+    "section5Title": "5. Intellectual Property",
+    "section5Content1": "5.1. The website, service, and all associated content, including, but not limited to, text, graphics, logos, and images, are the intellectual property of Nin Market or its licensors. You may not reproduce, modify, distribute, or create derivative works based on this content without prior written permission from Nin Market.",
+    "section6Title": "6. Limitation of Liability",
+    "section6Content1": "6.1. To the maximum extent permitted by applicable law, Nin Market and its affiliates, directors, employees, and agents shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or related to the use of the website or service, including, but not limited to, any losses resulting from transactions or the use or inability to use the service.",
+    "section7Title": "7. Termination",
+    "section7Content1": "7.1. Nin Market may suspend or terminate your account or access to the service at any time, with or without cause, and without prior notice. Upon termination, your right to access and use the service will immediately cease.",
+    "section8Title": "8. Applicable Law and Jurisdiction",
+    "section8Content1": "8.1. These Terms shall be governed and interpreted in accordance with the laws of [Insert Jurisdiction]. Any dispute arising out of or related to these Terms shall be submitted to the exclusive jurisdiction of the courts of [Insert Jurisdiction].",
+    "section9Title": "9. Changes",
+    "section9Content1": "9.1. Nin Market reserves the right to modify or alter these Terms at any time. Any changes to the Terms will be effective upon posting on the website. Your continued use of the service after the posting of any changes constitutes your acceptance of the modified Terms.",
+    "section10Title": "10. Contact Us",
+    "section10Content1": "10.1. If you have any questions or concerns about these Terms or the service, please contact us at [Insert Contact Information]."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "informationWeCollectTitle": "Information We Collect",
+    "informationWeCollectContent": "We do not collect any personal information from you when you visit our website. We may collect non-personal information such as your IP address, browser type, and operating system for analytical and security purposes.",
+    "cookiesTitle": "Cookies",
+    "cookiesContent": "We may use cookies on our website to enhance your browsing experience. You can configure your browser to refuse all or some browser cookies or to alert you when websites set or access cookies. However, if you disable or refuse cookies, please note that some parts of our website may become inaccessible or may not function properly.",
+    "thirdPartyLinksTitle": "Third-Party Links",
+    "thirdPartyLinksContent": "Our website may contain links to third-party websites or services. We are not responsible for the privacy practices or the content of those third-party websites or services. We recommend that you read the privacy policies of those websites or services.",
+    "dataSecurityTitle": "Data Security",
+    "dataSecurityContent": "We have implemented reasonable measures to secure the confidentiality of your information. However, please be aware that no method of transmission over the internet or electronic storage is completely secure.",
+    "changesTitle": "Changes to This Privacy Policy",
+    "changesContent": "We reserve the right to update or change our Privacy Policy at any time. Any changes to the Privacy Policy will be effective immediately upon posting on our website.",
+    "contactTitle": "Contact Us",
+    "contactContent": "If you have any questions or concerns about our Privacy Policy, please contact us at [Insert Contact Information]."
+  },
+  "login": {
+    "welcomeBack": {
+      "title": "Welcome back!",
+      "subtitle": "We're thrilled to see you again!"
+    },
+    "signInWith": "or sign in with",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": {
+      "title": "Remember Me",
+      "subtitle": "Not recommended on shared computers"
+    },
+    "needAccount": "Need an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
+  },
+  "validation": {
+    "fieldRequired": "The {{field}} field is required.",
+    "emailRequired": "The email field is required.",
+    "emailInvalid": "Please provide a valid email.",
+    "emailExisting": "The email {{email}} is already in use.",
+    "confirmPasswordRequired": "The confirm password field is required.",
+    "passwordMismatch": "The passwords do not match.",
+    "passwordLength": "The password must be at least 8 characters.",
+    "ninjaNameRequired": "The ninja name field is required.",
+    "ninjaNameExisting": "The ninja name {{ninjaName}} is already in use.",
+    "ninjaNameLength": "The ninja name must be at most 20 characters.",
+    "emailOrPasswordInvalid": "Invalid email or password",
+    "emailField": "email",
+    "passwordField": "password",
+    "ninjaNameField": "ninja name",
+    "confirmPassswordField": "confirm password"
+  }
+}

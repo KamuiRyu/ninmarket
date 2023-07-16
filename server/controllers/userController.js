@@ -65,32 +65,36 @@ const createUser = async (req, res) => {
       };
     }
 
-    const existingUser = await User.findOne({
+    const existingEmail = await User.findOne({
       where: {
-        [Op.or]: [{ email }, { name: name }],
+        email: email,
       },
     });
 
-    if (existingUser) {
-      if (existingUser.email === email) {
-        success = false;
-        responseData["emailExisting"] = {
-          field: "email",
-          isValid: false,
-          error: "Email already exists",
-          errorTag: "email-existing",
-        };
-      }
+    const existingName = await User.findOne({
+      where: {
+        name: name,
+      },
+    });
 
-      if (existingUser.name === name) {
-        success = false;
-        responseData["nameExisting"] = {
-          field: "name",
-          isValid: false,
-          error: "Ninja name already exists",
-          errorTag: "name-existing",
-        };
-      }
+    if (existingEmail) {
+      success = false;
+      responseData["emailExisting"] = {
+        field: "email",
+        isValid: false,
+        error: "Email already exists",
+        errorTag: "email-existing",
+      };
+    }
+
+    if (existingName) {
+      success = false;
+      responseData["nameExisting"] = {
+        field: "name",
+        isValid: false,
+        error: "Ninja name already exists",
+        errorTag: "name-existing",
+      };
     }
 
     if (!success) {
@@ -103,6 +107,7 @@ const createUser = async (req, res) => {
       name: name,
       email: email,
       password: hashedPassword,
+      status: "online",
       active: true,
     });
 

@@ -29,8 +29,7 @@ function Navbar(props) {
       const authToken = new AuthServices();
       const csrfData = await authToken.fetchCSRFToken();
       const checkAuth = await authToken.checkAuthTokenExpiration();
-      console.log(checkAuth);
-      if (csrfData.csrfToken && checkAuth.auth_token === true) {
+      console.log(checkAuth);      if (csrfData.csrfToken && checkAuth.auth_token === true) {
         axios.defaults.withCredentials = true;
         const userData = {
           id: localStorage.getItem("auth_id"),

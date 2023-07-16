@@ -54,7 +54,6 @@ export default class AuthServices {
           }
         );
         if (response.data.auth_token) {
-          console.log(response.data);
           if (response.data.expirationTime) {
             localStorage.setItem(
               "auth_expirationToken",

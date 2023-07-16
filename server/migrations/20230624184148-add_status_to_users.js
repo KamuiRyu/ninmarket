@@ -6,6 +6,7 @@ module.exports = {
     await queryInterface.addColumn("users", "status", {
       type: Sequelize.STRING,
       allowNull: true,
+      defaultValue: "online",
     });
   },
 
