@@ -1,0 +1,170 @@
+.inputBlock .inputLabel {
+  display: block;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: all 0.4s ease-in-out;
+}
+
+.inputBlock .inputLabel span{
+    visibility: hidden;
+}
+.inputBlock .inputLabel.labelInvalid{
+    font-weight: bold;
+    color: rgba(255,51,51, 0.87);
+}
+.inputBlock .inputLabel.labelInvalid span{
+    visibility: visible;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+.inputBlock .inputContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #161616;
+  border: none;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+}
+.inputBlock .inputContainer .inputWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.inputBlock .inputContainer .inputWrapper .inputDefault {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  height: 40px;
+  font-size: 14px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #161616;
+  border: none;
+  transition: all 0.4s ease-in-out;
+  outline: 2px solid transparent;
+}
+
+.inputBlock .inputContainer .inputWrapper .inputDefault.inputInvalid{
+    outline: 1px solid rgba(255,51,51, 0.87);
+}
+
+.inputBlock .inputContainer .inputWrapper .inputDefault:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-inset: var(--tw-empty, /*!*/ /*!*/);
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fedc00;
+  --tw-ring-color: #fedc00;
+}
+
+.formBtn,
+.formBtn:before,
+.formBtn:after {
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+.formBtn i,
+.formBtn em,
+.formBtn b,
+.formBtn strong,
+.formBtn span {
+  transition: none;
+}
+
+.formBtn {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 1rem auto;
+  text-transform: uppercase;
+  border: 1px solid #fedc00;
+  background-color: #fedc00;
+  color: #000;
+  z-index: 1;
+  border-radius: 5px;
+}
+.formBtn {
+  color: #000;
+}
+.formBtn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  z-index: -1;
+}
+.formBtn:hover {
+  color: #fedc00;
+  border: 1px solid currentColor;
+  background-color: transparent;
+  transform: translateX(0%);
+}
+.formBtn:hover:before {
+  transform: translateX(0);
+}
+
+.btnSocial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: #323232;
+  height: 60px;
+  width: 90px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.btnSocial.discord:hover{
+    background: transparent;
+    border: 2px solid #7289da;
+}
+
+.btnSocial.discord{
+    background: #7289da;
+}
+
+.btnSocial.google:hover{
+    background: transparent;
+    border: 2px solid #db4a39;
+}
+
+.btnSocial.google{
+    background: #db4a39;
+}
+
+.btnSocial i{
+    font-size: 40px;
+    color: #fff;
+}

@@ -1,119 +1,130 @@
-import React from "react";
+import { React } from "react";
+import "../../assets/styles/formElements.css";
 
 export function ButtonForm(props) {
-  const divParentActive = props.divParentActive ?? true;
+  const divParentActive = props.divParentActive ?? true,
+    classTo = props.classTo ? props.classTo : "",
+    type = props.type ? props.type : "button",
+    classButton = props.classButton ? props.classButton : "",
+    onClickButton = props.onClickButton ? props.onClickButton : undefined,
+    children = props.children ? props.children : "";
   if (divParentActive) {
     return (
-      <div className={props.classTo}>
+      <div className={classTo}>
         <button
-          type={props.type}
-          className={` ${props.classButton} ${props.classButtonHover} ${props.classButtonFocus} ${props.classButtonAnimation}`}
-          onClick={props.onClickButton}
+          type={type}
+          className={` ${classButton}`}
+          onClick={onClickButton}
         >
-          {props.children}
+          {children}
         </button>
       </div>
     );
   } else {
     return (
-      <button
-        type={props.type}
-        className={` ${props.classButton} ${props.classButtonHover} ${props.classButtonFocus} ${props.classButtonAnimation}`}
-        onClick={props.onClickButton}
-      >
-        {props.children}
-      </button>
+      <>
+        <button type={type} className={classButton} onClick={onClickButton}>
+          {children}
+        </button>
+      </>
     );
   }
 }
 export function InputForm(props) {
+  const classTo = props.classTo ? props.classTo : "",
+    classLabel = props.classLabel ? props.classLabel : "",
+    classInput = props.classInput ? props.classInput : "",
+    classValidate = props.isValid === false ? "inputInvalid" : "",
+    classValidateLabel = props.isValid === false ? "labelInvalid" : "",
+    errorMessage = props.errorMessage ? props.errorMessage : "",
+    label = props.label ? props.label : "",
+    id = props.id ? props.id : "",
+    name = props.name ? props.name : "",
+    type = props.type ? props.type : "text",
+    placeholder = props.placeholder ? props.placeholder : "",
+    autocomplete = props.autoComplete ? props.autoComplete : "",
+    autocapitalize = props.autoCapitalize ? props.autoCapitalize : "",
+    autocorrect = props.autoCorrect ? props.autoCorrect : "",
+    maxlength = props.maxLength ? props.maxLength : "",
+    spellcheck = props.spellCheck ? props.spellCheck : "",
+    onBlur= props.onBlurInput ? props.onBlurInput : undefined,
+    onChange= props.onChangeInput ? props.onChangeInput : undefined;
   return (
-    <div className={`flex flex-col w-full gap-2 ${props.classTo}`}>
-      <div className={`${props.classChildren}`}>
-        <div className={`${props.classSubChildren}`}>
-          <label
-            htmlFor={props.id}
-            className={`${props.classLabel} ${
-              props.isValid === false
-                ? "text-red-700"
-                : props.isValid === true
-                ? "text-green-700"
-                : props.classColorLabel ?? ""
-            }`}
-          >
-            {props.label}
-          </label>
-          {props.children}
-        </div>
-        <div className="relative">
+    <div className={`inputBlock ${classTo}`}>
+      <label className={`inputLabel ${classLabel} ${classValidateLabel} `}>
+        {label}
+        <span> - {errorMessage}</span>
+      </label>
+      <div className="inputContainer">
+        <div className="inputWrapper">
           <input
-            type={props.type}
-            name={props.name}
-            id={props.id}
-            maxLength={props.maxLength}
-            placeholder={props.placeholder}
-            className={`mt-2 flex h-12 w-full items-center justify-center rounded-xl border bg-white/0 p-3 text-sm outline-none ${
-              props.classInput
-            } ${props.classInputFocus} ${props.classInputHover} ${
-              props.classInputPlaceholder
-            } ${props.classAnimation} ${
-              props.isValid === false
-                ? "border border-red-500 text-red-900 placeholder-red-700 focus:ring-red-200 focus:border-red-500"
-                : props.isValid === true
-                ? "border-green-500 text-green-900 placeholder-green-700 focus:ring-green-200 focus:border-green-500"
-                : ""
-            }`}
-            onBlur={props.onBlurInput}
-            onChange={props.onChangeInput}
-          />
-          {props.isValid === false && (
-            <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
-              <svg
-                className="h-5 w-5 text-red-500"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-              </svg>
-            </div>
-          )}
-          {props.isValid === true && (
-            <div className="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
-              <svg
-                className="h-5 w-5 text-green-500"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-              >
-                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
-              </svg>
-            </div>
-          )}
+            className={`inputDefault ${classInput} ${classValidate}`}
+            id={id}
+            name={name}
+            type={type}
+            placeholder={placeholder}
+            aria-label={label}
+            autoComplete={autocomplete}
+            autoCapitalize={autocapitalize}
+            autoCorrect={autocorrect}
+            maxLength={maxlength}
+            spellCheck={spellcheck}
+            onBlur={onBlur}
+            onChange={onChange}
+          ></input>
         </div>
-        {!props.isValid ? (
-          <p
-            className={`mt-2 text-sm text-red-600 dark:text-red-500 ${props.classError}`}
-          >
-            <span>{props.errorMessage}</span>
-          </p>
-        ) : null}
       </div>
     </div>
   );
 }
 
 export function SeperatorForm(props) {
+  const classTo = props.classTo ? props.classTo : "",
+    classChildren = props.classChildren ? props.classChildren : "",
+    children = props.children ? props.children : "",
+    classSeparator = props.classSeparator ? props.classSeparator : "";
   return (
-    <div className={`flex flex-row justify-center ${props.classTo}`}>
-      <span className={`absolute px-4 ${props.classChildren}`}>
-        {props.children}
-      </span>
-      <div className="w-full bg-gray-200 mt-3 h-px" />
+    <div className={`flex flex-row justify-center ${classTo}`}>
+      <span className={`absolute px-4 ${classChildren}`}>{children}</span>
+      <div className={`w-full mt-3 h-px ${classSeparator}`} />
+    </div>
+  );
+}
+
+export function CheckboxDescForm(props) {
+  const divClass = props.divClass ? props.divClass : "",
+    divChildrenClass = props.divChildrenClass ? props.divChildrenClass : "",
+    id = props.id ? props.id : "",
+    name = props.name ? props.name : "",
+    onBlur = props.onBlurCheck ? props.onBlurCheck : "",
+    checkClass = props.checkClass ? props.checkClass : "",
+    labelClass = props.labelClass ? props.labelClass : "",
+    labelTitle = props.labelTitle ? props.labelTitle : "",
+    spanTitle = props.spanTitle ? props.spanTitle : "",
+    classLabelTitle = props.classLabelTitle ? props.classLabelTitle : "",
+    classSpanTitle = props.classSpanTitle ? props.classSpanTitle : "";
+  return (
+    <div className={`relative flex items-start ${divClass}`}>
+      <div className={`flex items-center h-5 mt-1 ${divChildrenClass}`}>
+        <input
+          id={id}
+          name={name}
+          type="checkbox"
+          className={`rounded focus:outline-none ring-0 focus:ring-0 ${checkClass}`}
+          aria-describedby="hs-checkbox-delete-description"
+          defaultChecked=""
+          onBlur={onBlur}
+        />
+      </div>
+      <label htmlFor="hs-checkbox-delete" className={`ml-3 ${labelClass}`}>
+        <span className={`block text-sm ${classLabelTitle}`}>{labelTitle}</span>
+        <span
+          id="hs-checkbox-delete-description"
+          className={`block text-sm ${classSpanTitle}`}
+        >
+          {spanTitle}
+        </span>
+      </label>
     </div>
   );
 }
@@ -122,6 +133,7 @@ const FormElements = {
   InputForm,
   ButtonForm,
   SeperatorForm,
+  CheckboxDescForm,
 };
 
 export default FormElements;

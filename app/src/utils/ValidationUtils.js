@@ -1,126 +1,144 @@
+import i18n from '../i18n';
 class ValidationUtils {
-  static validateNull(value, field = "") {
+  static setTranslationFunction() {
+    return i18n.t.bind(i18n);
+  }
+
+  static validateNull(value, field = "", isLevel = "") {
+    const t = this.setTranslationFunction();
+    
     if (!value) {
       return {
+        isLevel: isLevel,
         isValid: false,
-        errorMessage: "The field " + field + " is required.",
+        errorMessage: t("validation.fieldRequired", { field: field }),
       };
     }
   }
-  static validateEmail(email) {
-    const emailValidation = this.validateNull(email, "email");
-    if (emailValidation && emailValidation.isValid === false) {
-      return emailValidation;
-    }
-    switch (email) {
-      case "email-required":
+  static validateEmail(email, type = 1, error = "") {
+    // Type 1 = register, Type 2 = login
+    const t = this.setTranslationFunction();
+    const emailValidation = this.validateNull(email, t("validation.emailField"));
+    if(error !== ""){
+      switch (error) {
+        case "email-required":
+          return {
+            isValid: false,
+            errorMessage: t("validation.emailRequired"),
+          };
+        case "email-invalid":
+          return {
+            isValid: false,
+            errorMessage: t("validation.emailInvalid"),
+          };
+        case "email-existing":
+          return {
+            isValid: false,
+            errorMessage: t("validation.emailExisting", { email: email }),
+          };
+        default:
+          break;
+      }
+    }else{
+      if (emailValidation && emailValidation.isValid === false) {
+        return emailValidation;
+      }
+     
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      if (!emailRegex.test(email)) {
         return {
           isValid: false,
-          errorMessage: "The field email is required",
+          errorMessage: t("validation.emailInvalid"),
         };
-      case "email-invalid":
-        return {
-          isValid: false,
-          errorMessage: "Please provide a valid email.",
-        };
-      case "email-existing":
-        return {
-          isValid: false,
-          errorMessage: "Email already exists",
-        };
-      default:
-        break;
+      }
+      return { isValid: true, errorMessage: "" };
     }
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (!emailRegex.test(email)) {
-      return {
-        isValid: false,
-        errorMessage: "Please provide a valid email.",
-      };
-    }
-    return { isValid: true, errorMessage: "" };
+    
   }
-  static validateConfirmPassword(password, confirmPassword) {
+  static validateConfirmPassword(password, confirmPassword, error = "") {
+    const t = this.setTranslationFunction();
     if (confirmPassword === "" && password === "") {
       return {
         isValid: false,
-        errorMessage: "The field confirm password is required",
+        errorMessage: t("validation.confirmPasswordRequired"),
       };
     }
-    if (confirmPassword === "confirmPassword-invalid") {
+    if (error === "confirmPassword-invalid") {
       return {
         isValid: false,
-        errorMessage: "The passwords do not match.",
+        errorMessage: t("validation.passwordMismatch"),
       };
     }
     if (password !== confirmPassword) {
       return {
         isValid: false,
-        errorMessage: "The passwords do not match.",
+        errorMessage: t("validation.passwordMismatch"),
       };
     }
     return { isValid: true, errorMessage: "" };
   }
-  static validatePassword(password) {
-    if (password === "password-invalid") {
+  static validatePassword(password, type = 1, error = "") {
+    const t = this.setTranslationFunction();
+    // Type 1 = register, Type 2 = login
+    let isLevel = "";
+    if (
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#])[A-Za-z\d@$!%*?&^#]{8,}$/.test(
+        password
+      )
+    ) {
+      isLevel = "strongest";
+    } else if (/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{8,}$/.test(password)) {
+      isLevel = "strong";
+    } else if (/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+      isLevel = "medium";
+    } else if (/.{8,}/.test(password)) {
+      isLevel = "weak";
+    }
+    if (error === "password-invalid") {
       return {
+        isLevel: isLevel,
         isValid: false,
-        errorMessage: "The field password is required.",
+        errorMessage: t("validation.fieldRequired", { field: "password" }),
       };
     }
-
-    const regexPassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$|^(?=.*[a-zA-Z]).{8,}$|^(?=.*[a-z])(?=.*[A-Z]).{8,}$|^(?=.*[a-z])(?=.*\d).{8,}$/;
-    let isLevel = "weak";
-
-    if (regexPassword.test(password)) {
-      if (regexPassword.test(password)) {
-        if (
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#]).{8,}$/.test(
-            password
-          )
-        ) {
-          isLevel = "strongest";
-        } else if (/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password)) {
-          isLevel = "strong";
-        } else if (/^(?=.*[a-z])(?=.*\d).{8,}$/.test(password)) {
-          isLevel = "medium";
-        } else if (/^(?=.*[a-zA-Z]).{8,}$/.test(password)) {
-          isLevel = "weak";
-        }
-      }
-    }
-    const passwordValidation = this.validateNull(password, "password");
+    const passwordValidation = this.validateNull(password, t("validation.passwordField"), isLevel);
     if (passwordValidation && passwordValidation.isValid === false) {
       return passwordValidation;
     }
 
-    if (password.length < 8) {
+    if (type === 1) {
+      if (password.length < 8) {
+        return {
+          isLevel: "",
+          isValid: false,
+          errorMessage: t("validation.passwordLength"),
+        };
+      }
       return {
         isLevel: isLevel,
-        isValid: false,
-        errorMessage: "The password must have at least 8 characters.",
+        isValid: true,
+        errorMessage: "",
       };
     }
-
     return { isLevel: isLevel, isValid: true, errorMessage: "" };
   }
 
-  static validateNinjaName(ninjaName) {
-    if (ninjaName === "name-invalid" || ninjaName === "name-existing") {
-      if (ninjaName === "name-invalid") {
+  static validateNinjaName(ninjaName, error = "") {
+    const t = this.setTranslationFunction();
+    if (error === "name-invalid" || error === "name-existing") {
+      if (error === "name-invalid") {
         return {
           isValid: false,
-          errorMessage: "The field ninja name is required.",
+          errorMessage: t("validation.ninjaNameRequired"),
         };
       } else {
         return {
           isValid: false,
-          errorMessage: "Ninja name already exists.",
+          errorMessage: t("validation.ninjaNameExisting", { ninjaName: ninjaName }),
         };
       }
     }
-    const ninjaNameValidation = this.validateNull(ninjaName, "ninja name");
+    const ninjaNameValidation = this.validateNull(ninjaName, t("validation.ninjaNameField"));
     if (ninjaNameValidation && ninjaNameValidation.isValid === false) {
       return ninjaNameValidation;
     }
@@ -128,7 +146,7 @@ class ValidationUtils {
     if (ninjaName.length > 20) {
       return {
         isValid: false,
-        errorMessage: "The ninja name must have a maximum of 20 characters.",
+        errorMessage: t("validation.ninjaNameLength"),
       };
     }
 
