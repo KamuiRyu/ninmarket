@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormElements from "../../common/FormElements";
+import FormElements from "../../../components/common/FormElements";
 import ValidationUtils from "../../../utils/ValidationUtils";
 
 function ForgotPasswordContainer({ handlePageChange }) {

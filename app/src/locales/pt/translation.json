@@ -4,25 +4,32 @@
     "market": "Mercado",
     "messages": "Minhas mensagens",
     "signin": "Entrar",
-    "status":{
-        "online":"Disponível",
-        "ingame":"Disponível no jogo",
-        "invisible":"Invisível",
-        "onlineShort":"Disponível",
-        "ingameShort":"No jogo",
-        "invisibleShort":"Invisível"
+    "myprofile": "Meu perfil",
+    "status": {
+      "online": "Disponível",
+      "ingame": "Disponível no jogo",
+      "invisible": "Invisível",
+      "onlineShort": "Disponível",
+      "ingameShort": "No jogo",
+      "invisibleShort": "Invisível"
+    },
+    "admindashboard": "Painel de administração",
+    "logout": {
+      "title": "Tem certeza que deseja sair?",
+      "yes": "Sim",
+      "no": "Não"
     }
   },
-  "actionbtn":{
-    "placeorder":"Fazer anúncio",
-    "createbuild":"Criar build"
+  "actionbtn": {
+    "placeorder": "Fazer anúncio",
+    "createbuild": "Criar build"
   },
-  "register":{
+  "register": {
     "successAlertMessage": "Sua conta foi criada com sucesso! Você será redirecionado em {{ countdown }}.",
-    "termsOfService":{
-        "1": "Ao se cadastrar, você concorda com os",
-        "2": "e a",
-        "3": "do Nin Market."
+    "termsOfService": {
+      "1": "Ao se cadastrar, você concorda com os",
+      "2": "e a",
+      "3": "do Nin Market."
     },
     "title": "Registrar",
     "ninjaNameLabel": "Nome do Ninja",
@@ -97,22 +104,68 @@
     "signUp": "Cadastrar",
     "signIn": "Entrar"
   },
+  "forgotPassword": {
+    "title": "Esqueceu sua senha?",
+    "signin": "Entrar",
+    "emailAddress": "Endereço de email",
+    "rememberPassword": "Lembrou a senha?",
+    "recover": "Recuperar"
+  },
   "validation": {
-    "fieldRequired": "O campo {{field}} é obrigatório.",
+    "fieldRequired": "O campo {{ field }} é obrigatório.",
     "emailRequired": "O campo email é obrigatório.",
     "emailInvalid": "Por favor, forneça um email válido.",
-    "emailExisting": "O email {{email}} já está em uso.",
+    "emailExisting": "O email {{ email }} já está em uso.",
     "confirmPasswordRequired": "O campo confirmar senha é obrigatório.",
     "passwordMismatch": "As senhas não coincidem.",
     "passwordLength": "A senha deve ter pelo menos 8 caracteres.",
     "ninjaNameRequired": "O campo nome do ninja é obrigatório.",
-    "ninjaNameExisting": "O nome do ninja {{ninjaName}} já está em uso.",
+    "ninjaNameExisting": "O nome do ninja {{ ninjaName }} já está em uso.",
     "ninjaNameLength": "O nome do ninja deve ter no máximo 20 caracteres.",
     "emailOrPasswordInvalid": "E-mail ou senha inválidos",
-    "emailField":"email",
-    "passwordField":"senha",
-    "ninjaNameField":"nome ninja",
-    "confirmPassswordField":"confirmar senha"
-  }
-
+    "emailField": "email",
+    "passwordField": "senha",
+    "ninjaNameField": "nome ninja",
+    "confirmPassswordField": "confirmar senha"
+  },
+  "itemDetails": {
+    "tabOrders":"Pedidos",
+    "tabStatistics":"Estatísticas",
+    "tabDrop":"Drop",
+    "itemOrders": {
+      "orderType": "Tipo de Pedido",
+      "buyers": "Comprar",
+      "sellers": "Vender",
+      "thPlayer":"Jogador",
+      "thStatus":"Status",
+      "thReputation":"Reputação",
+      "thUnit": "Preço unitário",
+      "thQuantity": "Quantidade",
+      "maxprice":"Preço max.",
+      "minprice":"Preço min.",
+      "notFound":"Nenhum pedido encontrado.",
+      "onlineStatus": "Status Online",
+      "allStatus": "Todos os Status",
+      "ingame": "No jogo",
+      "online": "Online",
+      "invisible": "Invisível",
+      "ryo": "Ryo"
+    }
+  },
+  "placeOrderModal":{
+    "title":"Faça a encomenda",
+    "fieldType":"Tipo de pedido",
+    "fieldTypeBuy":"Comprar",
+    "fieldTypeSell":"Vender",
+    "fieldVisible":"Visibilidade inicial",
+    "fieldVisibleOn":"Visível",
+    "fieldVisibleOff":"Invisível",
+    "fieldItem":"Nome do item",
+    "fieldPrice":"Preço por unidade",
+    "fieldQuantity":"Quantidade",
+    "btnPost":"Publicar",
+    "orderExisting":"Já existe um pedido como este.",
+    "postSuccess":"Pedido realizado com sucesso."
+  },
+  "error":"Ocorreu um problema com servidor. Tente novamente."
 }

@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const { Op } = require("sequelize");
 const moment = require("moment");
+const cookie = require("cookie");
 
 async function userLogin(req, res) {
   const { email, password } = req.body;
@@ -30,11 +31,13 @@ async function userLogin(req, res) {
         const token = await generateAuthToken(
           user,
           expiresIn,
-          formattedDateTime
+          formattedDateTime,
+          res
         );
         if (token) {
           if (user.photo_url !== null) {
-            const urlPattern = /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,})(:\d{1,5})?([/?#]\S*)?$/i;
+            const urlPattern =
+              /^(https?:\/\/)?([\w.-]+)\.([a-z]{2,})(:\d{1,5})?([/?#]\S*)?$/i;
             if (!urlPattern.test(user.photo_url)) {
               user.photo_url = null;
             }
@@ -52,6 +55,8 @@ async function userLogin(req, res) {
                 token.expirationTime !== null
                   ? token.expirationTime
                   : user.token_expirationTime,
+              role_id: user.role_id ?? 2,
+              token: token.token !== null ? token.token : user.auth_token,
             },
           });
         }
@@ -78,7 +83,7 @@ async function userLogin(req, res) {
     });
   }
 }
-const generateAuthToken = async (user, expiresIn, tokenExpirationTime) => {
+const generateAuthToken = async (user, expiresIn, tokenExpirationTime, res) => {
   const payload = {
     id: user.id,
     name: user.name,
@@ -114,35 +119,17 @@ function decodedToken(token) {
 }
 
 async function authenticate(req, res, next) {
-  const email = req.body.email;
-  const user = await User.findOne({
-    where: {
-      [Op.and]: [{ email }, { active: true }],
-    },
-  });
-  if (user) {
-    const token = await checkAuthTokenFn(user);
-    if (token.auth_token === false) {
-      return res.status(401).json({
-        auth: false,
-        error: "token-expired",
-        messsage: "Token expired!",
-      });
-    }
-    jwt.verify(token.token, process.env.SECRET, function (err, decoded) {
-      if (err)
-        return res.status(500).json({
-          auth: false,
-          message: "Failed to authenticate token.",
-        });
-      req.user = decoded;
-      next();
-    });
-  } else {
-    return res.status(500).json({
-      auth: false,
-      message: "User not found",
-    });
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: "Token não fornecido." });
+  }
+  const secret_key = process.env.SECRET;
+  try {
+    const decodedToken = jwt.verify(token.replace("Bearer ", ""), secret_key);
+    req.user = decodedToken;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Token inválido ou expirado." });
   }
 }
 
@@ -185,12 +172,11 @@ async function checkAuthToken(req, res, next) {
 
 async function checkAuthTokenFn(user) {
   const tokenExpirationTime = user.token_expirationTime;
-  const renewalInterval = process.env.REACT_APP_TOKEN_RENOVATION_TIME; // tempo para renovação em horas
+  const renewalInterval = process.env.REACT_APP_TOKEN_RENOVATION_TIME;
   const currentDateTime = moment();
   const expirationDateTime = moment(tokenExpirationTime);
   const timeDifference = expirationDateTime.diff(currentDateTime);
   const hoursDifference = moment.duration(timeDifference).asHours();
-  console.log(currentDateTime);
   if (hoursDifference <= renewalInterval && hoursDifference > 0) {
     const tokenExpirationTime = moment()
       .add(1, "day")

@@ -1,16 +1,16 @@
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 export default class AuthServices {
   async checkTokenExpiration() {
     try {
-      const storedToken = localStorage.getItem("auth_token");
+      const storedToken = Cookies.get('token');
       const storedExpirationTime = localStorage.getItem(
         "auth_token_rememberExpirationTime"
       );
       if (storedToken && storedExpirationTime) {
         const currentTime = Date.now();
         const timeRemaining = storedExpirationTime - currentTime;
-
         if (timeRemaining <= 0) {
           const tokenData = await this.fetchToken();
           return tokenData;
@@ -92,6 +92,12 @@ export default class AuthServices {
       window.location.reload();
     }
   }
+
+  async getAuthToken () {
+    const token = localStorage.getItem("auth_token");
+    return token;
+  }
+
   async fetchCSRFToken() {
     const url =
       process.env.REACT_APP_API_URL +

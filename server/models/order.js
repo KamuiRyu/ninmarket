@@ -7,8 +7,8 @@ if (process.env.DB_SCHEMA) {
   dbSchema = process.env.DB_SCHEMA;
 }
 
-const User = sequelize.define(
-  "User",
+const Order = sequelize.define(
+  "Order",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -16,52 +16,29 @@ const User = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    reputation: {
+    type: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    auth_token: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
     },
-    token_expirationTime: {
-      type: DataTypes.DATE,
-      allowNull: true,
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    active: {
+    visible: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    photo_url: {
-      type: DataTypes.STRING(650),
-      allowNull: true,
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    role_id:{
+    status:{
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 2, 
     }
   },
   {
-    tableName: "users",
+    tableName: "orders",
     schema: dbSchema,
     timestamps: true,
     createdAt: "createdAt",
@@ -69,4 +46,10 @@ const User = sequelize.define(
   }
 );
 
-module.exports = User;
+const User = require("./user");
+const Item = require("./item");
+
+Order.belongsTo(User, { foreignKey: "user_id" });
+Order.belongsTo(Item, { foreignKey: "item_id" });
+
+module.exports = Order;

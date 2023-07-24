@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/styles/actionBtn.css";
+import "../../assets/styles/components/actionBtn.css";
 
 export default function ActionBtn(props) {
   const [isListContainerActive, setListContainerActive] = useState(false);
@@ -15,17 +15,12 @@ export default function ActionBtn(props) {
         <button
           className="more-button"
           aria-label="Menu Button"
-          onClick={handleButtonClick}
+          onClick={props.onClick}
         >
           <div className="menu-icon-wrapper">
-            <div className="menu-icon-line half first" />
-            <div className="menu-icon-line" />
-            <div className="menu-icon-line half last" />
+          <i className='bx bx-list-plus menu-icon-line' ></i>
           </div>
         </button>
-        <ul className="more-button-list">
-          {props.children}
-        </ul>
       </div>
     </div>
   );

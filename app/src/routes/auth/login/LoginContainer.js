@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormElements from "../../common/FormElements";
+import FormElements from "../../../components/common/FormElements";
 import ValidationUtils from "../../../utils/ValidationUtils";
 import AuthServices from "../../../services/AuthServices";
 import axios from "axios";
@@ -111,6 +111,14 @@ function LoginContainer({ handlePageChange }) {
           localStorage.setItem(
             "auth_expirationToken",
             data.user.expirationToken
+          );
+          localStorage.setItem(
+            "auth_token",
+            data.user.token
+          );
+          localStorage.setItem(
+            "auth_role",
+            data.user.role_id
           );
           window.location.reload();
         }

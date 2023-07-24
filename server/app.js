@@ -27,10 +27,11 @@ const csrfProtection = csrf({
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://127.0.0.1:3000/"],
     credentials: true,
   })
 );
+
 
 const apiUrl = process.env.REACT_APP_API_URL;
 const apiPort = process.env.REACT_APP_API_PORT;
@@ -39,6 +40,8 @@ const apiPort = process.env.REACT_APP_API_PORT;
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const itemRoutes = require("./routes/itemRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 app.get("/api/csrftoken", csrfProtection, (req, res) => {
   const csrfToken = req.csrfToken();
@@ -48,6 +51,8 @@ app.get("/api/csrftoken", csrfProtection, (req, res) => {
 });
 
 app.use("/api", authRoutes);
+app.use("/api/item", itemRoutes);
+app.use("/api/order", orderRoutes);
 app.use("/api/users", userRoutes);
 
 // Inicie o servidor

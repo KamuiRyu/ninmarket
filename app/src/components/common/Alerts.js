@@ -27,7 +27,7 @@ export function SuccessAlert(props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`relative flex flex-col sm:flex-row sm:items-center  ${divClass}`}
+          className={`relative flex flex-col sm:flex-row sm:items-center ${divClass}`}
         >
           <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
             <div className="text-green-500">
@@ -81,16 +81,19 @@ export function SuccessAlert(props) {
 export function ErrorAlert(props) {
   const [isClosed, setIsClosed] = useState(false);
 
-  useEffect(() => {
-    setIsClosed(props.isClosed);
-  }, [props.isClosed]);
-  
   const handleClose = () => {
     setIsClosed(true);
     if (props.onClose) {
-      props.onClose();
+      props.onClose(props.onClose);
     }
   };
+  
+
+  const label = props.label ? props.label : "",
+  children = props.children ? props.children : "",
+  divClass = props.divClass ? props.divClass : "",
+  labelClass = props.labelClass ? props.labelClass : "",
+  childrenClass = props.childrenClass ? props.childrenClass : "";
 
   return (
     <AnimatePresence>
@@ -100,7 +103,7 @@ export function ErrorAlert(props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 ${props.divClass}`}
+          className={`relative flex flex-col sm:flex-row sm:items-center ${divClass}`}
         >
           <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
             <div className="text-red-500">
@@ -118,10 +121,10 @@ export function ErrorAlert(props) {
                 />
               </svg>
             </div>
-            <div className="text-sm font-medium ml-3">{props.label}</div>
+            <div className={`text-sm font-medium ml-3 ${labelClass}`}>{label}</div>
           </div>
-          <div className="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
-            {props.children}
+          <div className={`text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4 ${childrenClass}`}>
+            {children}
           </div>
           {props.onCloseBtn && (
             <div

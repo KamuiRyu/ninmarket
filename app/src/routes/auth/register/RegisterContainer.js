@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AuthServices from "../../../services/AuthServices";
 import ValidationUtils from "../../../utils/ValidationUtils";
-import FormElements from "../../common/FormElements";
-import { SuccessAlert } from "../../common/Alerts";
+import FormElements from "../../../components/common/FormElements";
+import { SuccessAlert } from "../../../components/common/Alerts";
 import { useTranslation } from "react-i18next";
 
 const INITIAL_FORM_DATA = {
@@ -62,7 +62,6 @@ export default function RegisterContainer({
             validateAll(response.data);
             return false;
           }
-
           setResponse(response.data);
         }
       } catch (error) {

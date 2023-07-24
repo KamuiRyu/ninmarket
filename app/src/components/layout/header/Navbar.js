@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-import "../../../assets/styles/navbar.css";
+import "../../../assets/styles/components/navbar.css";
 import AuthServices from "../../../services/AuthServices";
 import axios from "axios";
 import UserProfile from "../../common/UserProfile";
 import { useTranslation } from "react-i18next";
-import ukFlag from "../../../assets/images/uk.png";
-import brFlag from "../../../assets/images/br.png";
+import { Link } from "react-router-dom";
+import Logo from "../../../assets/images/logo.png";
+import LanguagePicker from "./LanguagePicker";
+import Modals from "../../common/Modal";
+import languageSupport from "../../../utils/languageSupport";
 
 function Navbar(props) {
   const { t } = useTranslation();
-  const { i18n } = useTranslation();
+
   const isLoggedIn = localStorage.getItem("auth_login")
     ? localStorage.getItem("auth_login")
     : false;
   const [switchStatus, setSwitchStatus] = useState("");
   const [userStatusClass, setUserStatusClass] = useState("");
-  const handleChangeLanguage = (language) => {
-    const localLanguage = localStorage.getItem("auth_language");
-    if (language !== localLanguage) {
-      localStorage.setItem("auth_language", language);
-      i18n.changeLanguage(language);
-    }
-  };
+
   const [isInfoVisible, setIsInfoVisible] = useState(false);
   const [isSwitchActive, setIsSwitchActive] = useState(false);
 
@@ -59,6 +56,7 @@ function Navbar(props) {
         const authToken = new AuthServices();
         const csrfData = await authToken.fetchCSRFToken();
         const checkAuth = await authToken.checkAuthTokenExpiration();
+        const token = await authToken.getAuthToken();
         if (csrfData.csrfToken && checkAuth.auth_token === true) {
           axios.defaults.withCredentials = true;
           const userData = {
@@ -81,6 +79,7 @@ function Navbar(props) {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 "xsrf-token": csrfData.csrfToken,
+                "Authorization": "Bearer "+token
               },
               credentials: "include",
               mode: "cors",
@@ -129,6 +128,7 @@ function Navbar(props) {
       const popup = document.getElementById("profile-popup");
       popup.classList.remove("show");
       setIsInfoVisible(false);
+      setItemSearch(false);
     }
     sidebar.classList.toggle("open");
 
@@ -147,53 +147,169 @@ function Navbar(props) {
     }
     event.stopPropagation();
   }
+  const [logoutModal, setLogoutModal] = useState(false);
+
+  const logoutOpen = () => {
+    setLogoutModal(true);
+  };
+
+  const logoutClose = () => {
+    setLogoutModal(false);
+  };
+
+  const [itemSearch, setItemSearch] = useState(false);
+  const [languageUser, setLanguageUser] = useState(
+    localStorage.getItem("language") ? localStorage.getItem("language") : "en"
+  );
+  const [searchItemsFound, setSearchItemsFound] = useState([]);
+  const debounce = (func, delay) => {
+    let timerId;
+    return function (...args) {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  };
+
+  useEffect(() => {
+    const languageFromLocalStorage = localStorage.getItem("language");
+    setLanguageUser(languageFromLocalStorage);
+  }, [localStorage.getItem("language")]);
+
+  const delayedHandleItemSearch = debounce(async (event) => {
+    const language = languageSupport(languageUser);
+    if (!language) {
+      setLanguageUser("en");
+    }
+    const value = event.target.value;
+    if (value !== "") {
+      try {
+        axios.defaults.withCredentials = true;
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/item/${value}/${languageUser}`,
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+            mode: "cors",
+          }
+        );
+        if (response.status === 200) {
+          if (Array.isArray(response.data) && response.data.length === 0) {
+            setItemSearch(false);
+          } else {
+            setSearchItemsFound(response.data);
+            setItemSearch(true);
+          }
+        } else {
+          console.log(response);
+        }
+      } catch (error) {
+        console.error("Erro ao fazer login:", error);
+      }
+    }
+  }, 500);
+  const handleItemSearch = (event) => {
+    delayedHandleItemSearch(event);
+  };
+
+  const handleClearInput = () => {
+    document.getElementById("itemSearch").value = "";
+    setItemSearch(false);
+  };
+
+  const handleItemSelected = () => {
+    setItemSearch(false);
+  }
+
+  const handleSearchValue = (item) => {
+    document.getElementById("itemSearch").value = item.name[languageUser];
+  }
   return (
     <>
+      {logoutModal && (
+        <Modals.ModalConfirm
+          yesOnClick={() => auth.logoutUser("action-user")}
+          noOnClick={logoutClose}
+          yesText={t("navbar.logout.yes")}
+          noText={t("navbar.logout.no")}
+          title={t("navbar.logout.title")}
+          onClose={logoutClose}
+        ></Modals.ModalConfirm>
+      )}
       <div className="sidebar" id="sidebar">
         <div className="logo-details">
-          <i className="bx bxl-c-plus-plus icon" />
-          <div className="logo_name">NinMarket</div>
+          <div className="logo_name">
+            <img src={Logo} alt="Logo" />
+          </div>
           <i className="bx bx-menu" id="btn" onClick={toggleSidebar} />
         </div>
-        <div className="change-language">
-          <div className="grid-container">
-            <button onClick={() => handleChangeLanguage("en")}>
-              <img
-                src={ukFlag}
-                className="en-language"
-                alt="Change language to English"
-              />
-            </button>
-            <button onClick={() => handleChangeLanguage("pt")}>
-              <img
-                src={brFlag}
-                className="br-language"
-                alt="Trocar idioma para Português"
-              />
-            </button>
-          </div>
-        </div>
-
+        <LanguagePicker />
         <ul className="nav-list">
-          <li>
+          <li
+            className={`inputSearch${itemSearch ? " searched" : ""} ${
+              itemSearch ? "show-clear-icon" : ""
+            }`}
+          >
             <i className="bx bx-search" onClick={toggleSidebar} />
-            <input type="text" placeholder={t("navbar.search")} />
+            <input
+              type="text"
+              className="focus:outline-none focus:ring-0"
+              placeholder={t("navbar.search")}
+              onChange={handleItemSearch}
+              onBlur={handleItemSelected}
+              id="itemSearch"
+            />
+            {itemSearch && (
+              <i className="bx bx-x clear-icon" onClick={handleClearInput} />
+            )}
             <span className="tooltip">{t("navbar.search")}</span>
           </li>
+          <div className={`resultBlock${itemSearch ? " active" : ""}`}>
+            <ul className={`resultSearch`}>
+              {searchItemsFound.map((item, index) => {
+                const translatedType =
+                  item.type[languageUser] || item.type["en"];
+                const translatedName =
+                  item.name[languageUser] || item.name["en"];
+
+                return (
+                  <Link to={`/items/${item.slug}`} key={index} onClick={() => handleSearchValue(item)}>
+                    <li>
+                      <div className="resultImg">
+                        <img src={item.image_url} alt="item" />
+                      </div>
+                      <div className="resultInfo">
+                        <span className={`resultType ${translatedType}`}>
+                          {translatedType}
+                        </span>
+                        <span className="resultName">{translatedName}</span>
+                      </div>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </div>
           <li>
-            <a href="#">
+            <Link to="/" className="link-button">
               <i className="bx bxs-store"></i>
               <span className="links_name">{t("navbar.market")}</span>
-            </a>
+            </Link>
             <span className="tooltip">{t("navbar.market")}</span>
           </li>
           {isLoggedIn && (
             <>
               <li>
-                <a href="#">
+                <Link to="/" className="link-button">
                   <i className="bx bxs-message-dots"></i>
                   <span className="links_name">{t("navbar.messages")}</span>
-                </a>
+                </Link>
                 <span className="tooltip">{t("navbar.messages")}</span>
               </li>
             </>
@@ -324,7 +440,7 @@ function Navbar(props) {
                   <i className="bx bxs-cog iconBtn" />
                   <i
                     className="bx bx-log-out-circle iconBtn"
-                    onClick={() => auth.logoutUser("action-user")}
+                    onClick={logoutOpen}
                   />
                 </div>
               </li>

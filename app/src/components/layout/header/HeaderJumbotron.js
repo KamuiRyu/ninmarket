@@ -1,10 +1,11 @@
 import React from "react";
-import "../../../assets/styles/headerJumbotron.css";
+import "../../../assets/styles/components/headerJumbotron.css";
 
 function HeaderJumbotron(props) {
   return (
     <section className="headerBG">
-      <div className={`content ${props.classTo} z-10`}></div>
+      <div className={`content ${props.classTo}`}></div>
+      {props.children}
     </section>
   );
 }

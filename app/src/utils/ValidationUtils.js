@@ -6,8 +6,7 @@ class ValidationUtils {
 
   static validateNull(value, field = "", isLevel = "") {
     const t = this.setTranslationFunction();
-    
-    if (!value) {
+    if (value === "") {
       return {
         isLevel: isLevel,
         isValid: false,

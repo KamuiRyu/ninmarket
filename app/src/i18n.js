@@ -17,8 +17,8 @@ i18n
         translation: translationPT,
       },
     },
-    lng: localStorage.getItem("auth_language") || "en", 
-    fallbackLng: localStorage.getItem("auth_language") || "en", 
+    lng: localStorage.getItem("language") || "en", 
+    fallbackLng: localStorage.getItem("language") || "en", 
     interpolation: {
       escapeValue: false,
     },

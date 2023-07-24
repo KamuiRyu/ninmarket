@@ -4,6 +4,7 @@
     "market": "Market",
     "messages": "My Messages",
     "signin": "Sign In",
+    "myprofile": "My profile",
     "status":{
         "online":"Online",
         "ingame":"Online in game",
@@ -11,6 +12,12 @@
         "onlineShort":"Online",
         "ingameShort":"Ingame",
         "invisibleShort":"Invisible"
+    },
+    "admindashboard":"Admin panel",
+    "logout": {
+      "title": "Sure you want to exit?",
+      "yes":"Yes",
+      "no": "No"
     }
   },
   "actionbtn":{
@@ -97,6 +104,13 @@
     "signUp": "Sign Up",
     "signIn": "Sign In"
   },
+  "forgotPassword":{
+    "title": "Forgot your password?",
+    "signin":"Sign In",
+    "emailAddress": "Email Address",
+    "rememberPassword":"Remember the password?",
+    "recover":"Recover"
+  },
   "validation": {
     "fieldRequired": "The {{field}} field is required.",
     "emailRequired": "The email field is required.",
@@ -113,5 +127,45 @@
     "passwordField": "password",
     "ninjaNameField": "ninja name",
     "confirmPassswordField": "confirm password"
-  }
+  },
+  "itemDetails":{
+    "tabOrders":"Orders",
+    "tabStatistics":"Statistics",
+    "tabDrop":"Drop",
+    "itemOrders":{
+      "orderType": "Order type",
+      "buyers":"Buy",
+      "sellers":"Sell",
+      "thPlayer":"Player",
+      "thStatus":"Status",
+      "thReputation":"Reputation",
+      "thUnit": "Unit price",
+      "thQuantity": "Quantity",
+      "maxprice":"Max price",
+      "minprice":"Min price",
+      "notFound":"No orders found.",
+      "onlineStatus":"Online status",
+      "allStatus":"All status",
+      "ingame":"Online in game",
+      "online":"Online",
+      "invisible": "Invisible"  ,
+      "ryo":"Ryo"
+    }
+  },
+  "placeOrderModal":{
+    "title":"Place Order",
+    "fieldType":"Order type",
+    "fieldTypeBuy":"Buy",
+    "fieldTypeSell":"Sell",
+    "fieldVisible":"Initial visibility",
+    "fieldVisibleOn":"Visible",
+    "fieldVisibleOff":"Invisible",
+    "fieldItem":"Item name",
+    "fieldPrice":"Price per unit",
+    "fieldQuantity":"Quantity",
+    "btnPost":"Post",
+    "orderExisting":"There is already a order like this.",
+    "postSuccess":"Order made successfully"
+  },
+  "error":"There was a problem with the server. Try again."
 }
