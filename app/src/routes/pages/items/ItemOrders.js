@@ -73,7 +73,7 @@ export default function ItemOrders({ orders }) {
 
     if (sortedColumn !== columnIndex || sortedCurrentType !== type) {
       sOrder = "asc"
-      updatedClickCount = 1;
+      updatedClickCount = 0;
       setSortOrder(sOrder);
       setSortedOrders({ ...orders });
       setSortedCurrentType(type);
@@ -91,7 +91,7 @@ export default function ItemOrders({ orders }) {
       }
     }
     console.log(updatedClickCount);
-    if (updatedClickCount <= 2) {
+    if (updatedClickCount < 2) {
       if (typeof orders === "object" && orders.wtb && orders.wts) {
         const dataToSort = [...orders[type]];
         dataToSort.sort((rowA, rowB) => {
@@ -158,7 +158,6 @@ export default function ItemOrders({ orders }) {
     }
 
     const isAscending = sortOrder === "asc";
-    console.log(sortOrder);
     const rotate180Class = !isAscending ? "rotate-180" : "";
 
     return (
