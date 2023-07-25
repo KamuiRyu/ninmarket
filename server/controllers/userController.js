@@ -108,6 +108,7 @@ const createUser = async (req, res) => {
       email: email,
       password: hashedPassword,
       status: "online",
+      reputation: 0,
       active: true,
     });
 
@@ -121,6 +122,7 @@ const createUser = async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Error creating user",

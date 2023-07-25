@@ -32,7 +32,7 @@ const User = sequelize.define(
     },
     reputation: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     auth_token: {
       type: DataTypes.STRING,

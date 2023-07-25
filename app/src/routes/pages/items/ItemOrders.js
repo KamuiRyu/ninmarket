@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import "../../../assets/styles/pages/itemDetails.css";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
+import UserProfile from "../../../components/common/UserProfile";
 
 export default function ItemOrders({ orders }) {
   const { t } = useTranslation();
@@ -10,6 +11,11 @@ export default function ItemOrders({ orders }) {
   const [orderByMinPrice, setOrderByMinPrice] = useState("");
   const [orderByMaxPrice, setOrderByMaxPrice] = useState("");
   const [showTBody, setShowTBody] = useState(false);
+  const [sortedColumn, setSortedColumn] = useState(null);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortedOrders, setSortedOrders] = useState(orders);
+  const [sortedCurrentType, setSortedCurrentType] = useState("wtb");
+  const [clickCount, setClickCount] = useState(0);
 
   const handleOrderType = (type) => {
     if (type !== orderByType) {
@@ -60,6 +66,105 @@ export default function ItemOrders({ orders }) {
   useEffect(() => {
     setShowTBody(true);
   }, [orderByType, orderByStatus]);
+
+  const sortTable = (columnIndex, type) => {
+    let sOrder = "";
+    let updatedClickCount = clickCount;
+
+    if (sortedColumn !== columnIndex || sortedCurrentType !== type) {
+      sOrder = "asc"
+      updatedClickCount = 1;
+      setSortOrder(sOrder);
+      setSortedOrders({ ...orders });
+      setSortedCurrentType(type);
+      setSortedColumn(columnIndex);
+    } else {
+      switch (updatedClickCount) {
+        case 0:
+          sOrder = "asc";
+          break;
+        case 1:
+          sOrder = "desc";
+          break;
+        default:
+          break;
+      }
+    }
+    console.log(updatedClickCount);
+    if (updatedClickCount <= 2) {
+      if (typeof orders === "object" && orders.wtb && orders.wts) {
+        const dataToSort = [...orders[type]];
+        dataToSort.sort((rowA, rowB) => {
+          let cellA, cellB;
+          switch (columnIndex) {
+            case 1:
+              cellA = rowA.User.name.toLowerCase();
+              cellB = rowB.User.name.toLowerCase();
+              break;
+            case 2:
+              cellA = rowA.User.status.toLowerCase();
+              cellB = rowB.User.status.toLowerCase();
+              break;
+            case 3: 
+              cellA = rowA.User.reputation;
+              cellB = rowB.User.reputation;
+              break;
+            case 4: 
+              cellA = parseFloat(rowA.price);
+              cellB = parseFloat(rowB.price);
+              break;
+            case 5:
+              cellA = parseInt(rowA.quantity);
+              cellB = parseInt(rowB.quantity);
+              break;
+            default:
+              return 0;
+          }
+
+          const compareResult =
+            isNaN(cellA) || isNaN(cellB)
+              ? cellA.localeCompare(cellB)
+              : cellA - cellB;
+
+          return sOrder === "asc" ? compareResult : -compareResult;
+        });
+
+        setSortedOrders((prevOrders) => ({
+          ...prevOrders,
+          [type]:
+          sOrder === "asc" ? [...dataToSort] : [...dataToSort.reverse()],
+        }));
+        updatedClickCount++;
+        setClickCount(updatedClickCount);
+        setSortOrder(sOrder);
+      }
+    } else{
+      updatedClickCount = 0;
+      sOrder = 'asc';
+      setClickCount(updatedClickCount);
+      setSortOrder(sOrder);
+      setSortedOrders({ ...orders });
+    }
+  };
+
+  const getSortIcon = (columnIndex, type, sortOrder, sortedColumn) => {
+
+    if (
+      sortedColumn !== columnIndex ||
+      sortedCurrentType !== type ||
+      clickCount === 0
+    ) {
+      return <i className={`bx bxs-up-arrow ml-2 opacity-0`}></i>;
+    }
+
+    const isAscending = sortOrder === "asc";
+    console.log(sortOrder);
+    const rotate180Class = !isAscending ? "rotate-180" : "";
+
+    return (
+      <i className={`bx bxs-up-arrow ml-2 opacity-1 ${rotate180Class}`}></i>
+    );
+  };
   return (
     <div className="order-content">
       <div className="order-content-header">
@@ -176,20 +281,40 @@ export default function ItemOrders({ orders }) {
                 <thead className="bg-dark-850 text-dark-high">
                   <tr>
                     <th className="px-4"></th>
-                    <th className="px-3 py-5 text-left">
-                      {t("itemDetails.itemOrders.thPlayer")}
+                    <th
+                      className="px-3 py-5 text-left cursor-pointer"
+                      onClick={() => sortTable(1, orderByType)}
+                    >
+                      <span>{t("itemDetails.itemOrders.thPlayer")}</span>
+                      {getSortIcon(1, orderByType, sortOrder, sortedColumn)}
                     </th>
-                    <th className="px-3 py-5 text-left">
+                    <th
+                      className="px-3 py-5 text-left cursor-pointer"
+                      onClick={() => sortTable(2, orderByType)}
+                    >
                       {t("itemDetails.itemOrders.thStatus")}
+                      {getSortIcon(2, orderByType, sortOrder, sortedColumn)}
                     </th>
-                    <th className="px-3 py-5 text-left">
+                    <th
+                      className="px-3 py-5 text-left cursor-pointer"
+                      onClick={() => sortTable(3, orderByType)}
+                    >
                       {t("itemDetails.itemOrders.thReputation")}
+                      {getSortIcon(3, orderByType, sortOrder, sortedColumn)}
                     </th>
-                    <th className="px-3 py-5 text-left">
+                    <th
+                      className="px-3 py-5 text-left cursor-pointer"
+                      onClick={() => sortTable(4, orderByType)}
+                    >
                       {t("itemDetails.itemOrders.thUnit")}
+                      {getSortIcon(4, orderByType, sortOrder, sortedColumn)}
                     </th>
-                    <th className="px-3 py-5 text-left">
+                    <th
+                      className="px-3 py-5 text-left cursor-pointer"
+                      onClick={() => sortTable(5, orderByType)}
+                    >
                       {t("itemDetails.itemOrders.thQuantity")}
+                      {getSortIcon(5, orderByType, sortOrder, sortedColumn)}
                     </th>
                     <th className="px-3 py-5 text-left"></th>
                   </tr>
@@ -203,103 +328,106 @@ export default function ItemOrders({ orders }) {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <>
-                        {orders[orderByType.toLowerCase()] &&
-                        orders[orderByType.toLowerCase()].length > 0 ? (
-                          orders[orderByType.toLowerCase()].map((order) =>
-                            (order.User.status === orderByStatus ||
-                              orderByStatus === "all") &&
-                            (orderByMaxPrice === "" ||
-                              Number(order.price) <= Number(orderByMaxPrice)) &&
-                            (orderByMinPrice === "" ||
-                              Number(order.price) >=
-                                Number(orderByMinPrice)) ? (
-                              <tr key={order.id}>
-                                <td>
-                                  <div
-                                    className={`order-type-marker ${orderByType}`}
-                                  >
-                                    {orderByType}
-                                  </div>
-                                </td>
-                                <td className="p-3">
-                                  <div className="flex items-center">
-                                    <img
-                                      className="rounded-full h-12 w-12 object-cover"
-                                      src={order.User.photo_url}
-                                      alt="unsplash"
+                      {sortedOrders[orderByType.toLowerCase()] &&
+                      sortedOrders[orderByType.toLowerCase()].length > 0 ? (
+                        sortedOrders[orderByType.toLowerCase()].map((order) =>
+                          (order.User.status === orderByStatus ||
+                            orderByStatus === "all") &&
+                          (orderByMaxPrice === "" ||
+                            Number(order.price) <= Number(orderByMaxPrice)) &&
+                          (orderByMinPrice === "" ||
+                            Number(order.price) >= Number(orderByMinPrice)) ? (
+                            <tr key={order.id}>
+                              <td>
+                                <div
+                                  className={`order-type-marker ${orderByType}`}
+                                >
+                                  {orderByType}
+                                </div>
+                              </td>
+                              <td className="p-3">
+                                <div className="flex items-center">
+                                  {order.User.photo_url !== null ? (
+                                    <UserProfile
+                                      photo={order.User.photo_url}
+                                      imgAlt={`Photo ${order.User.name}`}
+                                      imgClass="rounded-full h-12 w-12 object-cover"
                                     />
-                                    <div className="ml-3">
-                                      <div className="">{order.User.name}</div>
-                                    </div>
+                                  ) : (
+                                    <UserProfile
+                                      name={order.User.name}
+                                      imgClass="rounded-full h-12 w-12 object-cover bg-color-main"
+                                      spanClass="flex items-center justify-center w-full h-full text-xl text-black font-bold"
+                                    ></UserProfile>
+                                  )}
+                                  <div className="ml-3">
+                                    <div className="">{order.User.name}</div>
                                   </div>
-                                </td>
-                                <td className="p-3">
-                                  <span
-                                    className={`rounded-md px-3 status-${order.User.status}`}
-                                  >
-                                    {order.User.status === "online"
-                                      ? t("itemDetails.itemOrders.online")
-                                      : order.User.status === "ingame"
-                                      ? t("itemDetails.itemOrders.ingame")
-                                      : order.User.status === "invisible"
-                                      ? t("itemDetails.itemOrders.invisible")
-                                      : ""}
-                                  </span>
-                                </td>
-                                <td className="p-3">
-                                  <span
-                                    className={`align-middle ${
-                                      order.User.reputation < 0
-                                        ? "badRep"
-                                        : order.User.reputation >= 0 &&
-                                          order.User.reputation < 20
-                                        ? "goodRep"
-                                        : "niceRep"
-                                    }`}
-                                  >
-                                    {order.User.reputation}
-                                  </span>
-                                  {order.User.reputation < 0 && (
-                                    <i className="bx bx-meh-alt align-middle ml-2 badRep"></i>
+                                </div>
+                              </td>
+                              <td className="p-3">
+                                <span
+                                  className={`rounded-md px-3 status-${order.User.status}`}
+                                >
+                                  {order.User.status === "online"
+                                    ? t("itemDetails.itemOrders.online")
+                                    : order.User.status === "ingame"
+                                    ? t("itemDetails.itemOrders.ingame")
+                                    : order.User.status === "invisible"
+                                    ? t("itemDetails.itemOrders.invisible")
+                                    : ""}
+                                </span>
+                              </td>
+                              <td className="p-3">
+                                <span
+                                  className={`align-middle ${
+                                    order.User.reputation < 0
+                                      ? "badRep"
+                                      : order.User.reputation >= 0 &&
+                                        order.User.reputation < 20
+                                      ? "goodRep"
+                                      : "niceRep"
+                                  }`}
+                                >
+                                  {order.User.reputation}
+                                </span>
+                                {order.User.reputation < 0 && (
+                                  <i className="bx bx-meh-alt align-middle ml-2 badRep"></i>
+                                )}
+                                {order.User.reputation >= 0 &&
+                                  order.User.reputation < 20 && (
+                                    <i className="bx bx-smile align-middle ml-2 goodRep"></i>
                                   )}
-                                  {order.User.reputation >= 0 &&
-                                    order.User.reputation < 20 && (
-                                      <i className="bx bx-smile align-middle ml-2 goodRep"></i>
-                                    )}
-                                  {order.User.reputation >= 20 && (
-                                    <i className="bx bx-cool align-middle ml-2 niceRep"></i>
-                                  )}
-                                </td>
-                                <td className="p-3">{order.price}</td>
-                                <td className="p-3">{order.quantity}</td>
-                                <td className="p-3 ">
-                                  <a
-                                    href="#"
-                                    className="text-gray-400 hover:text-gray-100 mr-2"
-                                  >
-                                    <i className="bx bxs-chat text-base"></i>
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="text-gray-400 hover:text-gray-100  mx-2"
-                                  >
-                                    <i className="bx bx-money-withdraw text-base"></i>
-                                  </a>
-                                </td>
-                              </tr>
-                            ) : (
-                              ""
-                            )
-                          )
-                        ) : (
-                          <tr>
-                            <td colSpan="7" className="text-center">
-                              {t("itemDetails.itemOrders.notFound")}
-                            </td>
-                          </tr>
-                        )}
-                      </>
+                                {order.User.reputation >= 20 && (
+                                  <i className="bx bx-cool align-middle ml-2 niceRep"></i>
+                                )}
+                              </td>
+                              <td className="p-3">{order.price}</td>
+                              <td className="p-3">{order.quantity}</td>
+                              <td className="p-3 ">
+                                <a
+                                  href="#"
+                                  className="text-gray-400 hover:text-gray-100 mr-2"
+                                >
+                                  <i className="bx bxs-chat text-base"></i>
+                                </a>
+                                <a
+                                  href="#"
+                                  className="text-gray-400 hover:text-gray-100 mx-2"
+                                >
+                                  <i className="bx bx-money-withdraw text-base"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          ) : null
+                        )
+                      ) : (
+                        <tr>
+                          <td colSpan="7" className="text-center">
+                            {t("itemDetails.itemOrders.notFound")}
+                          </td>
+                        </tr>
+                      )}
                     </motion.tbody>
                   )}
                 </AnimatePresence>

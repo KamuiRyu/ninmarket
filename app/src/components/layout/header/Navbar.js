@@ -366,6 +366,7 @@ function Navbar(props) {
                       <UserProfile
                         name={user.name}
                         imgClass="userAvatarName"
+                        spanClass="font-bold"
                       ></UserProfile>
                     )}
                   </div>

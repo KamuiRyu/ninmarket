@@ -623,6 +623,7 @@
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  position: relative;
 }
 
 .main-content
@@ -702,7 +703,7 @@
   .order-type-filter-block {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-column-gap: 1%;
+  grid-column-gap: 0%;
   margin-top: 10px;
 }
 
@@ -773,21 +774,13 @@
   align-items: center;
   width: 100%;
   padding: 10px 60px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   font-size: 13px;
+  background-color: #161616;
 }
-.main-content
-  .order-content
-  .order-content-header
-  .order-content-header-container
-  .order-content-header-filters
-  .order-filter
-  .order-type-filter-block
-  .custom-radio-button {
-  border-radius: 5px;
-}
+
 .main-content
   .order-content
   .order-content-header
@@ -797,7 +790,6 @@
   .order-type-filter-block2
   .custom-radio-button.allstatus {
   border-right: none;
-  border-radius: 5px 0px 0px 5px;
 }
 
 .main-content
@@ -821,7 +813,6 @@
   .order-type-filter-block2
   .custom-radio-button.online {
   border-left: none;
-  border-radius: 0px 5px 5px 0px;
 }
 
 .main-content
@@ -868,7 +859,6 @@
   .custom-radio-button__container
   input[type="radio"]:checked
   + .custom-radio-button {
-  border: 1px solid #fedc00;
   box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.5);
   background-color: #fedc00;
   color: #000;
@@ -972,7 +962,7 @@
   .order-content-header-filters
   .order-filter.priceFilter
   input[type="number"] {
-  background: 0 0;
+  background: #161616;
   border: 0 solid;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   outline: 0;
@@ -1074,7 +1064,20 @@
   table
   tr
   th {
+  font-size: 14px;
   background-color: #262626;
+}
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr
+  th
+  i {
+  font-size: 10px !important;
+  line-height: 10px;
+  transition: transform 300ms ease-out, -webkit-transform 300ms ease-out;
 }
 
 .main-content

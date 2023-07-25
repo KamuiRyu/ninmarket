@@ -7,7 +7,7 @@ function UserProfile(props) {
         <img src={props.photo} alt={props.imgAlt} className={props.imgClass} />
       ) : (
         <div className={`initials ${props.imgClass}`}>
-          <span>{props.name && props.name.charAt(0).toUpperCase()}</span>
+          <span className={props.spanClass}>{props.name && props.name.charAt(0).toUpperCase()}</span>
         </div>
       )}
     </div>

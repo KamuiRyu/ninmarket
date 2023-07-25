@@ -68,6 +68,10 @@ main {
   color: #fedc00;
 }
 
+.bg-color-main{
+  background-color: #fedc00;;
+}
+
 .hover\:text-dark:hover{
   --tw-text-opacity: 1;
   color: rgb(254 220 0 / var(--tw-text-opacity));
