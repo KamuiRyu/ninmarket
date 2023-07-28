@@ -1,0 +1,13 @@
+.userAvatarName {
+  background: #fedc00;
+}
+
+.userAvatarName > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  font-weight: 700;
+}

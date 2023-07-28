@@ -1,0 +1,16 @@
+import React from "react";
+import "../../../assets/styles/components/UserProfile/UserProfile.css"
+
+export default function UserProfile(props) {
+   return (
+    <div className={props.divClass}>
+      {props.photo ? (
+        <img src={props.photo} alt={props.imgAlt} className={props.imgClass} />
+      ) : (
+        <div className={`initials ${props.imgClass}`}>
+          <span className={props.spanClass}>{props.name && props.name.charAt(0).toUpperCase()}</span>
+        </div>
+      )}
+    </div>
+  );
+}

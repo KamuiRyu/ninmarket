@@ -1,0 +1,84 @@
+.formBtn,
+.formBtn:before,
+.formBtn:after {
+  box-sizing: border-box;
+  transition: 0.5s ease;
+}
+
+.formBtn i,
+.formBtn em,
+.formBtn b,
+.formBtn strong,
+.formBtn span {
+  transition: none;
+}
+
+.formBtn {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 1rem auto;
+  text-transform: uppercase;
+  border: 1px solid #fedc00;
+  background-color: #fedc00;
+  color: #000;
+  z-index: 1;
+  border-radius: 5px;
+}
+.formBtn {
+  color: #000;
+}
+.formBtn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+.formBtn:hover {
+  color: #fedc00;
+  border: 1px solid currentColor;
+  background-color: transparent;
+  transform: translateX(0%);
+}
+.formBtn:hover:before {
+  transform: translateX(0);
+}
+
+.btnSocial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: #323232;
+    height: 60px;
+    width: 90px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+  }
+  
+  .btnSocial.discord:hover{
+      background: transparent;
+      border: 2px solid #7289da;
+  }
+  
+  .btnSocial.discord{
+      background: #7289da;
+  }
+  
+  .btnSocial.google:hover{
+      background: transparent;
+      border: 2px solid #db4a39;
+  }
+  
+  .btnSocial.google{
+      background: #db4a39;
+  }
+  
+  .btnSocial i{
+      font-size: 40px;
+      color: #fff;
+  }

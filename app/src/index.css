@@ -52,20 +52,25 @@ main {
 
 .text-dark-high {
   color: rgba(255, 255, 255, 0.87);
+  transition: color 0.3s ease-in-out;
 }
 .text-dark-medium {
   color: rgba(255, 255, 255, 0.6) !important;
+  transition: color 0.3s ease-in-out;
 }
 .text-dark-disable {
   color: rgba(255, 255, 255, 0.38) !important;
+  transition: color 0.3s ease-in-out;
 }
 
 .text-dark-high-important{
   color: rgba(255, 255, 255, 0.87) !important;
+  transition: color 0.3s ease-in-out;
 }
 
 .text-color-main {
   color: #fedc00;
+  transition: color 0.3s ease-in-out;
 }
 
 .bg-color-main{

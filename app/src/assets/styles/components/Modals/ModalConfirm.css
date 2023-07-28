@@ -1,0 +1,125 @@
+.cd-popup .img-replace {
+    display: inline-block;
+    overflow: hidden;
+    text-indent: 100%;
+    color: transparent;
+    white-space: nowrap;
+  }
+  
+  .cd-popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1001;
+  }
+  
+  .cd-popup .cd-popup-container {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #161616;
+    border-radius: .25em .25em .4em .4em;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition-property: transform;
+    transition-duration: 0.3s;
+  }
+  .cd-popup .cd-popup-container p {
+    padding: 3em 1em;
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .cd-popup .cd-popup-container .cd-buttons:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .cd-popup .cd-popup-container .cd-buttons li {
+    float: left;
+    width: 50%;
+    list-style: none;
+  }
+  .cd-popup .cd-popup-container .cd-buttons button {
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    text-transform: uppercase;
+    color: #FFF;
+    -webkit-transition: background-color 0.2s;
+    -moz-transition: background-color 0.2s;
+    transition: background-color 0.2s;
+    width: 100%;
+  }
+  .cd-popup .cd-popup-container .cd-buttons li:first-child button {
+    background: #fedc00;
+    border-radius: 0 0 0 .25em;
+    color: #000;
+    transition: 0.5s ease;
+    border: 1px solid #fedc00;
+  }
+  
+  .cd-popup .cd-popup-container .cd-buttons li:first-child button:hover{
+    color: #fedc00;
+    border: 1px solid currentColor;
+    background-color: transparent;
+    transform: translateX(0%);
+  }
+  
+  .cd-popup .cd-popup-container .cd-buttons li:last-child button {
+    background: #212121;
+    border: 1px solid #212121;
+    border-radius: 0 0 .25em 0;
+    transition: 0.5s ease;
+  }
+  
+  .cd-popup .cd-popup-container .cd-buttons li:last-child button:hover {
+    background: transparent;
+    border: 1px solid #212121;
+    border-radius: 0 0 .25em 0;
+  }
+  
+  .cd-popup .cd-popup-container .cd-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .cd-popup .cd-popup-container .cd-popup-close::before, .cd-popup-container .cd-popup-close::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    width: 14px;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.87) ;
+  }
+  
+  .cd-popup .cd-popup-container .cd-popup-close::before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 8px;
+  }
+  .cd-popup .cd-popup-container .cd-popup-close::after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    right: 8px;
+  }
+  .cd-popup .is-visible .cd-popup-container {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
