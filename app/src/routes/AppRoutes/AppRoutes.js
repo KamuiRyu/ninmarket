@@ -6,6 +6,7 @@ import BuildsPage from "../pages/builds/Explore";
 import ItemDetails from "../pages/items/ItemDetails";
 import Loading from "../../components/common/Loading";
 import useAppRoutes from "./useAppRoutes";
+import ItemOrders from "../pages/items/ItemOrders";
 
 const AppRoutes = () => {
   const { isLoading, location } = useAppRoutes();
@@ -25,6 +26,9 @@ const AppRoutes = () => {
           <Routes>
             <Route path="/" element={<MarketPage />} />
             <Route path="/builds" element={<BuildsPage />} />
+            <Route path="/items/:itemSlug" element={<ItemDetails />}>
+              <Route index element={<ItemOrders />} />
+            </Route>
             <Route path="/items/:itemSlug" element={<ItemDetails />} />
           </Routes>
         </motion.div>

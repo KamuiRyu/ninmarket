@@ -444,6 +444,15 @@
   .order-content-body
   .order-content-body-container
   table
+  td {
+  max-height: 70px;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
   tr
   th
   i {
@@ -563,4 +572,103 @@
   .niceRep {
   color: #ffd700;
   font-weight: 400;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper {
+  max-height: 70px;
+  height: 70px;
+  width: 100%;
+  position: relative;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input {
+  height: 50px;
+  width: 100%;
+  border: 1px solid rgba(254, 220, 0, 0.5);
+}
+
+.inputWhisper,
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  i {
+  position: absolute;
+  right: 0;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  align-items: center;
+  width: 50px;
+  font-size: 30px !important;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.inputWhisper,
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  i:hover {
+  color: #fedc00;
+}
+
+.inputWhisper,
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #161616;
+  font-size: 16px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input:focus {
+  border-color: #fedc00 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem rgb(254, 220, 0, 0.25);
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr.key-selected {
+  background-color: transparent;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr {
+  transition: all 0.3s ease-in-out;
 }

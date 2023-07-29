@@ -45,6 +45,8 @@ const useNavbar = () => {
       setUserStatusClass(userStatus);
     }
   }, []);
+
+
   const handleStatusChange = async (status) => {
     if (status !== userStatusClass) {
       try {
@@ -175,6 +177,7 @@ const useNavbar = () => {
   }, [localStorage.getItem("language")]);
 
   const delayedHandleItemSearch = debounce(async (event) => {
+    
     const language = languageSupport(languageUser);
     if (!language) {
       setLanguageUser("en");
@@ -207,6 +210,8 @@ const useNavbar = () => {
       } catch (error) {
         console.error("Erro ao fazer login:", error);
       }
+    }else{
+      setItemSearch(false);
     }
   }, 500);
   const handleItemSearch = (event) => {

@@ -4,7 +4,6 @@ import "../../../assets/styles/components/Alerts/Alerts.css";
 
 export default function Alert(props) {
   const [isClosed, setIsClosed] = useState(false);
-
   const children = props.children ? props.children : "",
     divClass = props.divClass ? props.divClass : "",
     iconClass = props.iconClass ? props.iconClass : "",

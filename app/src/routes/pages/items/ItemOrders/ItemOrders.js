@@ -4,7 +4,7 @@ import UserProfile from "../../../../components/common/UserProfile/";
 import useItemOrders from "./useItemOrders";
 import "../../../../assets/styles/pages/ItemDetails/ItemOrders/ItemOrders.css";
 
-export default function ItemOrders ({ orders }) {
+export default function ItemOrders({ orders, item }) {
   const {
     orderByType,
     orderByStatus,
@@ -21,7 +21,10 @@ export default function ItemOrders ({ orders }) {
     sortTable,
     getSortIcon,
     t,
-    authCheck
+    authCheck,
+    selectedTdIds,
+    selectItemKey,
+    clearSelectedTd,
   } = useItemOrders(orders);
 
   return (
@@ -178,120 +181,169 @@ export default function ItemOrders ({ orders }) {
                     <th className="px-3 py-5 text-left"></th>
                   </tr>
                 </thead>
-                <AnimatePresence mode="wait">
-                  {showTBody && (
-                    <motion.tbody
-                      key="tbody"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {sortedOrders[orderByType.toLowerCase()] &&
-                      sortedOrders[orderByType.toLowerCase()].length > 0 ? (
-                        sortedOrders[orderByType.toLowerCase()].map((order) =>
-                          (order.User.status === orderByStatus ||
-                            orderByStatus === "all") &&
-                          (orderByMaxPrice === "" ||
-                            Number(order.price) <= Number(orderByMaxPrice)) &&
-                          (orderByMinPrice === "" ||
-                            Number(order.price) >= Number(orderByMinPrice)) ? (
-                            <tr key={order.id}>
-                              <td>
-                                <div
-                                  className={`order-type-marker ${orderByType}`}
-                                >
-                                  {orderByType}
-                                </div>
-                              </td>
-                              <td className="p-3">
-                                <div className="flex items-center">
-                                  {order.User.photo_url !== null ? (
-                                    <UserProfile
-                                      photo={order.User.photo_url}
-                                      imgAlt={`Photo ${order.User.name}`}
-                                      imgClass="rounded-full h-12 w-12 object-cover"
-                                    />
-                                  ) : (
-                                    <UserProfile
-                                      name={order.User.name}
-                                      imgClass="rounded-full h-12 w-12 object-cover bg-color-main"
-                                      spanClass="flex items-center justify-center w-full h-full text-xl text-black font-bold"
-                                    ></UserProfile>
-                                  )}
-                                  <div className="ml-3">
-                                    <div className="">{order.User.name}</div>
+                {showTBody && (
+                  <motion.tbody
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {sortedOrders[orderByType.toLowerCase()] &&
+                    sortedOrders[orderByType.toLowerCase()].length > 0 ? (
+                      sortedOrders[orderByType.toLowerCase()].map((order) =>
+                        (order.User.status === orderByStatus ||
+                          orderByStatus === "all") &&
+                        (orderByMaxPrice === "" ||
+                          Number(order.price) <= Number(orderByMaxPrice)) &&
+                        (orderByMinPrice === "" ||
+                          Number(order.price) >= Number(orderByMinPrice)) ? (
+                          <AnimatePresence
+                            mode="wait"
+                            key={`animate-${order.id}`}
+                          >
+                            {!selectedTdIds.has(order.id) ? (
+                              <motion.tr
+                                key={order.id}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <motion.td>
+                                  <div
+                                    className={`order-type-marker ${orderByType}`}
+                                  >
+                                    {orderByType}
                                   </div>
-                                </div>
-                              </td>
-                              <td className="p-3">
-                                <span
-                                  className={`rounded-md px-3 status-${order.User.status}`}
-                                >
-                                  {order.User.status === "online"
-                                    ? t("itemDetails.itemOrders.online")
-                                    : order.User.status === "ingame"
-                                    ? t("itemDetails.itemOrders.ingame")
-                                    : order.User.status === "invisible"
-                                    ? t("itemDetails.itemOrders.invisible")
-                                    : ""}
-                                </span>
-                              </td>
-                              <td className="p-3">
-                                <span
-                                  className={`align-middle ${
-                                    order.User.reputation < 0
-                                      ? "badRep"
-                                      : order.User.reputation >= 0 &&
-                                        order.User.reputation < 20
-                                      ? "goodRep"
-                                      : "niceRep"
-                                  }`}
-                                >
-                                  {order.User.reputation}
-                                </span>
-                                {order.User.reputation < 0 && (
-                                  <i className="bx bx-meh-alt align-middle ml-2 badRep"></i>
-                                )}
-                                {order.User.reputation >= 0 &&
-                                  order.User.reputation < 20 && (
-                                    <i className="bx bx-smile align-middle ml-2 goodRep"></i>
+                                </motion.td>
+                                <motion.td className="p-3">
+                                  <div className="flex items-center">
+                                    {order.User.photo_url !== null ? (
+                                      <UserProfile
+                                        photo={order.User.photo_url}
+                                        imgAlt={`Photo ${order.User.name}`}
+                                        imgClass="rounded-full h-12 w-12 object-cover"
+                                      />
+                                    ) : (
+                                      <UserProfile
+                                        name={order.User.name}
+                                        imgClass="rounded-full h-12 w-12 object-cover bg-color-main"
+                                        spanClass="flex items-center justify-center w-full h-full text-xl text-black font-bold"
+                                      />
+                                    )}
+                                    <div className="ml-3">
+                                      <div>{order.User.name}</div>
+                                    </div>
+                                  </div>
+                                </motion.td>
+                                <motion.td className="p-3">
+                                  <span
+                                    className={`rounded-md px-3 status-${order.User.status}`}
+                                  >
+                                    {order.User.status === "online"
+                                      ? t("itemDetails.itemOrders.online")
+                                      : order.User.status === "ingame"
+                                      ? t("itemDetails.itemOrders.ingame")
+                                      : order.User.status === "invisible"
+                                      ? t("itemDetails.itemOrders.invisible")
+                                      : ""}
+                                  </span>
+                                </motion.td>
+                                <motion.td className="p-3">
+                                  <span
+                                    className={`align-middle ${
+                                      order.User.reputation < 0
+                                        ? "badRep"
+                                        : order.User.reputation >= 0 &&
+                                          order.User.reputation < 20
+                                        ? "goodRep"
+                                        : "niceRep"
+                                    }`}
+                                  >
+                                    {order.User.reputation}
+                                  </span>
+                                  {order.User.reputation < 0 && (
+                                    <i className="bx bx-meh-alt align-middle ml-2 badRep"></i>
                                   )}
-                                {order.User.reputation >= 20 && (
-                                  <i className="bx bx-cool align-middle ml-2 niceRep"></i>
-                                )}
-                              </td>
-                              <td className="p-3">{order.price}</td>
-                              <td className="p-3">{order.quantity}</td>
-                              <td className="p-3 ">
-                                {authCheck() === true && (
-                                <a
-                                  href="#"
-                                  className="text-gray-400 hover:text-gray-100 mr-2"
-                                >
-                                  <i className="bx bxs-chat text-base"></i>
-                                </a>
-                                )}
-                                <a
-                                  href="#"
-                                  className="text-gray-400 hover:text-gray-100 mx-2"
-                                >
-                                  <i className="bx bx-money-withdraw text-base"></i>
-                                </a>
-                              </td>
-                            </tr>
-                          ) : null
-                        )
-                      ) : (
-                        <tr className="py-3">
-                          <td colSpan="7" className="text-center py-4">
-                            {t("itemDetails.itemOrders.notFound")}
-                          </td>
-                        </tr>
-                      )}
-                    </motion.tbody>
-                  )}
-                </AnimatePresence>
+                                  {order.User.reputation >= 0 &&
+                                    order.User.reputation < 20 && (
+                                      <i className="bx bx-smile align-middle ml-2 goodRep"></i>
+                                    )}
+                                  {order.User.reputation >= 20 && (
+                                    <i className="bx bx-cool align-middle ml-2 niceRep"></i>
+                                  )}
+                                </motion.td>
+                                <motion.td className="p-3">
+                                  {order.price}
+                                </motion.td>
+                                <motion.td className="p-3">
+                                  {order.quantity}
+                                </motion.td>
+                                <motion.td>
+                                  {authCheck() && (
+                                    <button
+                                      href="#"
+                                      className="text-dark-high hover:text-dark mr-2 link-button"
+                                    >
+                                      <i className="bx bxs-chat text-base"></i>
+                                    </button>
+                                  )}
+                                  <button
+                                    href="#"
+                                    className="text-dark-high hover:text-dark ml-2"
+                                    onClick={() => selectItemKey(order.id)}
+                                  >
+                                    <i className="bx bx-money-withdraw text-base"></i>
+                                  </button>
+                                </motion.td>
+                              </motion.tr>
+                            ) : (
+                              <motion.tr
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="key-selected"
+                              >
+                                <td colSpan="7">
+                                  <div className="inputWhisper">
+                                    <input
+                                      readOnly
+                                      value={`/w ${t(
+                                        "itemDetails.itemOrders.hi"
+                                      )} ${order.User.name}. ${
+                                        orderByType === "wtb"
+                                          ? t(
+                                              "itemDetails.itemOrders.wtbMessage"
+                                            )
+                                          : t(
+                                              "itemDetails.itemOrders.wtsMessage"
+                                            )
+                                      } "${item}" ${t(
+                                        "itemDetails.itemOrders.for"
+                                      )} ${order.price}. (Nin Market)`}
+                                      className="focus:outline-none hover:bg-transparent"
+                                    />
+                                    <i
+                                      className="bx bx-x"
+                                      onClick={() => clearSelectedTd(order.id)}
+                                    ></i>
+                                  </div>
+                                </td>
+                              </motion.tr>
+                            )}
+                          </AnimatePresence>
+                        ) : null
+                      )
+                    ) : (
+                      <tr className="py-3">
+                        <td colSpan="7" className="text-center py-4">
+                          {t("itemDetails.itemOrders.notFound")}
+                        </td>
+                      </tr>
+                    )}
+                  </motion.tbody>
+                )}
               </table>
             </div>
           </>
@@ -300,4 +352,4 @@ export default function ItemOrders ({ orders }) {
       </div>
     </div>
   );
-};
+}

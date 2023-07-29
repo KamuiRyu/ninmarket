@@ -179,19 +179,6 @@
   .item-content
   .item-content-header
   .item-content-header-container
-  .item-content-img
-  .item-image
-  img {
-  height: 120px;
-  width: 120px;
-  -o-object-fit: contain;
-  object-fit: contain;
-}
-
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
   .item-content-info {
   display: grid;
   grid-area: name;
@@ -367,14 +354,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Weapon,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Arma {
+  .weapon {
   background: #b22222;
   border: 3px solid #b22222;
   box-shadow: 0 5px 20px -3px #b22222;
@@ -386,14 +366,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Shirt,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Camisa {
+  .shirt {
   background: #6495ed;
   border: 3px solid #6495ed;
   box-shadow: 0 5px 20px -3px #6495ed;
@@ -405,14 +378,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Pants,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Calça {
+  .pants {
   background: #800080;
   border: 3px solid #800080;
   box-shadow: 0 5px 20px -3px #800080;
@@ -423,14 +389,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Shoes,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Calçado {
+  .shoes{
   background: #228b22;
   border: 3px solid #228b22;
   box-shadow: 0 5px 20px -3px #228b22;
@@ -441,14 +400,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Vest,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Veste {
+  .vest {
   background: #ffc0cb;
   border: 3px solid #ffc0cb;
   box-shadow: 0 5px 20px -3px #ffc0cb;
@@ -459,14 +411,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Hair,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Cabelo {
+  .hair {
   background: #a52a2a;
   border: 3px solid #a52a2a;
   box-shadow: 0 5px 20px -3px #a52a2a;
@@ -478,14 +423,7 @@
   .item-content-header-container
   .item-content-info2
   .item-info-block
-  .Material,
-.main-content
-  .item-content
-  .item-content-header
-  .item-content-header-container
-  .item-content-info2
-  .item-info-block
-  .Material {
+  .material {
   background: #808080;
   border: 3px solid #808080;
   box-shadow: 0 5px 20px -3px #808080;
@@ -498,8 +436,9 @@
   .item-content-info2
   .item-info-block
   .item-info-type {
-  padding: 5px;
-  border-radius: 10px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 14px;
 }
 
 .main-content .item-content .item-content-tabs {
@@ -626,3 +565,42 @@
   position: relative;
 }
 
+.main-content
+  .item-content
+  .item-content-header
+  .item-content-header-container
+  .item-content-img:is(.weapon)
+  .item-image {
+  background: rgb(164, 206, 216);
+  background: linear-gradient(
+    178deg,
+    rgba(164, 206, 216, 1) 0%,
+    rgba(82, 162, 193, 1) 97%
+  );
+}
+
+.main-content
+  .item-content
+  .item-content-header
+  .item-content-header-container
+  .item-content-img:is(.material, .scroll, .shirt, .haird, .vest, .pants)
+  .item-image {
+  background: rgb(191, 176, 163);
+  background: linear-gradient(
+    174deg,
+    rgba(191, 176, 163, 1) 0%,
+    rgba(174, 124, 79, 1) 97%
+  );
+}
+.main-content
+  .item-content
+  .item-content-header
+  .item-content-header-container
+  .item-content-img
+  .item-image
+  img {
+  height: 80px;
+  width: 80px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}

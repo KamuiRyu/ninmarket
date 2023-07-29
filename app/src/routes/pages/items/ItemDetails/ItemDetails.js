@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../../../../assets/styles/pages/ItemDetails/ItemDetails/itemDetails.css";
 import BG from "../../../../assets/images/BG.png";
 import useItemDetails from "./useItemDetails";
-import ItemOrders from "../ItemOrders"
+import ItemOrders from "../ItemOrders";
 
 export default function ItemDetails() {
   const { itemSlug } = useParams();
@@ -17,7 +17,8 @@ export default function ItemDetails() {
     t,
   } = useItemDetails(itemSlug);
 
-  const { name, description, type, image_url, slug } = getProcessedItemValues();
+  const { name, description, type, image_url, slug, typeClass } =
+    getProcessedItemValues();
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function ItemDetails() {
             <header className="item-content-header">
               <div className="flex-left"></div>
               <div className="item-content-header-container">
-                <section className="item-content-img">
+                <section className={`item-content-img ${typeClass}`}>
                   <Link to={`/items/${slug}`} className="item-image">
                     <img src={image_url} alt="item" />
                   </Link>
@@ -51,7 +52,7 @@ export default function ItemDetails() {
                 </section>
                 <section className="item-content-info2">
                   <div className="item-info-block ">
-                    <h4 className={`item-info-type ${type}`}>{type}</h4>
+                    <h4 className={`item-info-type ${typeClass}`}>{type}</h4>
                   </div>
                 </section>
               </div>
@@ -75,6 +76,7 @@ export default function ItemDetails() {
                         {t("itemDetails.tabOrders")}
                       </button>
                     </li>
+                    {/* 
                     <li>
                       <button
                         className={
@@ -101,12 +103,14 @@ export default function ItemDetails() {
                         {t("itemDetails.tabDrop")}
                       </button>
                     </li>
+                    */}
                   </ul>
                 </div>
               </div>
               <div className="flex-right"></div>
             </div>
             <AnimatePresence mode="wait">
+              
               {tabsCurrent === "orders" && (
                 <motion.div
                   key="orders"
@@ -115,10 +119,10 @@ export default function ItemDetails() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ItemOrders orders={ordersByType} />
+                  <ItemOrders orders={ordersByType} item={name} />
                 </motion.div>
               )}
-
+              {/* 
               {tabsCurrent === "statistics" && (
                 <motion.div
                   key="statistics"
@@ -142,6 +146,7 @@ export default function ItemDetails() {
                   <p>Drop</p>
                 </motion.div>
               )}
+              */}
             </AnimatePresence>
           </main>
         </>

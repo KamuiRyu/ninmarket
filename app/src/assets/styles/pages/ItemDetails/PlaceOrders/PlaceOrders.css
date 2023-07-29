@@ -5,7 +5,7 @@
   justify-content: center;
   border-radius: 50%;
   transition: color 0.3s ease, border 0.3s ease, background 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease, background-color 0.3s ease;
   background: #161616;
   height: 150px;
   width: 150px;
@@ -16,8 +16,8 @@
 }
 
 .placeorder-modal .place-order-image img {
-  height: 150px;
-  width: 150px;
+  height: 90px;
+  width: 90px;
   -o-object-fit: contain;
   object-fit: contain;
 }
@@ -176,58 +176,100 @@
   height: 30px;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Variable,
+.placeorder-modal .place-order-content .resultSearch .resultType.variable,
 .placeorder-modal .place-order-content .resultSearch .resultType.Variável {
   background: #ffa500;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Manual,
+.placeorder-modal .place-order-content .resultSearch .resultType.manual,
 .placeorder-modal .place-order-content .resultSearch .resultType.Manual {
   background: #ff69b4;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Food,
+.placeorder-modal .place-order-content .resultSearch .resultType.food,
 .placeorder-modal .place-order-content .resultSearch .resultType.Comida {
   background: #ffd700;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Scroll,
+.placeorder-modal .place-order-content .resultSearch .resultType.scroll,
 .placeorder-modal .place-order-content .resultSearch .resultType.Pergaminho {
   background: #008080;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Weapon,
+.placeorder-modal .place-order-content .resultSearch .resultType.weapon,
 .placeorder-modal .place-order-content .resultSearch .resultType.Arma {
   background: #b22222;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Shirt,
+.placeorder-modal .place-order-content .resultSearch .resultType.shirt,
 .placeorder-modal .place-order-content .resultSearch .resultType.Camisa {
   background: #6495ed;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Pants,
+.placeorder-modal .place-order-content .resultSearch .resultType.pants,
 .placeorder-modal .place-order-content .resultSearch .resultType.Calça {
   background: #800080;
 }
-.placeorder-modal .place-order-content .resultSearch .resultType.Shoes,
+.placeorder-modal .place-order-content .resultSearch .resultType.shoes,
 .placeorder-modal .place-order-content .resultSearch .resultType.Calçado {
   background: #228b22;
 }
-.placeorder-modal .place-order-content .resultSearch .resultType.Vest,
+.placeorder-modal .place-order-content .resultSearch .resultType.vest,
 .placeorder-modal .place-order-content .resultSearch .resultType.Veste {
   background: #ffc0cb;
 }
-.placeorder-modal .place-order-content .resultSearch .resultType.Hair,
+.placeorder-modal .place-order-content .resultSearch .resultType.hair,
 .placeorder-modal .place-order-content .resultSearch .resultType.Cabelo {
   background: #a52a2a;
 }
 
-.placeorder-modal .place-order-content .resultSearch .resultType.Material,
+.placeorder-modal .place-order-content .resultSearch .resultType.material,
 .placeorder-modal .place-order-content .resultSearch .resultType.Material {
   background: #808080;
 }
 
 .placeorder-modal .place-order-content .searched {
   border-radius: 3px 3px 0px 0px;
+}
+
+.placeorder-modal .place-order-content .resultSearch .resultImg {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px;
+  height: 37px;
+  margin-right: 10px;
+}
+
+.placeorder-modal .place-order-content .resultSearch .resultImg:is(.weapon),
+.placeorder-modal .place-order-image:is(.weapon){
+  background: rgb(164, 206, 216);
+  background: linear-gradient(
+    178deg,
+    rgba(164, 206, 216, 1) 0%,
+    rgba(82, 162, 193, 1) 97%
+  );
+}
+
+.placeorder-modal .place-order-content .resultSearch .resultImg:is(.material, .scroll, .shirt, .haird, .vest, .pants),
+.placeorder-modal .place-order-image:is(.material, .scroll, .shirt, .haird, .vest, .pants){
+  background: rgb(191, 176, 163);
+  background: linear-gradient(
+    174deg,
+    rgba(191, 176, 163, 1) 0%,
+    rgba(174, 124, 79, 1) 97%
+  );
+}
+.main-content
+  .item-content
+  .item-content-header
+  .item-content-header-container
+  .item-content-img
+  .item-image
+  img {
+  height: 80px;
+  width: 80px;
+  -o-object-fit: contain;
+  object-fit: contain;
 }

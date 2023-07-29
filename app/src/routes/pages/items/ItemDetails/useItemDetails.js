@@ -96,6 +96,7 @@ const useItemDetails = (itemSlug) => {
     let type = "";
     let image_url = "";
     let slug = "";
+    let typeClass = "";
 
     if (item) {
       name = getLocalizedValue(item.name, languageUser);
@@ -103,9 +104,10 @@ const useItemDetails = (itemSlug) => {
       type = getLocalizedValue(item.type, languageUser);
       image_url = item.image_url;
       slug = item.slug;
+      typeClass = item.type['en'] ? item.type['en'].toLowerCase() : "";
     }
 
-    return { name, description, type, image_url, slug };
+    return { name, description, type, image_url, slug , typeClass};
   };
 
   return {
@@ -118,6 +120,7 @@ const useItemDetails = (itemSlug) => {
     getLocalizedValue,
     t,
     getProcessedItemValues,
+    
   };
 };
 

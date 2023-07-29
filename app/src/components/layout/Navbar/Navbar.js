@@ -65,7 +65,7 @@ export default function Navbar(props) {
               className="focus:outline-none focus:ring-0"
               placeholder={t("navbar.search")}
               onChange={handleItemSearch}
-              onBlur={handleItemSelected}
+              onBlur={handleClearInput}
               id="itemSearch"
             />
             {itemSearch && (
@@ -88,11 +88,11 @@ export default function Navbar(props) {
                     onClick={() => handleSearchValue(item)}
                   >
                     <li>
-                      <div className="resultImg">
+                      <div className={`resultImg ${item.type["en"]}`}>
                         <img src={item.image_url} alt="item" />
                       </div>
                       <div className="resultInfo">
-                        <span className={`resultType ${translatedType}`}>
+                        <span className={`resultType ${item.type["en"]}`}>
                           {translatedType}
                         </span>
                         <span className="resultName">{translatedName}</span>
@@ -180,6 +180,18 @@ export default function Navbar(props) {
                   <div className="profile-popup-info">
                     <p className="profile-popup-username">{user.name}</p>
                     <p className="profile-popup-email">{user.email}</p>
+                    <div className="profile-popup-separator"></div>
+                    <div
+                      className={`profile-popup-myprofile`}
+                      id="profile-popup-myprofile"
+                    >
+                      <i className={`bx bxs-user`} />
+                      <div className="myprofile-container">
+                        <span className="myprofile-text">
+                            {t("navbar.myprofile")}
+                        </span>
+                      </div>
+                    </div>
                     <div className="profile-popup-separator"></div>
                     <div
                       className={`profile-popup-status ${

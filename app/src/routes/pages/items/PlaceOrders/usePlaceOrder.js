@@ -75,6 +75,8 @@ const usePlaceOrder = () => {
       } catch (error) {
         console.error("Erro ao fazer login:", error);
       }
+    }else{
+      setItemSearch(false);
     }
   }, 500);
 

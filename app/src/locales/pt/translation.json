@@ -5,6 +5,7 @@
     "messages": "Minhas mensagens",
     "signin": "Entrar",
     "myprofile": "Meu perfil",
+    "comingsoon":"Em breve",
     "status": {
       "online": "Disponível",
       "ingame": "Disponível no jogo",
@@ -149,7 +150,11 @@
       "ingame": "No jogo",
       "online": "Online",
       "invisible": "Invisível",
-      "ryo": "Ryo"
+      "ryo": "Ryo",
+      "wtbMessage": "Eu quero comprar",
+      "wtsMessage": "Eu quero vender",
+      "for":"por",
+      "hi":"Olá,"
     }
   },
   "placeOrderModal":{

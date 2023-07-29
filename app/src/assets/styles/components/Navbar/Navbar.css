@@ -314,7 +314,7 @@
   width: 100%;
   line-height: 30px;
   padding: 0 5px;
-  border-radius: 10px;
+  border-radius: 3px;
 }
 
 .sidebar.open
@@ -324,7 +324,7 @@
   .profile-popup-status.active {
   background-color: #262626;
   transition: all 0.5s ease;
-  border-radius: 10px;
+  border-radius: 3px;
 }
 
 .sidebar.open
@@ -334,7 +334,7 @@
   .profile-popup-status:hover {
   background-color: #262626;
   transition: all 0.5s ease;
-  border-radius: 10px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -381,9 +381,9 @@
   bottom: 30px;
   left: calc(100% + 5px);
   max-height: 200px;
-  background: #161616;
+  background: #262626;
   width: 250px;
-  border-radius: 10px;
+  border-radius: 3px;
   padding: 10px;
 }
 
@@ -398,7 +398,7 @@
   width: 100%;
   line-height: 30px;
   padding: 0 5px;
-  border-radius: 10px;
+  border-radius: 3px;
 }
 
 .sidebar.open li .profile-popup .profile-popup-item {
@@ -535,10 +535,19 @@
   .profile-popup
   .profile-popup-status-switch
   .profile-popup-status:hover {
-  background-color: #262626;
+  background-color: #fedc00;
   cursor: pointer;
 }
 
+.sidebar.open
+  li
+  .profile-popup
+  .profile-popup-status-switch
+  .profile-popup-status:hover
+  .status-text {
+  color: #000;
+  font-weight: bold;
+}
 .sidebar.open
   li
   .profile-popup
@@ -561,7 +570,7 @@
   width: 100%;
   height: 1px;
   background-color: #fff;
-  opacity: 0.3;
+  opacity: 0.1;
   margin: 10px auto;
 }
 
@@ -818,7 +827,6 @@
   margin: 0;
 }
 
-
 .sidebar.open .inputSearch.searched input {
   border-radius: 12px 12px 0px 0px;
 }
@@ -835,11 +843,6 @@
   font-size: 22px;
   color: #fff;
   background: #161616;
-}
-.sidebar.open .resultSearch img {
-  border-radius: 0px;
-  width: 30px;
-  height: 30px;
 }
 
 .sidebar.open .resultSearch .resultType.Variable,
@@ -892,4 +895,74 @@
 .sidebar.open .resultSearch .resultType.Material,
 .sidebar.open .resultSearch .resultType.Material {
   background: #808080;
+}
+
+.sidebar.open .resultSearch .resultImg {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px;
+  height: 37px;
+  margin-right: 10px;
+}
+
+.sidebar.open .resultSearch .resultImg:is(.Weapon) {
+  background: rgb(164, 206, 216);
+  background: linear-gradient(
+    178deg,
+    rgba(164, 206, 216, 1) 0%,
+    rgba(82, 162, 193, 1) 97%
+  );
+}
+
+.sidebar.open
+  .resultSearch
+  .resultImg:is(.Material, .Scroll, .Shirt, .Hair, .Vest, .Pants) {
+  background: rgb(191, 176, 163);
+  background: linear-gradient(
+    174deg,
+    rgba(191, 176, 163, 1) 0%,
+    rgba(174, 124, 79, 1) 97%
+  );
+}
+
+.sidebar.open .resultSearch img {
+  border-radius: 0px;
+  width: 28px;
+  height: 28px;
+  margin-right: 0;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.sidebar.open li .profile-popup .profile-popup-myprofile {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  width: 100%;
+  line-height: 30px;
+  padding: 0 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.sidebar.open li .profile-popup .profile-popup-myprofile i {
+  margin-right: 15px;
+  font-size: 14px;
+  height: 0;
+  width: auto;
+  min-width: auto;
+  line-height: 0;
+}
+.sidebar.open li .profile-popup .profile-popup-myprofile span{
+  margin-right: 6px;
+  font-size: 13px;
+  color: #fff;
+  opacity: 0.6;
+}
+
+.sidebar.open li .profile-popup .profile-popup-myprofile:hover{
+  background-color: #262626;
+  border-radius: 3px;
 }

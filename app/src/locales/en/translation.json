@@ -5,6 +5,7 @@
     "messages": "My Messages",
     "signin": "Sign In",
     "myprofile": "My profile",
+    "comingsoon":"Coming soon",
     "status":{
         "online":"Online",
         "ingame":"Online in game",
@@ -149,7 +150,11 @@
       "ingame":"Online in game",
       "online":"Online",
       "invisible": "Invisible"  ,
-      "ryo":"Ryo"
+      "ryo":"Ryo",
+      "wtbMessage": "I want to buy",
+      "wtsMessage": "I want to sell",
+      "for":"for",
+      "hi":"Hi,"
     }
   },
   "placeOrderModal":{

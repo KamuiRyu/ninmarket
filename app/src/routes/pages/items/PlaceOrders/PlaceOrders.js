@@ -52,7 +52,7 @@ export default function PlaceOrder({ onClose }) {
                 <div className="grid grid-cols-12 gap-0">
                   <div className="col-span-4 bg-dark-1000 px-4 py-7">
                     <div className="place-order-info">
-                      <div className="place-order-image mx-auto">
+                      <div className={`place-order-image mx-auto ${selectedItem && (selectedItem.type['en'].toLowerCase())}`}>
                         {selectedItem && (
                           <img
                             src={selectedItem.image_url}
@@ -214,11 +214,11 @@ export default function PlaceOrder({ onClose }) {
                                       key={index}
                                       onClick={() => handleItemClick(item)}
                                     >
-                                      <div className="resultImg">
+                                      <div className={`resultImg ${item.type["en"].toLowerCase()}`}>
                                         <img src={item.image_url} alt="item" />
                                       </div>
                                       <div className="resultInfo ml-2">
-                                        <span className={`resultType ${translatedType}`}>
+                                        <span className={`resultType ${item.type["en"].toLowerCase()}`}>
                                           {translatedType}
                                         </span>
                                         <span className="resultName">

@@ -12,6 +12,8 @@ const useItemOrders = (orders) => {
   const [sortedOrders, setSortedOrders] = useState(orders);
   const [sortedCurrentType, setSortedCurrentType] = useState("wtb");
   const [clickCount, setClickCount] = useState(0);
+  const [selectedTdIds, setSelectedTdIds] = useState(new Set());
+
 
   const handleOrderType = (type) => {
     if (type !== orderByType) {
@@ -168,6 +170,26 @@ const useItemOrders = (orders) => {
   const authCheck = () => {
     return localStorage.getItem("auth_login") === "true";
   };
+
+  const selectItemKey = (orderId) => {
+    setSelectedTdIds((prevSelectedTdIds) => {
+      const updatedSelectedTdIds = new Set(prevSelectedTdIds);
+      if (updatedSelectedTdIds.has(orderId)) {
+        updatedSelectedTdIds.delete(orderId);
+      } else {
+        updatedSelectedTdIds.add(orderId);
+      }
+      return updatedSelectedTdIds;
+    });
+  };
+
+  const clearSelectedTd = (id) => {
+    setSelectedTdIds((prevSelected) => {
+      const updatedSelected = new Set(prevSelected);
+      updatedSelected.delete(id);
+      return updatedSelected;
+    });
+  };
  return {
     orderByType,
     orderByStatus,
@@ -187,6 +209,9 @@ const useItemOrders = (orders) => {
     getSortIcon,
     t,
     authCheck,
+    selectedTdIds,
+    selectItemKey,
+    clearSelectedTd
   };
 };
 
