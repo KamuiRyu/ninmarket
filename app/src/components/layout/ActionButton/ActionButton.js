@@ -1,13 +1,12 @@
 import React from "react";
 import "../../../assets/styles/components/ActionButton/ActionButton.css";
-import useActionBtn from "./useActionButton";
+
 
 export default function ActionButton(props) {
-  const { isListContainerActive, handleButtonClick } = useActionBtn();
 
   return (
-    <div className="actionBtn">
-      <div className={`list-container ${isListContainerActive ? "active" : ""}`}>
+    <div className="actionBtn" id="actionBtn">
+      <div className={`list-container`}>
         <button
           className="more-button"
           aria-label="Menu Button"

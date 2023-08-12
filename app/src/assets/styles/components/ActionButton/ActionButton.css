@@ -2,7 +2,11 @@
     position: fixed;
     top: calc(100% - 80px);
     left: calc(100% - 80px);
-    z-index: 30;
+    z-index: 99;
+}
+
+.actionBtn.passed{
+  z-index: 10 !important;
 }
 
 .actionBtn .list-container {

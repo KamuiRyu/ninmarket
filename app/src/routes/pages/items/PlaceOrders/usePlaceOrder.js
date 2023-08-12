@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import ValidationUtils from "../../../../utils/ValidationUtils";
 import AuthServices from "../../../../services/AuthServices";
 import languageSupport from "../../../../utils/languageSupport";
+import { UserContext } from "../../../../providers/userContext";
 
 const usePlaceOrder = () => {
   const { t } = useTranslation();
+  const auth = new AuthServices();
+  const { user } = useContext(UserContext);
 
   // States
   const [itemSearch, setItemSearch] = useState(false);
@@ -144,9 +147,8 @@ const usePlaceOrder = () => {
     e.preventDefault();
     const validator = await validateAll(formData);
     if (validator) {
-      const authToken = new AuthServices();
-      const csrfData = await authToken.fetchCSRFToken();
-      const token = await authToken.getAuthToken();
+      const csrfData = await auth.fetchCSRFToken();
+      const token = user.accessToken.token;
       if (csrfData.csrfToken) {
         const data = {
           orderType: formData.placeorderType || 1,
@@ -154,7 +156,7 @@ const usePlaceOrder = () => {
           itemId: formData.placeorderItemId,
           price: formData.placeorderPrice,
           quantity: formData.placeorderQuantity,
-          userId: localStorage.getItem("auth_id"),
+          userId: user.id,
         };
         axios.defaults.withCredentials = true;
         const config = {

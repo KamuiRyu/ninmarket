@@ -6,9 +6,14 @@
   width: 78px;
   background: #101010;
   padding: 6px 14px;
-  z-index: 40;
+  z-index: 50;
   transition: width 0.5s ease;
 }
+
+.sidebar.passed{
+  z-index: 10 !important;
+}
+
 .sidebar .change-language {
   display: none;
 }
@@ -727,7 +732,7 @@
   left: 78px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
-  z-index: 2;
+  z-index: 30;
 }
 .sidebar.open ~ .main-content {
   left: 250px;
@@ -955,11 +960,18 @@
   min-width: auto;
   line-height: 0;
 }
-.sidebar.open li .profile-popup .profile-popup-myprofile span{
+.sidebar.open li .profile-popup .profile-popup-myprofile a{
   margin-right: 6px;
   font-size: 13px;
   color: #fff;
   opacity: 0.6;
+}
+.sidebar.open li .profile-popup .profile-popup-myprofile .myprofile-text{
+background: transparent;
+}
+
+.sidebar.open li .profile-popup .profile-popup-myprofile a:hover{
+  background: transparent;
 }
 
 .sidebar.open li .profile-popup .profile-popup-myprofile:hover{

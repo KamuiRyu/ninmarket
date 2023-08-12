@@ -1,3 +1,6 @@
+.placeorder-modal{
+  z-index: 100 !important;
+}
 .placeorder-modal .place-order-image {
   position: relative;
   display: flex;
@@ -13,6 +16,7 @@
   border: 3px solid #dec20d;
   box-shadow: 0 5px 20px -3px #dec20d;
   overflow: hidden;
+  
 }
 
 .placeorder-modal .place-order-image img {

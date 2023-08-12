@@ -1,0 +1,76 @@
+.user-profile-root{
+  z-index: 20;
+}
+.user-profile-root .user-profile-header {
+  min-height: 300px;
+  margin-bottom: -120px;
+  color: #fff;
+  background: #161616;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  flex-direction: column;
+}
+
+.user-profile-root .user-profile-header .user-profile-parallax {
+  transform: translate3d(0px, 0px, 0px) rotate(0.0001deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  pointer-events: none;
+  position: absolute !important;
+  pointer-events: none;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.user-profile-root
+  .user-profile-header
+  .user-profile-parallax
+  .user-profile-parallax-bg {
+  transform: translate3d(-1.1px, -2.6px, 0px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  position: relative;
+  display: block;
+  left: 0px;
+  top: 0px;
+  min-height: inherit;
+  width: 100%;
+}
+
+.user-profile-root
+  .user-profile-header
+  .user-profile-parallax
+  .user-profile-parallax-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 27, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.user-profile-root
+  .user-profile-header
+  .user-profile-parallax
+  .user-profile-parallax-bg
+  img {
+  width: 100%;
+  background-blend-mode: overlay;
+  background-size: cover;
+  height: 100vh;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+

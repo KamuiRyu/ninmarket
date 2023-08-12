@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 export default class AuthServices {
+
   async checkTokenExpiration() {
     try {
       const storedToken = Cookies.get('token');
@@ -80,22 +81,6 @@ export default class AuthServices {
     } catch (error) {
       console.error("Erro ao fazer login:", error);
     }
-  }
-
-  async logoutUser(type = "") {
-    Object.keys(localStorage).forEach((key) => {
-      if (key.includes("auth_")) {
-        localStorage.removeItem(key);
-      }
-    });
-    if (type === "action-user") {
-      window.location.reload();
-    }
-  }
-
-  async getAuthToken () {
-    const token = localStorage.getItem("auth_token");
-    return token;
   }
 
   async fetchCSRFToken() {

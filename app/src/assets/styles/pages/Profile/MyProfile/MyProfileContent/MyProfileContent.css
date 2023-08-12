@@ -1,0 +1,283 @@
+.user-profile-content {
+  z-index: 20;
+  position: relative;
+}
+
+.user-profile-content .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.user-profile-content .profile-user-stats .row {
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+.user-profile-content .profile-user-stats .row > * {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  -webkit-transition: color 0.2s ease-out;
+  transition: color 0.2s ease-out;
+}
+
+.user-content-header {
+  z-index: 10;
+  background: rgba(22, 22, 22, 0.75);
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.user-content-header .user-content-header-container,
+.user-profile-header-tabs .user-profile-header-container,
+.user-profile-content-tab .user-profile-content-header-tab-container {
+  max-width: 1140px;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.user-content-header .user-content-header-container .profile-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -85px;
+  margin-top: 20px;
+  min-width: 130px;
+  max-width: 130px;
+  overflow: visible;
+}
+
+.user-content-header .user-content-header-container .profile-avatar img {
+  width: 100px;
+  height: 100px;
+  background: #161616;
+  margin-right: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .userAvatarName {
+  width: 100px;
+  height: 100px;
+  background: #fedc00;
+  margin-right: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .userAvatarName
+  span {
+  color: #000;
+  font-size: 40px;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .profile-user-status {
+  padding-top: 10px;
+  position: relative;
+  display: flex;
+  overflow: visible;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 12px;
+}
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .profile-user-status
+  span {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.375rem;
+}
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .profile-user-status
+  span.status-invisible {
+  text-transform: uppercase;
+  background-color: darkgray;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .profile-user-status
+  span.status-online {
+  text-transform: uppercase;
+  background-color: green;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-avatar
+  .profile-user-status
+  span.status-ingame {
+  background-color: mediumpurple;
+  color: rgba(255, 255, 255, 0.87);
+  text-transform: uppercase;
+}
+
+.user-content-header .user-content-header-container .profile-user-stats {
+  display: flex;
+  align-items: stretch;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-user-stats
+  .profile-user-stats-number {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-user-stats
+  .profile-user-stats-label {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-user-name
+  .profile-user-name-box {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.user-content-header
+  .user-content-header-container
+  .profile-user-name
+  .profile-user-lastseen {
+  font-size: 15px;
+}
+
+.user-profile-header-tabs {
+  z-index: 1;
+  background: #161616;
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+
+.user-profile-header-tabs .user-profile-description {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 3;
+  align-items: center;
+  width: 100%;
+  flex-flow: row nowrap;
+  min-height: 80px;
+  padding: 10px 0 0 115px !important;
+}
+
+.user-profile-header-tabs
+  .user-profile-description
+  .user-profile-description-about {
+  flex-grow: 1;
+}
+
+.user-profile-header-tabs .user-profile-description .user-profile-about {
+  max-height: 132px;
+  min-height: 48px;
+  padding: 0.45rem 0.75rem 0.3rem;
+  font-size: 14px;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  border: 1px solid transparent;
+}
+
+.user-profile-header-tabs .user-profile-description .user-profile-edit-button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 10px;
+}
+.user-profile-header-tabs
+  .user-profile-description
+  .user-profile-edit-button
+  i {
+  font-size: 20px;
+}
+
+.user-profile-header-tabs .profile-tabs {
+  color: rgba(255, 255, 255, 0.87);
+  font-weight: 700;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  margin-bottom: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  margin-top: 20px;
+}
+
+.user-profile-header-tabs .profile-tabs li.active {
+  border-bottom: 3px solid #fedc00;
+  color: #fedc00;
+}
+
+.user-profile-header-tabs .profile-tabs li {
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 10px 15px 5px;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  -webkit-transition: color 0.5s ease-out, border-bottom 0.5s ease-out;
+  transition: color 0.5s ease-out, border-bottom 0.5s ease-out;
+}
+
+.user-profile-content-tab .user-profile-content-header-tab {
+  background: #262626;
+  z-index: 3;
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+}
+
+.user-profile-content-tab .user-profile-teste {
+  padding: 0.75rem 15px;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.profile-avatar .profile-avatar-block {
+  border: 3px solid #fedc00;
+  border-radius: 50%;
+}

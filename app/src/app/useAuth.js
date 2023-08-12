@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import AuthServices from "../services/AuthServices";
+import { UserContext } from "../providers/userContext";
 
 const useAuth = () => {
   const [tokenExpired, setTokenExpired] = useState(false);
@@ -9,6 +10,13 @@ const useAuth = () => {
     email: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user, isLoading } = useContext(UserContext);
+  useEffect(() => {
+    if (user) {
+      setIsModalOpen(false);
+      setIsLoggedIn(true);
+    }
+  }, [user]);
 
   useEffect(() => {
     const checkAuthTokenExpiration = async () => {
@@ -54,6 +62,7 @@ const useAuth = () => {
     isModalOpen,
     openModal,
     closeModal,
+    isLoading,
   };
 };
 

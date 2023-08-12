@@ -6,13 +6,34 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const { Op } = require("sequelize");
 const moment = require("moment");
-const cookie = require("cookie");
+const crypto = require("crypto-js");
+
+function encryptID(id) {
+  const crypedId = crypto.AES.encrypt(
+    id.toString(),
+    process.env.SECRET
+  ).toString();
+  return crypedId;
+}
+
+function decryptID(id) {
+  if (typeof id === 'string') {
+    const bytes = crypto.AES.decrypt(id, process.env.SECRET);
+    const originalID = bytes.toString(crypto.enc.Utf8);
+    const parsedID = parseInt(originalID, 10);
+    if (!isNaN(parsedID)) {
+      return parsedID; 
+    } 
+  }
+  
+  return false;
+}
 
 async function userLogin(req, res) {
   const { email, password } = req.body;
   const user = await User.findOne({
     where: {
-      [Op.and]: [{ email }, { active: true }],
+      [Op.and]: [{ email: email.toLowerCase() }, { active: true }],
     },
   });
 
@@ -45,18 +66,23 @@ async function userLogin(req, res) {
             user.photo_url = null;
           }
           return res.json({
-            auth_login: true,
             user: {
+              auth: true,
+              id: encryptID(user.id),
               email: user.email,
               name: user.name,
               photo: user.photo_url !== null ? user.photo_url : "",
               status: user.status ?? "invisible",
-              expirationToken:
-                token.expirationTime !== null
-                  ? token.expirationTime
-                  : user.token_expirationTime,
-              role_id: user.role_id ?? 2,
-              token: token.token !== null ? token.token : user.auth_token,
+              role_id: user.role_id ? encryptID(user.role_id) : encryptID(2),
+              lastSeen: user.last_seen ?? "",
+              reputation: user.reputation ?? "",
+              accessToken: {
+                token: token.token !== null ? token.token : user.auth_token,
+                expirationToken:
+                  token.expirationTime !== null
+                    ? token.expirationTime
+                    : user.token_expirationTime,
+              },
             },
           });
         }
@@ -69,6 +95,7 @@ async function userLogin(req, res) {
         });
       }
     } catch (error) {
+      console.log(error);
       return res.json({
         login: false,
         error: "Falha ao realizar a solicitação",
@@ -83,7 +110,7 @@ async function userLogin(req, res) {
     });
   }
 }
-const generateAuthToken = async (user, expiresIn, tokenExpirationTime, res) => {
+const generateAuthToken = async (user, expiresIn, tokenExpirationTime) => {
   const payload = {
     id: user.id,
     name: user.name,
@@ -145,7 +172,7 @@ function checkCsrfToken(req, res, next) {
 }
 async function checkAuthToken(req, res, next) {
   const email = req.body.email;
-  const user = await User.findOne({ where: { email: email } });
+  const user = await User.findOne({ where: { email: email.toLowerCase() } });
   if (user) {
     const checkToken = await checkAuthTokenFn(user);
     if (checkToken.auth_token) {
@@ -209,4 +236,6 @@ module.exports = {
   decodedToken,
   checkCsrfToken,
   checkAuthToken,
+  encryptID,
+  decryptID,
 };

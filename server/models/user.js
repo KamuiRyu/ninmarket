@@ -38,6 +38,10 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    last_seen: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     token_expirationTime: {
       type: DataTypes.DATE,
       allowNull: true,

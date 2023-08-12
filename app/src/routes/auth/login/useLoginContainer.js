@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import AuthServices from "../../../services/AuthServices";
 import axios from "axios";
 import ValidationUtils from "../../../utils/ValidationUtils";
 import { useTranslation } from "react-i18next";
+import { UserContext } from '../../../providers/userContext';
+
 
 const INITIAL_FORM_DATA = {
   email: "",
@@ -11,6 +13,7 @@ const INITIAL_FORM_DATA = {
 };
 
 export function useLoginContainer(handlePageChange) {
+  const { login } = useContext(UserContext);
   const { t } = useTranslation();
   const [emailValidation, setEmailValidation] = useState(null);
   const [passwordValidation, setPasswordValidation] = useState(null);
@@ -99,16 +102,7 @@ export function useLoginContainer(handlePageChange) {
             });
             return false;
           }
-          const data = response.data;
-          localStorage.setItem("auth_login", true);
-          localStorage.setItem("auth_email", data.user.email);
-          localStorage.setItem("auth_name", data.user.name);
-          localStorage.setItem("auth_photo", data.user.photo);
-          localStorage.setItem("auth_status", data.user.status);
-          localStorage.setItem("auth_expirationToken", data.user.expirationToken);
-          localStorage.setItem("auth_token", data.user.token);
-          localStorage.setItem("auth_role", data.user.role_id);
-          window.location.reload();
+          login(response.data);
         }
       } catch (error) {
         console.error("Erro ao fazer login:", error);

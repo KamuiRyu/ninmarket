@@ -4,7 +4,7 @@ const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
 router.post("/", authController.checkCsrfToken, userController.createUser);
-router.get("/:id", authController.checkCsrfToken, userController.getUserByName);
+router.get("/get/:username", userController.getUserByName);
 router.patch(
   "/",
   authController.authenticate,

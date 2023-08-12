@@ -1,0 +1,33 @@
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container .item-actions button i{
+    font-size: 20px !important;
+  }
+
+  .main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container .item-actions button{
+    display: flex;
+    align-items: center;
+    transition: width 0.2s ease-in-out;
+  }
+
+
+  .main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container .item-actions button span{
+    transition: width 0.2s ease;
+    visibility: hidden;
+    width: 0;
+  }
+
+  .main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container .item-actions button.hovered span{
+    width: 55px;
+    visibility: visible;
+  }

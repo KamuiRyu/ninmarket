@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "../../../../assets/styles/pages/ItemDetails/ItemDetails/itemDetails.css";
 import BG from "../../../../assets/images/BG.png";
@@ -8,18 +8,12 @@ import ItemOrders from "../ItemOrders";
 
 export default function ItemDetails() {
   const { itemSlug } = useParams();
-  const {
-    isLoading,
-    tabsCurrent,
-    ordersByType,
-    handleTabsChange,
-    getProcessedItemValues,
-    t,
-  } = useItemDetails(itemSlug);
+  const { isLoading, getProcessedItemValues, t, item, getCurrentTab } =
+    useItemDetails(itemSlug);
 
   const { name, description, type, image_url, slug, typeClass } =
     getProcessedItemValues();
-
+  const currentTab = getCurrentTab();
   return (
     <>
       {isLoading ? (
@@ -64,17 +58,24 @@ export default function ItemDetails() {
                 <div className="item-content-tabs-row">
                   <ul className="item-tabs">
                     <li>
-                      <button
-                        className={
-                          tabsCurrent === "orders"
-                            ? "link-button active"
-                            : "link-button"
-                        }
-                        onClick={() => handleTabsChange("orders")}
+                      <Link
+                        to={`/items/${itemSlug}`}
+                        className={`link-button ${
+                          currentTab === "orders" ? "active" : ""
+                        }`}
                       >
-                        <i className="bx bx-transfer-alt"></i>
                         {t("itemDetails.tabOrders")}
-                      </button>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to={`/items/${itemSlug}/statistics`}
+                        className={`link-button ${
+                          currentTab === "statistics" ? "active" : ""
+                        }`}
+                      >
+                        {t("itemDetails.tabStatistics")}
+                      </Link>
                     </li>
                     {/* 
                     <li>
@@ -110,18 +111,8 @@ export default function ItemDetails() {
               <div className="flex-right"></div>
             </div>
             <AnimatePresence mode="wait">
-              
-              {tabsCurrent === "orders" && (
-                <motion.div
-                  key="orders"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ItemOrders orders={ordersByType} item={name} />
-                </motion.div>
-              )}
+              <Outlet context={item} />
+
               {/* 
               {tabsCurrent === "statistics" && (
                 <motion.div

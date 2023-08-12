@@ -15,7 +15,7 @@
 
 .formBtn {
   position: relative;
-  display: block;
+  display: flex;
   overflow: hidden;
   margin: 1rem auto;
   text-transform: uppercase;
@@ -24,6 +24,8 @@
   color: #000;
   z-index: 1;
   border-radius: 5px;
+  align-items: center;
+  justify-content: center;
 }
 .formBtn {
   color: #000;
@@ -48,37 +50,96 @@
 }
 
 .btnSocial {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background: #323232;
-    height: 60px;
-    width: 90px;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-    border: 2px solid transparent;
-  }
-  
-  .btnSocial.discord:hover{
-      background: transparent;
-      border: 2px solid #7289da;
-  }
-  
-  .btnSocial.discord{
-      background: #7289da;
-  }
-  
-  .btnSocial.google:hover{
-      background: transparent;
-      border: 2px solid #db4a39;
-  }
-  
-  .btnSocial.google{
-      background: #db4a39;
-  }
-  
-  .btnSocial i{
-      font-size: 40px;
-      color: #fff;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: #323232;
+  height: 60px;
+  width: 90px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid transparent;
+}
+
+.btnSocial.discord:hover {
+  background: transparent;
+  border: 2px solid #7289da;
+}
+
+.btnSocial.discord {
+  background: #7289da;
+}
+
+.btnSocial.google:hover {
+  background: transparent;
+  border: 2px solid #db4a39;
+}
+
+.btnSocial.google {
+  background: #db4a39;
+}
+
+.btnSocial i {
+  font-size: 40px;
+  color: #fff;
+}
+
+.btnActionDelete {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid rgba(241, 6, 6, 0.81);
+
+  background-color: transparent;
+  color: rgba(220, 17, 1, 1);
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: 0.5s ease;
+  border-radius: 5px;
+}
+
+.btnActionDelete:hover {
+  background-color: rgba(220, 17, 1, 1);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.btnActionActive {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #fedc00;
+  color: #fedc00;
+  background: transparent;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: 0.5s ease;
+  border-radius: 5px;
+}
+
+.btnActionActive:hover {
+  background-color: #fedc00;
+  color: #000;
+}
+
+.btnActions {
+  border: 1px solid #fedc00;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  color: #000;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  color: #fedc00;
+  font-size: 15px;
+  height: 25px;
+}
+.btnActions i{
+  margin-right: 2px;
+}

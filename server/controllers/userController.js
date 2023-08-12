@@ -2,7 +2,7 @@ const User = require("../models/user");
 import ValidationUtils from "../utils/ValidationUtils";
 const bcrypt = require("bcrypt");
 const { Op } = require("sequelize");
-import { decodedToken } from "./authController";
+import { decodedToken, decryptID } from "./authController";
 
 const createUser = async (req, res) => {
   try {
@@ -67,7 +67,7 @@ const createUser = async (req, res) => {
 
     const existingEmail = await User.findOne({
       where: {
-        email: email,
+        email: email.toLowerCase(),
       },
     });
 
@@ -133,13 +133,38 @@ const createUser = async (req, res) => {
 
 const getUserByName = async (req, res) => {
   try {
-    const { name } = req.params;
-    const user = await User.findOne({ where: { name: name } });
+    const { username } = req.params;
+    let { idUser } = req.query;
+    idUser = decryptID(idUser);
+    const user = await User.findOne({
+      where: {
+        [Op.and]: [{ name: username }, { active: true }],
+      },
+    });
     if (user) {
+      if (idUser === user.id) {
+        return res.status(200).json({
+          success: true,
+          autoProfile: true,
+          user: {
+            name: user.name,
+            photo: user.photo_url ?? "",
+            status: user.status,
+            reputation: user.reputation,
+            last_seen: user.last_seen,
+          },
+        });
+      }
       return res.status(200).json({
         success: true,
-        message: "Usuário encontrado com sucesso",
-        user: user,
+        autoProfile: false,
+        user: {
+          name: user.name,
+          photo: user.photo_url ?? "",
+          status: user.status,
+          reputation: user.reputation,
+          last_seen: user.last_seen,
+        },
       });
     } else {
       return res.status(404).json({
@@ -158,41 +183,52 @@ const getUserByName = async (req, res) => {
 
 const updateUserById = async (req, res) => {
   try {
-    const { email } = req.body;
-    const userData = await User.findOne({ where: { email: email } });
-    if (userData) {
-      const { email, password, photo_url, where, status } = req.body;
-      let numUpdated = 0;
-      let updatedUser = null;
+    const { id } = req.body;
+    const userId = decryptID(id);
+    if (userId !== false) {
+      const userData = await User.findOne({ where: { id: userId } });
+      if (userData) {
+        const { email, password, photo_url, where, status } = req.body;
+        let numUpdated = 0;
+        let updatedUser = null;
+        switch (where) {
+          case "status-update":
+            let updateData = { status };
+            if (status === "invisible") {
+              updateData.last_seen = new Date();
+            }
+            [numUpdated, updatedUser] = await User.update(updateData, {
+              where: { id: userData.id },
+              returning: true,
+            });
+            break;
 
-      switch (where) {
-        case "status-update":
-          [numUpdated, updatedUser] = await User.update(
-            { status },
-            { where: { id: userData.id }, returning: true }
-          );
-          break;
+          default:
+            break;
+        }
 
-        default:
-          break;
-      }
-
-      if (numUpdated === 0) {
-        return res.status(404).json({
+        if (numUpdated === 0) {
+          return res.status(404).json({
+            success: false,
+            message: "Usuário não encontrado",
+          });
+        }
+        return res.status(200).json({
+          success: true,
+          message: "Usuário atualizado com sucesso",
+          user: updatedUser[0],
+        });
+      } else {
+        return res.status(500).json({
           success: false,
-          message: "Usuário não encontrado",
+          error: "token-invalid",
+          message: "Erro ao atualizar usuário",
         });
       }
-
-      return res.status(200).json({
-        success: true,
-        message: "Usuário atualizado com sucesso",
-        user: updatedUser[0],
-      });
     } else {
       return res.status(500).json({
         success: false,
-        error: "token-invalid",
+        error: "id-invalid",
         message: "Erro ao atualizar usuário",
       });
     }

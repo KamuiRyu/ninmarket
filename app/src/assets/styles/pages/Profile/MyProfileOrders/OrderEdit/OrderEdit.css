@@ -1,0 +1,279 @@
+.orderedit-modal{
+  z-index: 999999;
+}
+
+.orderedit-modal .place-order-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.3s ease, border 0.3s ease, background 0.3s ease,
+    box-shadow 0.3s ease, background-color 0.3s ease;
+  background: #161616;
+  height: 150px;
+  width: 150px;
+  overflow: visible;
+  border: 3px solid #dec20d;
+  box-shadow: 0 5px 20px -3px #dec20d;
+  overflow: hidden;
+}
+
+.orderedit-modal .place-order-image img {
+  height: 90px;
+  width: 90px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.orderedit-modal .place-order-name {
+  margin-top: 40px;
+  color: rgba(255, 255, 255, 0.87);
+  padding: 0 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.orderedit-modal .place-order-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.orderedit-modal .place-order-header h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.87);
+}
+.orderedit-modal
+  .place-order-content
+  .place-order-field
+  .custom-radio-button__container
+  input[type="radio"] {
+  display: none;
+}
+
+.orderedit-modal .place-order-content .place-order-field .field-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.87);
+  font-weight: 400;
+  margin-bottom: 0.4rem;
+}
+
+.orderedit-modal .place-order-content .custom-radio-button__container {
+  width: 100%;
+}
+
+.orderedit-modal .place-order-content .placeorder-type-filter-block {
+  display: grid;
+  grid-template-columns: 40% 40%;
+}
+
+.orderedit-modal .place-order-content .place-order-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.orderedit-modal .place-order-content .place-order-field .custom-radio-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  background-color: #101010;
+}
+.orderedit-modal
+  .place-order-content
+  .place-order-field
+  .custom-radio-button
+  h3 {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  font-size: 1.375rem;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.orderedit-modal
+  .place-order-content
+  .place-order-field
+  .custom-radio-button__container
+  input[type="radio"]:checked
+  + .custom-radio-button {
+  background-color: #fedc00;
+  color: #000;
+}
+
+.orderedit-modal .place-order-content .resultBlock {
+  display: block;
+  background: #161616;
+  border-radius: 0px 0px 12px 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.orderedit-modal .place-order-content .resultBlock.active ul {
+  transition: all 0.3s ease-in-out;
+  max-height: 210px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+}
+.orderedit-modal
+  .place-order-content
+  .resultBlock.active
+  ul::-webkit-scrollbar {
+  display: none;
+}
+
+.orderedit-modal .place-order-content .resultBlock ul {
+  max-height: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.orderedit-modal .place-order-info{
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+
+.orderedit-modal .place-order-content .resultSearch li {
+  margin: 0;
+  padding: 10px 20px;
+  display: flex;
+  height: 55px;
+  border-bottom: 1px solid #212121;
+  cursor: pointer;
+  position: relative;
+}
+.orderedit-modal .place-order-content .resultSearch li:last-child {
+  border-bottom: none;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultName {
+  line-height: 30px;
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 14px;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType {
+  position: absolute;
+  bottom: 4px;
+  font-size: 10px;
+  padding: 0px 4px;
+  border-radius: 10px;
+}
+
+.orderedit-modal .place-order-content .search-place-order {
+  border-radius: 3px;
+}
+
+.orderedit-modal .place-order-content .resultSearch img {
+  border-radius: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.variable,
+.orderedit-modal .place-order-content .resultSearch .resultType.Variável {
+  background: #ffa500;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.manual,
+.orderedit-modal .place-order-content .resultSearch .resultType.Manual {
+  background: #ff69b4;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.food,
+.orderedit-modal .place-order-content .resultSearch .resultType.Comida {
+  background: #ffd700;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.scroll,
+.orderedit-modal .place-order-content .resultSearch .resultType.Pergaminho {
+  background: #008080;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.weapon,
+.orderedit-modal .place-order-content .resultSearch .resultType.Arma {
+  background: #b22222;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.shirt,
+.orderedit-modal .place-order-content .resultSearch .resultType.Camisa {
+  background: #6495ed;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.pants,
+.orderedit-modal .place-order-content .resultSearch .resultType.Calça {
+  background: #800080;
+}
+.orderedit-modal .place-order-content .resultSearch .resultType.shoes,
+.orderedit-modal .place-order-content .resultSearch .resultType.Calçado {
+  background: #228b22;
+}
+.orderedit-modal .place-order-content .resultSearch .resultType.vest,
+.orderedit-modal .place-order-content .resultSearch .resultType.Veste {
+  background: #ffc0cb;
+}
+.orderedit-modal .place-order-content .resultSearch .resultType.hair,
+.orderedit-modal .place-order-content .resultSearch .resultType.Cabelo {
+  background: #a52a2a;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultType.material,
+.orderedit-modal .place-order-content .resultSearch .resultType.Material {
+  background: #808080;
+}
+
+.orderedit-modal .place-order-content .searched {
+  border-radius: 3px 3px 0px 0px;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultImg {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 37px;
+  height: 37px;
+  margin-right: 10px;
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultImg:is(.weapon),
+.orderedit-modal .place-order-image:is(.weapon){
+  background: rgb(164, 206, 216);
+  background: linear-gradient(
+    178deg,
+    rgba(164, 206, 216, 1) 0%,
+    rgba(82, 162, 193, 1) 97%
+  );
+}
+
+.orderedit-modal .place-order-content .resultSearch .resultImg:is(.material, .scroll, .shirt, .haird, .vest, .pants),
+.orderedit-modal .place-order-image:is(.material, .scroll, .shirt, .haird, .vest, .pants){
+  background: rgb(191, 176, 163);
+  background: linear-gradient(
+    174deg,
+    rgba(191, 176, 163, 1) 0%,
+    rgba(174, 124, 79, 1) 97%
+  );
+}
+.main-content
+  .item-content
+  .item-content-header
+  .item-content-header-container
+  .item-content-img
+  .item-image
+  img {
+  height: 80px;
+  width: 80px;
+  -o-object-fit: contain;
+  object-fit: contain;
+}

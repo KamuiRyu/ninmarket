@@ -1,3 +1,14 @@
+.main-content .order-content .order-content-header {
+  background: #262626;
+  z-index: 3;
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+}
+
 .main-content
   .order-content
   .order-content-header
@@ -407,8 +418,6 @@
   -webkit-animation-duration: 0.2s;
   animation-duration: 0.2s;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -671,4 +680,13 @@
   table
   tr {
   transition: all 0.3s ease-in-out;
+}
+
+.main-content
+  .order-content
+  .order-content-body
+  .order-content-body-container
+.user-name{
+  transition: all 0.3s ease-in-out;
+  color: #fedc00;
 }

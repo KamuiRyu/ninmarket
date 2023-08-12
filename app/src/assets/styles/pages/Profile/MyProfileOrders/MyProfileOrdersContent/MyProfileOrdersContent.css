@@ -1,0 +1,379 @@
+.main-content .user-profile-content .order-content-body {
+  background: #161616;
+  flex-grow: 1;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container {
+  max-width: 1140px;
+  -webkit-animation-duration: 0.2s;
+  animation-duration: 0.2s;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .table {
+  border-spacing: 0 15px;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  i {
+  font-size: 1rem !important;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr
+  th {
+  font-size: 14px;
+  background-color: #262626;
+}
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  td {
+  max-height: 70px;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr
+  th
+  i {
+  font-size: 10px !important;
+  line-height: 10px;
+  transition: transform 300ms ease-out, -webkit-transform 300ms ease-out;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr:nth-child(even) {
+  background-color: #262626;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr:nth-child(odd) {
+  background-color: #161616;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .order-type-marker {
+  border-radius: 3px;
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  writing-mode: vertical-lr;
+  height: 60px;
+}
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .order-type-marker.wtb {
+  color: rgb(50, 205, 50);
+  background: rgba(27, 128, 27, 0.6);
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .order-type-marker.wts {
+  color: rgb(255, 99, 71);
+  background: rgba(184, 65, 44, 0.6);
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr {
+  transition: all 0.3s ease-in-out;
+  border: none;
+  transition: border 0s;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr.key-selected {
+  height: 70px;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .item-name {
+  color: rgba(255, 255, 255, 0.87);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: #fedc00;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .item-image-block:is(.weapon) {
+  background: rgb(164, 206, 216);
+  background: linear-gradient(
+    178deg,
+    rgba(164, 206, 216, 1) 0%,
+    rgba(82, 162, 193, 1) 97%
+  );
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .item-image-block:is(.material, .scroll, .shirt, .haird, .vest, .pants) {
+  background: rgb(191, 176, 163);
+  background: linear-gradient(
+    174deg,
+    rgba(191, 176, 163, 1) 0%,
+    rgba(174, 124, 79, 1) 97%
+  );
+}
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .item-image-block {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.3s ease, border 0.3s ease, background 0.3s ease,
+    box-shadow 0.3s ease;
+  color: #3c879c;
+  background: #161616;
+  height: 3rem;
+  width: 3rem;
+  overflow: hidden;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  .item-image-block:hover {
+  cursor: pointer;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper {
+  max-height: 70px;
+  height: 70px;
+  width: 100%;
+  position: relative;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input {
+  height: 50px;
+  width: 100%;
+  border: 1px solid rgba(254, 220, 0, 0.5);
+}
+
+.inputWhisper,
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  .exit {
+  position: absolute;
+  right: 0;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  align-items: center;
+  width: 30px;
+  font-size: 30px !important;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  margin-right: 20px;
+}
+
+inputWhisper,
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  .enter {
+  position: absolute;
+  right: 60px;
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  align-items: center;
+  width: 30px;
+  font-size: 30px !important;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+
+.inputWhisper,
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  i:hover {
+  color: #fedc00;
+}
+
+.inputWhisper,
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #161616;
+  font-size: 16px;
+  padding: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input:focus {
+  border-color: #fedc00 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem rgb(254, 220, 0, 0.25);
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input[type="number"] {
+  appearance: textfield;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input[type="number"]::-webkit-inner-spin-button,
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .inputWhisper
+  input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  .key-selected {
+  background-color: transparent !important;
+  border-bottom: 1px solid #262626;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr:nth-child(even).key-selected {
+  border-top: 1px solid #262626;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr:last-child {
+  border: none !important;
+}
+
+.main-content
+  .user-profile-content
+  .order-content-body
+  .order-content-body-container
+  table
+  tr.order-invisible {
+  border-left: 5px solid rgba(255,0,0,.31) !important;
+  padding-left: 10px !important;
+  box-sizing: border-box !important;
+}

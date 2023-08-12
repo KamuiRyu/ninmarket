@@ -32,8 +32,8 @@ const Order = sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    status:{
-      type: DataTypes.INTEGER,
+    active:{
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     }
   },

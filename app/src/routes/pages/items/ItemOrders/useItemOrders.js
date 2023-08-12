@@ -1,19 +1,69 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState, useEffect, useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { UserContext } from "../../../../providers/userContext";
+import { useNavigate } from "react-router-dom";
 
-const useItemOrders = (orders) => {
+const useItemOrders = (itemData) => {
+  const { user } = useContext(UserContext);
   const [orderByType, setOrderByType] = useState("wtb");
   const [orderByStatus, setOrderByStatus] = useState("all");
   const [orderByMinPrice, setOrderByMinPrice] = useState("");
   const [orderByMaxPrice, setOrderByMaxPrice] = useState("");
   const [showTBody, setShowTBody] = useState(false);
   const [sortedColumn, setSortedColumn] = useState(null);
+  const [orders, setOrders] = useState({});
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortedOrders, setSortedOrders] = useState(orders);
   const [sortedCurrentType, setSortedCurrentType] = useState("wtb");
   const [clickCount, setClickCount] = useState(0);
   const [selectedTdIds, setSelectedTdIds] = useState(new Set());
+  const [languageUser, setLanguageUser] = useState(
+    localStorage.getItem("language") ? localStorage.getItem("language") : "en"
+  );
+  const authCheck = user ? true : false;
 
+  useEffect(() => {
+    const languageFromLocalStorage = localStorage.getItem("language");
+    setLanguageUser(languageFromLocalStorage);
+  }, [localStorage.getItem("language")]);
+
+  useEffect(() => {
+    const fetchOrdersByType = async (itemData) => {
+      try {
+        if (itemData) {
+          axios.defaults.withCredentials = true;
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/order/get`,
+            {
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              params: {
+                itemId: itemData.id,
+              },
+              withCredentials: true,
+              mode: "cors",
+            }
+          );
+
+          if (response.status === 200) {
+            if (response.data.message) {
+              setOrders("");
+              setSortedOrders("");
+            } else {
+              setOrders(response.data);
+              setSortedOrders(response.data);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar os pedidos:", error);
+      }
+    };
+    fetchOrdersByType(itemData);
+  }, [itemData]);
 
   const handleOrderType = (type) => {
     if (type !== orderByType) {
@@ -102,8 +152,14 @@ const useItemOrders = (orders) => {
               cellB = rowB.User.name.toLowerCase();
               break;
             case 2:
-              cellA = rowA.User.status.toLowerCase();
-              cellB = rowB.User.status.toLowerCase();
+              cellA =
+                rowA.User.status.toLowerCase() === "ingame"
+                  ? "O" + rowA.User.status.toLowerCase()
+                  : rowA.User.status.toLowerCase();
+              cellB =
+                rowB.User.status.toLowerCase() === "ingame"
+                  ? "O" + rowB.User.status.toLowerCase()
+                  : rowB.User.status.toLowerCase();
               break;
             case 3:
               cellA = rowA.User.reputation;
@@ -125,14 +181,21 @@ const useItemOrders = (orders) => {
             isNaN(cellA) || isNaN(cellB)
               ? cellA.localeCompare(cellB)
               : cellA - cellB;
-
-          return sOrder === "asc" ? compareResult : -compareResult;
+          return compareResult;
         });
+        let newDataToSort = {};
 
-        setSortedOrders((prevOrders) => ({
-          ...prevOrders,
-          [type]: sOrder === "asc" ? [...dataToSort] : [...dataToSort.reverse()],
-        }));
+        if (sOrder === "asc") {
+          newDataToSort = dataToSort;
+        } else {
+          newDataToSort = dataToSort.reverse();
+        }
+        setSortedOrders((prevOrders) => {
+          return {
+            ...prevOrders,
+            [type]: newDataToSort,
+          };
+        });
         updatedClickCount++;
         setClickCount(updatedClickCount);
         setSortOrder(sOrder);
@@ -159,17 +222,11 @@ const useItemOrders = (orders) => {
     const rotate180Class = !isAscending ? "rotate-180" : "";
 
     return (
-      <i
-        className={`bx bxs-up-arrow ml-2 opacity-1 ${rotate180Class}`}
-      ></i>
+      <i className={`bx bxs-up-arrow ml-2 opacity-1 ${rotate180Class}`}></i>
     );
   };
 
   const { t } = useTranslation();
-
-  const authCheck = () => {
-    return localStorage.getItem("auth_login") === "true";
-  };
 
   const selectItemKey = (orderId) => {
     setSelectedTdIds((prevSelectedTdIds) => {
@@ -190,7 +247,14 @@ const useItemOrders = (orders) => {
       return updatedSelected;
     });
   };
- return {
+
+  const navigate = useNavigate();
+  const redirectToProfile = (username) => {
+    navigate(`/profile/${username}`);
+  };
+
+
+  return {
     orderByType,
     orderByStatus,
     orderByMinPrice,
@@ -211,7 +275,9 @@ const useItemOrders = (orders) => {
     authCheck,
     selectedTdIds,
     selectItemKey,
-    clearSelectedTd
+    clearSelectedTd,
+    languageUser,
+    redirectToProfile
   };
 };
 

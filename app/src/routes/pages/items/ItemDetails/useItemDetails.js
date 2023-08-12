@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const useItemDetails = (itemSlug) => {
   const [languageUser, setLanguageUser] = useState(
@@ -8,9 +9,13 @@ const useItemDetails = (itemSlug) => {
   );
   const [isLoading, setIsLoading] = useState(true);
   const [item, setItem] = useState(null);
-  const [tabsCurrent, setTabsCurrent] = useState("orders");
-  const [ordersByType, setOrdersByType] = useState({});
   const { t } = useTranslation();
+  const location = useLocation();
+  const getCurrentTab = () => {
+    const match = location.pathname.match(/\/items\/[^/]+\/([^/]+)/);
+    return match ? match[1] : "orders";
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +35,6 @@ const useItemDetails = (itemSlug) => {
 
         if (itemResponse.status === 200) {
           setItem(itemResponse.data);
-          await fetchOrdersByType(itemResponse.data);
         }
         setIsLoading(false);
       } catch (error) {
@@ -42,35 +46,7 @@ const useItemDetails = (itemSlug) => {
     fetchData();
   }, [itemSlug]);
 
-  const fetchOrdersByType = async (itemData) => {
-    try {
-      axios.defaults.withCredentials = true;
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/order/get`,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          params: {
-            itemId: itemData.id,
-          },
-          withCredentials: true,
-          mode: "cors",
-        }
-      );
 
-      if (response.status === 200) {
-        if (response.data.message) {
-          setOrdersByType("");
-        } else {
-          setOrdersByType(response.data);
-        }
-      }
-    } catch (error) {
-      console.error("Erro ao buscar os pedidos:", error);
-    }
-  };
 
   useEffect(() => {
     const languageFromLocalStorage = localStorage.getItem("language");
@@ -82,12 +58,6 @@ const useItemDetails = (itemSlug) => {
       return localizedObject[language];
     }
     return localizedObject["en"];
-  };
-
-  const handleTabsChange = (tab) => {
-    if (tabsCurrent !== tab) {
-      setTabsCurrent(tab);
-    }
   };
 
   const getProcessedItemValues = () => {
@@ -114,13 +84,10 @@ const useItemDetails = (itemSlug) => {
     languageUser,
     isLoading,
     item,
-    tabsCurrent,
-    ordersByType,
-    handleTabsChange,
+    getCurrentTab,
     getLocalizedValue,
     t,
     getProcessedItemValues,
-    
   };
 };
 

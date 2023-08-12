@@ -15,6 +15,7 @@ const autoComplete = async (req, res) => {
         const limit = 10;
       
         const primaryResult = await Item.findAll({
+          attributes: { exclude: ['id'] },
           where: literal(`LOWER("name"->>:primaryLanguage) ILIKE :termLower`),
           replacements: { termLower: `%${termLower}%`, primaryLanguage },
           limit: limit,
@@ -24,6 +25,7 @@ const autoComplete = async (req, res) => {
           res.json(primaryResult);
         } else {
           const fallbackResult = await Item.findAll({
+            attributes: { exclude: ['id'] },
             where: literal(`LOWER("name"->>:fallbackLanguage) ILIKE :termLower`),
             replacements: { termLower: `%${termLower}%`, fallbackLanguage },
             limit: limit,

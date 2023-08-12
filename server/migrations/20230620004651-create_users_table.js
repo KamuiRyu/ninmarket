@@ -32,6 +32,10 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
+      last_seen: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
       active: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

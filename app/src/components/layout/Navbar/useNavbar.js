@@ -1,37 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import AuthServices from "../../../services/AuthServices";
 import languageSupport from "../../../utils/languageSupport";
+import { UserContext } from "../../../providers/userContext";
 
 const useNavbar = () => {
   const { t } = useTranslation();
-
-  const isLoggedIn = localStorage.getItem("auth_login")
-    ? localStorage.getItem("auth_login")
-    : false;
+  const auth = new AuthServices();
+  const { user, logout, updateUser } = useContext(UserContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [switchStatus, setSwitchStatus] = useState("");
   const [userStatusClass, setUserStatusClass] = useState("");
-
   const [isInfoVisible, setIsInfoVisible] = useState(false);
   const [isSwitchActive, setIsSwitchActive] = useState(false);
-
   const toggleInfoVisibility = () => {
     setIsInfoVisible(!isInfoVisible);
     setIsSwitchActive(!isSwitchActive);
   };
+  const [logoutModal, setLogoutModal] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      const userStatus = user.status;
+      if (userStatus) {
+        setUserStatusClass(userStatus);
+      }
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+      setLogoutModal(false);
+    }
+  }, [user]);
 
   function closeOverlay(event) {
     if (isLoggedIn) {
-      const popup = document.getElementById("profile-popup");
-      const isPopupOpen = popup.classList.contains("show");
-      if (
-        isPopupOpen &&
-        event.target !== popup &&
-        !popup.contains(event.target)
-      ) {
-        setIsInfoVisible(false);
-        popup.classList.remove("show");
+      const popup = document.getElementById("profile-popup") ?? "";
+      if (popup) {
+        const isPopupOpen = popup.classList.contains("show") ?? "";
+        if (
+          isPopupOpen &&
+          event.target !== popup &&
+          !popup.contains(event.target)
+        ) {
+          setIsInfoVisible(false);
+          popup.classList.remove("show");
+        }
       }
     }
   }
@@ -39,27 +53,19 @@ const useNavbar = () => {
     document.addEventListener("click", closeOverlay);
   }
 
-  useEffect(() => {
-    const userStatus = localStorage.getItem("auth_status");
-    if (userStatus) {
-      setUserStatusClass(userStatus);
-    }
-  }, []);
-
-
   const handleStatusChange = async (status) => {
     if (status !== userStatusClass) {
       try {
         const authToken = new AuthServices();
         const csrfData = await authToken.fetchCSRFToken();
-        const checkAuth = await authToken.checkAuthTokenExpiration();
-        const token = await authToken.getAuthToken();
-        if (csrfData.csrfToken && checkAuth.auth_token === true) {
+        //const checkAuth = await authToken.checkAuthTokenExpiration();
+        const token = user.accessToken.token;
+        if (csrfData.csrfToken) {
           axios.defaults.withCredentials = true;
           const userData = {
-            id: localStorage.getItem("auth_id"),
-            email: localStorage.getItem("auth_email"),
-            status: localStorage.getItem("auth_status"),
+            id: user.id,
+            email: user.email,
+            status: user.status,
           };
           const response = await axios.patch(
             process.env.REACT_APP_API_URL +
@@ -68,7 +74,7 @@ const useNavbar = () => {
               "/api/users/",
             {
               where: "status-update",
-              email: userData.email,
+              id: userData.id,
               status: status,
             },
             {
@@ -83,7 +89,13 @@ const useNavbar = () => {
             }
           );
           if (response.data.success) {
-            localStorage.setItem("auth_status", status);
+            let updatedFields = ["status"];
+            let updatedValues = [status];
+            if (status === "invisible") {
+              updatedFields.push("last_seen");
+              updatedValues.push(new Date());
+            }
+            updateUser(updatedFields, updatedValues);
             setSwitchStatus(false);
             setUserStatusClass(status);
             setIsInfoVisible(false);
@@ -97,17 +109,6 @@ const useNavbar = () => {
       }
     }
   };
-  const user = {
-    name: localStorage.getItem("auth_name"),
-    email: localStorage.getItem("auth_email"),
-    photo:
-      localStorage.getItem("auth_photo") !== "undefined"
-        ? localStorage.getItem("auth_photo")
-        : null,
-    status: localStorage.getItem("auth_status"),
-  };
-
-  const auth = new AuthServices();
 
   const toggleStatusSwitch = () => {
     if (switchStatus === true) {
@@ -144,7 +145,6 @@ const useNavbar = () => {
     }
     event.stopPropagation();
   }
-  const [logoutModal, setLogoutModal] = useState(false);
 
   const logoutOpen = () => {
     setLogoutModal(true);
@@ -177,7 +177,6 @@ const useNavbar = () => {
   }, [localStorage.getItem("language")]);
 
   const delayedHandleItemSearch = debounce(async (event) => {
-    
     const language = languageSupport(languageUser);
     if (!language) {
       setLanguageUser("en");
@@ -210,7 +209,7 @@ const useNavbar = () => {
       } catch (error) {
         console.error("Erro ao fazer login:", error);
       }
-    }else{
+    } else {
       setItemSearch(false);
     }
   }, 500);
@@ -219,11 +218,6 @@ const useNavbar = () => {
   };
 
   const handleClearInput = () => {
-    document.getElementById("itemSearch").value = "";
-    setItemSearch(false);
-  };
-
-  const handleItemSelected = () => {
     document.getElementById("itemSearch").value = "";
     setItemSearch(false);
   };
@@ -250,13 +244,13 @@ const useNavbar = () => {
     itemSearch,
     searchItemsFound,
     handleClearInput,
-    handleItemSelected,
     handleSearchValue,
     t,
     logoutClose,
     auth,
     languageUser,
     logoutOpen,
+    logout,
   };
 };
 

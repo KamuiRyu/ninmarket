@@ -9,19 +9,30 @@ import PlaceOrder from "../routes/pages/items/PlaceOrders/";
 import useAuth from "./useAuth";
 import useActionButton from "./useActionButton";
 import ActionButton from "../components/layout/ActionButton";
+import LoadingIndicator from "../components/common/Loading/LoadingPage";
+import OrderEdit from "../routes/pages/profile/MyProfileOrders/OrderEdit";
 
 function App() {
-  const { isLoggedIn, userAuth, isModalOpen, closeModal, openModal } =
-    useAuth();
+  const {
+    isLoggedIn,
+    userAuth,
+    isModalOpen,
+    closeModal,
+    openModal,
+    isLoading,
+  } = useAuth();
 
   const { isPlaceOrderOpen, openPlaceOrder, closePlaceOrder } =
     useActionButton();
+    
 
   return (
     <>
       <I18nextProvider i18n={i18n}>
+        {isLoading && <LoadingIndicator loading={isLoading} />}
         {isLoggedIn && (
           <>
+           
             {isPlaceOrderOpen && (
               <PlaceOrder isOpen={isPlaceOrderOpen} onClose={closePlaceOrder} />
             )}

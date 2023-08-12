@@ -5,25 +5,25 @@
     "messages": "My Messages",
     "signin": "Sign In",
     "myprofile": "My profile",
-    "comingsoon":"Coming soon",
-    "status":{
-        "online":"Online",
-        "ingame":"Online in game",
-        "invisible":"Invisible",
-        "onlineShort":"Online",
-        "ingameShort":"Ingame",
-        "invisibleShort":"Invisible"
+    "comingsoon": "Coming soon",
+    "status": {
+      "online": "Online",
+      "ingame": "Online in game",
+      "invisible": "Invisible",
+      "onlineShort": "Online",
+      "ingameShort": "Ingame",
+      "invisibleShort": "Invisible"
     },
-    "admindashboard":"Admin panel",
+    "admindashboard": "Admin panel",
     "logout": {
       "title": "Sure you want to exit?",
-      "yes":"Yes",
+      "yes": "Yes",
       "no": "No"
     }
   },
-  "actionbtn":{
-    "placeorder":"Place order",
-    "createbuild":"Create build"
+  "actionbtn": {
+    "placeorder": "Place order",
+    "createbuild": "Create build"
   },
   "register": {
     "successAlertMessage": "Your account has been successfully created! You will be redirected in {{ countdown }}.",
@@ -105,12 +105,12 @@
     "signUp": "Sign Up",
     "signIn": "Sign In"
   },
-  "forgotPassword":{
+  "forgotPassword": {
     "title": "Forgot your password?",
-    "signin":"Sign In",
+    "signin": "Sign In",
     "emailAddress": "Email Address",
-    "rememberPassword":"Remember the password?",
-    "recover":"Recover"
+    "rememberPassword": "Remember the password?",
+    "recover": "Recover"
   },
   "validation": {
     "fieldRequired": "The {{field}} field is required.",
@@ -129,48 +129,87 @@
     "ninjaNameField": "ninja name",
     "confirmPassswordField": "confirm password"
   },
-  "itemDetails":{
-    "tabOrders":"Orders",
-    "tabStatistics":"Statistics",
-    "tabDrop":"Drop",
-    "itemOrders":{
+  "itemDetails": {
+    "tabOrders": "Orders",
+    "tabStatistics": "Statistics",
+    "tabDrop": "Drop",
+    "itemOrders": {
       "orderType": "Order type",
-      "buyers":"Buy",
-      "sellers":"Sell",
-      "thPlayer":"Player",
-      "thStatus":"Status",
-      "thReputation":"Reputation",
+      "buyers": "Buy",
+      "sellers": "Sell",
+      "thPlayer": "Player",
+      "thStatus": "Status",
+      "thReputation": "Reputation",
       "thUnit": "Unit price",
       "thQuantity": "Quantity",
-      "maxprice":"Max price",
-      "minprice":"Min price",
-      "notFound":"No orders found.",
-      "onlineStatus":"Online status",
-      "allStatus":"All status",
-      "ingame":"Online in game",
-      "online":"Online",
-      "invisible": "Invisible"  ,
-      "ryo":"Ryo",
+      "maxprice": "Max price",
+      "minprice": "Min price",
+      "notFound": "No orders found.",
+      "onlineStatus": "Online status",
+      "allStatus": "All status",
+      "ingame": "Online in game",
+      "online": "Online",
+      "invisible": "Invisible",
+      "ryo": "Ryo",
       "wtbMessage": "I want to buy",
       "wtsMessage": "I want to sell",
-      "for":"for",
-      "hi":"Hi,"
+      "for": "for",
+      "hi": "Hi,"
     }
   },
-  "placeOrderModal":{
-    "title":"Place Order",
-    "fieldType":"Order type",
-    "fieldTypeBuy":"Buy",
-    "fieldTypeSell":"Sell",
-    "fieldVisible":"Initial visibility",
-    "fieldVisibleOn":"Visible",
-    "fieldVisibleOff":"Invisible",
-    "fieldItem":"Item name",
-    "fieldPrice":"Price per unit",
-    "fieldQuantity":"Quantity",
-    "btnPost":"Post",
-    "orderExisting":"There is already a order like this.",
-    "postSuccess":"Order made successfully"
+  "placeOrderModal": {
+    "title": "Place Order",
+    "fieldType": "Order type",
+    "fieldTypeBuy": "Buy",
+    "fieldTypeSell": "Sell",
+    "fieldVisible": "Initial visibility",
+    "fieldVisibleOn": "Visible",
+    "fieldVisibleOff": "Invisible",
+    "fieldItem": "Item name",
+    "fieldPrice": "Price per unit",
+    "fieldQuantity": "Quantity",
+    "btnPost": "Post",
+    "orderExisting": "There is already a order like this.",
+    "postSuccess": "Order made successfully"
   },
-  "error":"There was a problem with the server. Try again."
+  "error": "There was a problem with the server. Try again.",
+  "profile": {
+    "ordersPage": {
+      "title": "Orders",
+      "inputSearch": "Search by name",
+      "wts": "Want to sell",
+      "wtb":"Want to buy",
+      "activeBtn": "Activate All",
+      "desactiveBtn": "Deactivate All",
+      "ryoEach": "Ryo each",
+      "thItemName":"Item name",
+      "thUnit": "Unit price",
+      "thQuantity": "Quantity",
+      "quantityPlaceholder": "Enter the quantity you want to add and press 'enter'. NOTE: The maximum quantity is 9999.",
+      "soldPlaceholder":"Enter the quantity you wish to complete and press 'enter'.",
+      "deletePlaceholder":"Type 'delete' to confirm and press 'enter'.",
+      "orderEdit":{
+        "title": "Edit order",
+        "btnUpdate":"Update",
+        "fieldQuantity": "Quantity",
+        "fieldPrice":"Price per unit",
+        "fieldVisible": "Visibility",
+        "updateSuccess": "Order updated successfully"
+      }
+    },
+    "transactionsPage": "Transactions",
+    "reputationsPage": "Reputation",
+    "editProfile": "Edit profile",
+    "reputation": "Reputation",
+    "lastSeen": "Last seen:",
+    "invisibleStatus": "Invisible",
+    "ingameStatus": "Online in game",
+    "onlineStatus": "Online",
+    "lastSeenDaysAgo": "{{count}} day",
+    "lastSeenHoursAgo": "{{count}} hour",
+    "lastSeenMinutesAgo": "{{count}} minute",
+    "lastSeenSecondsAgo": "{{count}} second",
+    "lastSeenAgo": "ago",
+    "notFound": "No orders found."
+  }
 }
